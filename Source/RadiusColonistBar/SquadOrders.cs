@@ -41,11 +41,8 @@ internal static class SquadOrders
 		{
 			Try(pawn, delegate
 			{
+				// Switching it off ends the assault too (Patch_SquadAssault_HoldFire).
 				pawn.drafter.FireAtWill = !allOn;
-				if (allOn)
-				{
-					SquadAssault.Get?.Clear(pawn);
-				}
 			});
 		}
 	}
@@ -63,7 +60,8 @@ internal static class SquadOrders
 			Try(pawn, delegate
 			{
 				pawn.drafter.Drafted = true;
-				SquadAssault.Get?.Clear(pawn);
+				// End, not Clear: the leader gets no order, so its assault job would keep running.
+				SquadAssault.Get?.End(pawn);
 				if (pawn != leader)
 				{
 					IntVec3 intVec = RCellFinder.BestOrderedGotoDestNear(leader.Position, pawn);
@@ -100,7 +98,7 @@ internal static class SquadOrders
 				squadAssault.Set(pawn, mode);
 				Find.Selector.Select(pawn, playSound: false);
 				// End the current job so the think tree picks the assault node right away.
-				if (pawn.CurJob != null)
+				if (pawn.CurJob != null && pawn.jobs.IsCurrentJobPlayerInterruptible())
 				{
 					pawn.jobs.EndCurrentJob(JobCondition.InterruptForced);
 				}

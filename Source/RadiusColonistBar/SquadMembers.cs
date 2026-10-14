@@ -32,7 +32,7 @@ internal static class SquadMembers
 		{
 			Pawn pawn = from[i];
 			// Mechanoids and subhumans run other think trees: the assault node never reaches them.
-			if (squads.SquadIndexOf(pawn) == index && !pawn.IsColonyMech && !pawn.IsSubhuman && !pawn.Downed && !pawn.InMentalState && !pawn.IsPrisoner && pawn.drafter != null && !into.Contains(pawn))
+			if (squads.SquadIndexOf(pawn) == index && !pawn.IsColonyMech && !pawn.IsSubhuman && !pawn.Downed && !pawn.Deathresting && !pawn.InMentalState && !pawn.IsPrisoner && pawn.drafter != null && !into.Contains(pawn))
 			{
 				into.Add(pawn);
 			}

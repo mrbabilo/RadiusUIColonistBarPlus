@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using RimWorld;
 using Verse;
+using Verse.AI;
 
 namespace RadiusColonistBar;
 
@@ -69,6 +70,21 @@ public class SquadAssault : GameComponent
 		if (pawn != null)
 		{
 			modes.Remove(pawn);
+		}
+	}
+
+	// Clear, and also stop the assault job already running (its attack would otherwise go on until it expires).
+	// A job the player gave, or one that cannot be interrupted, is left alone.
+	public void End(Pawn pawn)
+	{
+		if (pawn == null || !modes.Remove(pawn))
+		{
+			return;
+		}
+		Job curJob = pawn.CurJob;
+		if (curJob != null && !curJob.playerForced && pawn.jobs != null && pawn.jobs.IsCurrentJobPlayerInterruptible())
+		{
+			pawn.jobs.EndCurrentJob(JobCondition.InterruptForced);
 		}
 	}
 
