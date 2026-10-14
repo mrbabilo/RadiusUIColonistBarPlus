@@ -1082,6 +1082,20 @@ internal static class RcbIsland
 		return spillCap;
 	}
 
+	// Squad orders (Colonist Bar Plus): squad index of the rail tab under the mouse, or -1. Tabs folded into the
+	// "+N" menu have no rect here; the Squads module covers them.
+	private static int SquadTabAt(Vector2 pos)
+	{
+		for (int i = 0; i < tabRects.Count && i < railTok.Count; i++)
+		{
+			if (tabRects[i].Contains(pos) && RcbCohorts.TokenIsSquad(railTok[i], out var si))
+			{
+				return si;
+			}
+		}
+		return -1;
+	}
+
 	private static void OpenSpillMenu()
 	{
 		List<FloatMenuOption> list = new List<FloatMenuOption>();
@@ -1487,7 +1501,15 @@ internal static class RcbIsland
 			Event current2 = Event.current;
 			if (RcbInput.RightPress(current2) && RcbGuard.Finite(lastSlab) && lastSlab.Contains(current2.mousePosition) && !OverACard(current2.mousePosition))
 			{
-				if (RcbGuard.Finite(lastRailBand) && lastRailBand.height > 1f && lastRailBand.Contains(current2.mousePosition) && RcbCohorts.Token != 0)
+				// Squad orders (Colonist Bar Plus): right-click a squad tab for its orders; elsewhere on the rail it
+				// still goes back to "All".
+				int squadTab = SquadTabAt(current2.mousePosition);
+				if (squadTab >= 0)
+				{
+					SoundDefOf.Click.PlayOneShotOnCamera();
+					SquadOrderMenu.Open(squadTab);
+				}
+				else if (RcbGuard.Finite(lastRailBand) && lastRailBand.height > 1f && lastRailBand.Contains(current2.mousePosition) && RcbCohorts.Token != 0)
 				{
 					SoundDefOf.Click.PlayOneShotOnCamera();
 					RcbCohorts.SetToken(0);

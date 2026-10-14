@@ -448,4 +448,26 @@
   <RCB_Rename>Rename</RCB_Rename>
 
   <RCB_Band_Counter>{CUR} of {N}</RCB_Band_Counter>
+
+  <!-- Squad orders (Colonist Bar Plus) -->
+  <RCB_Sub_RightClickTip>Right-click: open as a submenu without closing this menu.</RCB_Sub_RightClickTip>
+  <RCB_Orders_NoMember>No squad member on this map</RCB_Orders_NoMember>
+  <RCB_Orders_Draft>Draft squad</RCB_Orders_Draft>
+  <RCB_Orders_DraftTip>Draft every member of this squad on this map.</RCB_Orders_DraftTip>
+  <RCB_Orders_Undraft>Undraft squad</RCB_Orders_Undraft>
+  <RCB_Orders_UndraftTip>Undraft every member of this squad on this map. This also ends their assault.</RCB_Orders_UndraftTip>
+  <RCB_Orders_FireAtWillOn>Fire at will</RCB_Orders_FireAtWillOn>
+  <RCB_Orders_FireAtWillOff>Hold fire</RCB_Orders_FireAtWillOff>
+  <RCB_Orders_FireAtWillTip>Turns fire at will on for the whole squad, or off if everyone already has it. Holding fire ends the assault.</RCB_Orders_FireAtWillTip>
+  <RCB_Orders_Regroup>Regroup</RCB_Orders_Regroup>
+  <RCB_Orders_RegroupTip>Drafts the squad, ends its assault and sends everyone running to the squad leader (the first member in bar order).</RCB_Orders_RegroupTip>
+  <RCB_Orders_Assault>Assault</RCB_Orders_Assault>
+  <RCB_Orders_AssaultStrongest>Strongest first</RCB_Orders_AssaultStrongest>
+  <RCB_Orders_AssaultStrongestTip>Drafts the squad and attacks on its own, going for the strongest enemies within reach first. Undraft or give a member an order to stop.</RCB_Orders_AssaultStrongestTip>
+  <RCB_Orders_AssaultWeakest>Weakest first</RCB_Orders_AssaultWeakest>
+  <RCB_Orders_AssaultWeakestTip>Drafts the squad and attacks on its own, going for the weakest enemies within reach first. Undraft or give a member an order to stop.</RCB_Orders_AssaultWeakestTip>
+  <RCB_Orders_AssaultFleeing>Pursue the fleeing</RCB_Orders_AssaultFleeing>
+  <RCB_Orders_AssaultFleeingTip>Drafts the squad and goes after enemies who are fleeing or leaving the map, then any enemy within reach. Undraft or give a member an order to stop.</RCB_Orders_AssaultFleeingTip>
+  <RCB_Orders_ActiveMark>{0} (current)</RCB_Orders_ActiveMark>
+
 </LanguageData>

@@ -18,7 +18,8 @@ public class FloatMenuOptionSub : FloatMenuOption
 		{
 			Open(null);
 		};
-		tooltip = "Right-click: open as a submenu without closing this menu.";
+		// Colonist Bar Plus: translated instead of hard-coded English.
+		tooltip = new TipSignal("RCB_Sub_RightClickTip".Translate());
 		extraPartWidth = 18f;
 		extraPartOnGUI = delegate(Rect r)
 		{

@@ -115,13 +115,12 @@ internal sealed class Module_Squads : ICCModule
 
 	private static void SquadMenu(BarSquads sq, int si, CCContext ctx)
 	{
-		List<FloatMenuOption> list = new List<FloatMenuOption>
+		// Squad orders (Colonist Bar Plus) first, then the squad's own management.
+		List<FloatMenuOption> list = SquadOrderMenu.Options(si);
+		list.Add(new FloatMenuOption("RCB_CC_SquadRename".Translate(), delegate
 		{
-			new FloatMenuOption("RCB_CC_SquadRename".Translate(), delegate
-			{
-				Find.WindowStack.Add(new Dialog_RenameSquad(sq, si));
-			})
-		};
+			Find.WindowStack.Add(new Dialog_RenameSquad(sq, si));
+		}));
 		if (si > 0)
 		{
 			list.Add(new FloatMenuOption("RCB_CC_SquadMoveUp".Translate(), delegate
@@ -143,7 +142,7 @@ internal sealed class Module_Squads : ICCModule
 			sq.Disband(si);
 			ctx.requestRefresh();
 		}));
-		Find.WindowStack.Add(new FloatMenu(list));
+		Find.WindowStack.Add(new RcbFloatMenu(list));
 	}
 
 	private static void MoveMenu(BarSquads sq, Pawn p, CCContext ctx)

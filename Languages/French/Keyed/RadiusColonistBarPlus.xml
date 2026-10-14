@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Only the keys Colonist Bar Plus adds. The original Colonist Bar keys are translated by the
+     "Radius UI - Traduction française" mod: a key defined twice in one language is refused. -->
+<LanguageData>
+  <RCB_Sub_RightClickTip>Clic droit : ouvrir en sous-menu sans fermer ce menu.</RCB_Sub_RightClickTip>
+  <RCB_Orders_NoMember>Aucun membre de l'escouade sur cette carte</RCB_Orders_NoMember>
+  <RCB_Orders_Draft>Mobiliser l'escouade</RCB_Orders_Draft>
+  <RCB_Orders_DraftTip>Mobilise tous les membres de cette escouade présents sur cette carte.</RCB_Orders_DraftTip>
+  <RCB_Orders_Undraft>Démobiliser l'escouade</RCB_Orders_Undraft>
+  <RCB_Orders_UndraftTip>Démobilise tous les membres de cette escouade présents sur cette carte. Leur assaut prend fin.</RCB_Orders_UndraftTip>
+  <RCB_Orders_FireAtWillOn>Tir à volonté</RCB_Orders_FireAtWillOn>
+  <RCB_Orders_FireAtWillOff>Cesser le feu</RCB_Orders_FireAtWillOff>
+  <RCB_Orders_FireAtWillTip>Active le tir à volonté pour toute l'escouade, ou le coupe si tout le monde l'a déjà. Cesser le feu met fin à l'assaut.</RCB_Orders_FireAtWillTip>
+  <RCB_Orders_Regroup>Regroupement</RCB_Orders_Regroup>
+  <RCB_Orders_RegroupTip>Mobilise l'escouade, met fin à son assaut et envoie chacun en courant vers le chef (le premier membre dans l'ordre de la barre).</RCB_Orders_RegroupTip>
+  <RCB_Orders_Assault>Assaut</RCB_Orders_Assault>
+  <RCB_Orders_AssaultStrongest>Les plus forts d'abord</RCB_Orders_AssaultStrongest>
+  <RCB_Orders_AssaultStrongestTip>Mobilise l'escouade, qui attaque d'elle-même en visant d'abord les ennemis les plus forts à sa portée. Démobilisez un membre ou donnez-lui un ordre pour l'arrêter.</RCB_Orders_AssaultStrongestTip>
+  <RCB_Orders_AssaultWeakest>Les plus faibles d'abord</RCB_Orders_AssaultWeakest>
+  <RCB_Orders_AssaultWeakestTip>Mobilise l'escouade, qui attaque d'elle-même en visant d'abord les ennemis les plus faibles à sa portée. Démobilisez un membre ou donnez-lui un ordre pour l'arrêter.</RCB_Orders_AssaultWeakestTip>
+  <RCB_Orders_AssaultFleeing>Poursuivre les fuyards</RCB_Orders_AssaultFleeing>
+  <RCB_Orders_AssaultFleeingTip>Mobilise l'escouade, qui poursuit les ennemis en fuite ou qui quittent la carte, puis tout ennemi à sa portée. Démobilisez un membre ou donnez-lui un ordre pour l'arrêter.</RCB_Orders_AssaultFleeingTip>
+  <RCB_Orders_ActiveMark>{0} (en cours)</RCB_Orders_ActiveMark>
+</LanguageData>
