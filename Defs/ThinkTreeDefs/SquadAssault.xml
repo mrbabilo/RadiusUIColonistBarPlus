@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Squad assault (Colonist Bar Plus). Humanlike_PostMentalState is the modder hook of the Humanlike think tree,
+     right before ThinkNode_QueuedJob and the drafted branch: no XPath patch needed. -->
+<Defs>
+  <ThinkTreeDef>
+    <defName>RCB_SquadAssault</defName>
+    <insertTag>Humanlike_PostMentalState</insertTag>
+    <insertPriority>100</insertPriority>
+    <thinkRoot Class="RadiusColonistBar.ThinkNode_ConditionalSquadAssault">
+      <subNodes>
+        <li Class="RadiusColonistBar.JobGiver_SquadAssault">
+          <targetAcquireRadius>20</targetAcquireRadius>
+          <targetKeepRadius>23</targetKeepRadius>
+        </li>
+      </subNodes>
+    </thinkRoot>
+  </ThinkTreeDef>
+</Defs>
