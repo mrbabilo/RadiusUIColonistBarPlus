@@ -451,6 +451,14 @@
 
   <!-- Squad orders (Colonist Bar Plus) -->
   <RCB_Sub_RightClickTip>Right-click: open as a submenu without closing this menu.</RCB_Sub_RightClickTip>
+  <!-- Colonist Bar Plus: hover card quick actions -->
+  <RCB_Qa_Selected>{0} selected</RCB_Qa_Selected>
+  <RCB_Qa_Jump>Jump</RCB_Qa_Jump>
+  <RCB_Qa_JumpTip>Jump to</RCB_Qa_JumpTip>
+  <RCB_Qa_Policies>Policies</RCB_Qa_Policies>
+  <RCB_Qa_PoliciesTip>Policies (outfit / food / drugs)</RCB_Qa_PoliciesTip>
+  <RCB_Qa_Defend>Defend</RCB_Qa_Defend>
+  <RCB_Qa_DefendTip>Defensive position{0} - shift: set</RCB_Qa_DefendTip>
   <RCB_Orders_NoMember>No squad member on this map</RCB_Orders_NoMember>
   <RCB_Orders_Draft>Draft squad</RCB_Orders_Draft>
   <RCB_Orders_DraftTip>Draft every member of this squad on this map.</RCB_Orders_DraftTip>

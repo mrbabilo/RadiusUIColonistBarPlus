@@ -32,7 +32,7 @@ internal static class Patch_ColonistBarSize
 		return Mathf.Clamp(settings.portraitScale, 0.3f, 3f);
 	}
 
-	[HarmonyPatch(/*Could not decode attribute arguments.*/)]
+	[HarmonyPatch("MaxColonistBarWidth", MethodType.Getter)]
 	[HarmonyPostfix]
 	private static void MaxWidthPostfix(ref float __result)
 	{

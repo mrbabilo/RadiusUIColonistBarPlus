@@ -629,11 +629,13 @@ public static class HoverPopout
 		if (s.qaDraft && p.drafter != null)
 		{
 			int num = SelectionIfMulti(p)?.Count ?? 0;
-			string label = (p.Drafted ? "Undraft" : "Draft") + ((num > 1) ? (" " + num + " selected") : "");
+			// Colonist Bar Plus: quick action labels translated (vanilla keys where the game has one).
+			string text = (p.Drafted ? "CommandUndraftLabel" : "CommandDraftLabel").Translate();
+			string label = text + ((num > 1) ? (" " + "RCB_Qa_Selected".Translate(num)) : "");
 			actions.Add(new QAction
 			{
 				label = label,
-				shortLabel = (p.Drafted ? "Undraft" : "Draft"),
+				shortLabel = text,
 				icon = _icDraft,
 				count = num,
 				act = delegate
@@ -646,8 +648,8 @@ public static class HoverPopout
 		{
 			actions.Add(new QAction
 			{
-				label = "Jump to",
-				shortLabel = "Jump",
+				label = "RCB_Qa_JumpTip".Translate(),
+				shortLabel = "RCB_Qa_Jump".Translate(),
 				icon = _icJump,
 				act = delegate
 				{
@@ -678,26 +680,26 @@ public static class HoverPopout
 		}
 		if (s.qaHealth)
 		{
-			actions.Add(TabAction("Health", _icHealth, typeof(ITab_Pawn_Health), p));
+			actions.Add(TabAction("TabHealth".Translate(), _icHealth, typeof(ITab_Pawn_Health), p));
 		}
 		if (s.qaBio)
 		{
-			actions.Add(TabAction("Bio", _icBio, typeof(ITab_Pawn_Character), p));
+			actions.Add(TabAction("TabCharacter".Translate(), _icBio, typeof(ITab_Pawn_Character), p));
 		}
 		if (s.qaSocial)
 		{
-			actions.Add(TabAction("Social", _icSocial, typeof(ITab_Pawn_Social), p));
+			actions.Add(TabAction("TabSocial".Translate(), _icSocial, typeof(ITab_Pawn_Social), p));
 		}
 		if (s.qaGear)
 		{
-			actions.Add(TabAction("Gear", _icGear, typeof(ITab_Pawn_Gear), p));
+			actions.Add(TabAction("TabGear".Translate(), _icGear, typeof(ITab_Pawn_Gear), p));
 		}
 		if (s.qaRename)
 		{
 			actions.Add(new QAction
 			{
-				label = "Rename",
-				shortLabel = "Rename",
+				label = "Rename".Translate(),
+				shortLabel = "Rename".Translate(),
 				icon = _icRename,
 				act = delegate
 				{
@@ -715,8 +717,8 @@ public static class HoverPopout
 		{
 			actions.Add(new QAction
 			{
-				label = "Policies (outfit / food / drugs)",
-				shortLabel = "Policies",
+				label = "RCB_Qa_PoliciesTip".Translate(),
+				shortLabel = "RCB_Qa_Policies".Translate(),
 				icon = _icPolicies,
 				act = delegate
 				{
@@ -735,8 +737,8 @@ public static class HoverPopout
 			int num3 = SelectionIfMulti(p)?.Count ?? 0;
 			actions.Add(new QAction
 			{
-				label = "Defensive position" + ((num3 > 1) ? (" (" + num3 + ")") : "") + " - shift: set",
-				shortLabel = "Defend",
+				label = "RCB_Qa_DefendTip".Translate((num3 > 1) ? (" (" + num3 + ")") : ""),
+				shortLabel = "RCB_Qa_Defend".Translate(),
 				icon = _icDefPos,
 				count = num3,
 				act = delegate

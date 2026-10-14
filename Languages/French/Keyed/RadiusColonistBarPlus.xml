@@ -21,4 +21,12 @@
   <RCB_Orders_AssaultFleeing>Poursuivre les fuyards</RCB_Orders_AssaultFleeing>
   <RCB_Orders_AssaultFleeingTip>Mobilise l'escouade, qui poursuit les ennemis en fuite ou qui quittent la carte, puis tout ennemi à sa portée. Démobilisez un membre ou donnez-lui un ordre pour l'arrêter.</RCB_Orders_AssaultFleeingTip>
   <RCB_Orders_ActiveMark>{0} (en cours)</RCB_Orders_ActiveMark>
+  <!-- Carte de survol : actions rapides -->
+  <RCB_Qa_Selected>{0} sélectionnés</RCB_Qa_Selected>
+  <RCB_Qa_Jump>Centrer</RCB_Qa_Jump>
+  <RCB_Qa_JumpTip>Centrer la vue sur le pion</RCB_Qa_JumpTip>
+  <RCB_Qa_Policies>Règles</RCB_Qa_Policies>
+  <RCB_Qa_PoliciesTip>Règles (tenue, nourriture, drogue)</RCB_Qa_PoliciesTip>
+  <RCB_Qa_Defend>Défendre</RCB_Qa_Defend>
+  <RCB_Qa_DefendTip>Position défensive{0} - Maj : définir</RCB_Qa_DefendTip>
 </LanguageData>

@@ -12,7 +12,7 @@ internal static class Patch_BarMetrics
 		return s != null && s.masterEnabled && s.liveView && !s.warbandMode && !s.partyPanel;
 	}
 
-	[HarmonyPatch(/*Could not decode attribute arguments.*/)]
+	[HarmonyPatch("Size", MethodType.Getter)]
 	[HarmonyPostfix]
 	private static void SizePostfix(ColonistBar __instance, ref Vector2 __result)
 	{
@@ -27,7 +27,7 @@ internal static class Patch_BarMetrics
 		}
 	}
 
-	[HarmonyPatch(/*Could not decode attribute arguments.*/)]
+	[HarmonyPatch("SpaceBetweenColonistsHorizontal", MethodType.Getter)]
 	[HarmonyPostfix]
 	private static void SpacePostfix(ColonistBar __instance, ref float __result)
 	{
