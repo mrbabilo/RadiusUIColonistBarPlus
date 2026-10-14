@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ModMetaData>
+  <name>Radius UI - Colonist Bar Plus</name>
+  <packageId>mrbabilo.RadiusUI.ColonistBarPlus</packageId>
+  <author>mrbabilo</author>
+  <description>A fork of [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3788278207]Radius UI - Colonist Bar[/url] by astryl, with squad combat orders. Right-click a squad tab on the bar (or open a squad in the Command Center) to draft or undraft the squad, toggle fire at will, regroup on the squad leader, or send it on an assault that targets the strongest enemies, the weakest ones, or those fleeing.
+
+Replaces Radius UI - Colonist Bar: disable it. A save made with Colonist Bar keeps its squads, kits and histories. Not compatible with [LTO] Colony Groups. Multiplayer is not supported.
+
+Everything below comes from the original Colonist Bar by astryl.
+
+Replaces the colonist bar with a single slab across the top of the screen: each colonist gets a portrait, their name, role and current task, and two meters you choose. An alert band underneath names whoever needs attention. A Command Center window handles health, weapons, loadouts and squads, and the bar folds away when you are not using it.</description>
+  <supportedVersions>
+    <li>1.6</li>
+  </supportedVersions>
+  <modDependencies>
+    <li>
+      <packageId>brrainz.harmony</packageId>
+      <displayName>Harmony</displayName>
+      <steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
+      <downloadUrl>https://github.com/pardeike/HarmonyRimWorld/releases/latest</downloadUrl>
+    </li>
+    <li>
+      <packageId>astryl.RadiusUI.Framework</packageId>
+      <displayName>Radius UI Framework</displayName>
+      <steamWorkshopUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=3786107692</steamWorkshopUrl>
+    </li>
+  </modDependencies>
+  <loadAfter>
+    <li>brrainz.harmony</li>
+    <li>astryl.RadiusUI.Framework</li>
+    <li>Dark.JobInBar</li>
+    <li>name.krypt.rimworld.pawntablegrouped</li>
+    <li>Nals.FacialAnimation</li>
+  </loadAfter>
+  <modVersion>1.0.0</modVersion>
+  <incompatibleWith>
+    <li>astryl.RadiusUI.ColonistBar</li>
+    <li>DerekBickley.LTOColonyGroupsFinal</li>
+  </incompatibleWith>
+</ModMetaData>

@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- ================= Mod options entry ================= -->
+  <RCB_SettingsCategory>Radius UI - Colonist Bar</RCB_SettingsCategory>
+
+  <!-- ================= Window chrome ================= -->
+  <RCB_Setting_MasterEnabled>Enable Radius UI - Colonist Bar  (off = vanilla bar)</RCB_Setting_MasterEnabled>
+  <RCB_Setting_MasterDisabled>Radius UI - Colonist Bar is disabled. Enable it above to configure.</RCB_Setting_MasterDisabled>
+
+
+
+  <!-- ================= View selector ================= -->
+  <RCB_Setting_ResetAll>Reset all</RCB_Setting_ResetAll>
+  <RCB_Setting_ResetAllConfirm>Reset ALL three views to defaults? Global settings are kept.</RCB_Setting_ResetAllConfirm>
+
+  <!-- ================= Content tab ================= -->
+
+  <RCB_Setting_ShowStatusIndicators>Status indicators (break / inspired / fleeing / danger)</RCB_Setting_ShowStatusIndicators>
+  <RCB_Setting_ShowSquadBadges>Squad badges (Defensive Positions)</RCB_Setting_ShowSquadBadges>
+  <RCB_Setting_HostForeignMarks>Useful Marks icons on the portrait</RCB_Setting_HostForeignMarks>
+  <RCB_Setting_HostForeignMarksTip>Draws marks from Useful Marks, and from mods that feed it such as Busywork, in the top left of the portrait.</RCB_Setting_HostForeignMarksTip>
+  <RCB_Setting_HostForeignMarksNote>Those mods hang their marks off the vanilla colonist cell, which this bar replaces, so without this they do not appear here at all. Up to four fit; a status badge or a squad number keeps its corner and the icons start beside it.</RCB_Setting_HostForeignMarksNote>
+  <RCB_Setting_ShowSpeechBubbles>Speech bubbles</RCB_Setting_ShowSpeechBubbles>
+  <RCB_Setting_ShowSpeechBubblesTip>Shows a pawn's most recent social line (vanilla chatter + RimTalk) as a bubble pointing at their portrait.</RCB_Setting_ShowSpeechBubblesTip>
+
+  <RCB_Cohort_All>All</RCB_Cohort_All>
+  <RCB_Cohort_Colonists>Colonists</RCB_Cohort_Colonists>
+  <RCB_Cohort_Prisoners>Prisoners</RCB_Cohort_Prisoners>
+  <RCB_Cohort_Slaves>Slaves</RCB_Cohort_Slaves>
+  <RCB_Cohort_Pinned>Pinned</RCB_Cohort_Pinned>
+  <RCB_Cohort_Tip>Show {COHORT} on the bar.</RCB_Cohort_Tip>
+  <RCB_Cohort_TipAlert>Someone in this group needs attention.</RCB_Cohort_TipAlert>
+  <RCB_Cohort_TipAll>Right-click the tab row: show everyone.</RCB_Cohort_TipAll>
+  <RCB_Cohort_More>{COUNT} more groups. Click to choose.</RCB_Cohort_More>
+  <RCB_Pin_Add>Pin to bar</RCB_Pin_Add>
+  <RCB_Pin_Remove>Unpin from bar</RCB_Pin_Remove>
+  <RCB_Setting_CohortTabs>Cohort tabs</RCB_Setting_CohortTabs>
+  <RCB_Setting_CohortTabsTip>Adds a row of tabs across the top of the bar - All, your squads, Colonists, Prisoners, Slaves, Animals, Pinned - so the bar shows one group at a time and stays the same size however big the colony gets. A group counts its members wherever they are, on any map. Each tab shows its headcount and a coloured dot when someone in that group needs attention; when there are too many tabs to fit, the extras fold into a "+N" menu. Right-click the row to get back to everyone. The tabs only appear when there is more than one group to switch between.</RCB_Setting_CohortTabsTip>
+  <RCB_Setting_SortMode>Bar order</RCB_Setting_SortMode>
+  <RCB_Sort_Manual>Manual (drag to reorder)</RCB_Sort_Manual>
+  <RCB_Sort_Urgency>Most urgent first</RCB_Sort_Urgency>
+  <RCB_Sort_Mood>Lowest mood first</RCB_Sort_Mood>
+  <RCB_Sort_Name>Name</RCB_Sort_Name>
+  <RCB_Setting_SortModeNote>Pinned colonists always come first. The order is refreshed when the roster changes, not continuously - colonists never shuffle under your cursor.</RCB_Setting_SortModeNote>
+  <RCB_Setting_IslandMaxWidth>Maximum bar width: {0}% of the screen</RCB_Setting_IslandMaxWidth>
+  <RCB_Setting_IslandMaxWidthNote>Colonists wrap onto another row rather than stretching the bar past this width.</RCB_Setting_IslandMaxWidthNote>
+  <RCB_Value_Auto>auto</RCB_Value_Auto>
+  <RCB_Setting_RaceAdd>Adjust a specific race...</RCB_Setting_RaceAdd>
+  <RCB_Setting_RaceNoneLeft>Every race is already adjusted</RCB_Setting_RaceNoneLeft>
+  <RCB_Setting_RaceMissing>{0} (mod not loaded)</RCB_Setting_RaceMissing>
+  <RCB_Setting_RaceZoom>Zoom: {0}x</RCB_Setting_RaceZoom>
+  <RCB_Setting_RacePan>Pan: {0}, {1}</RCB_Setting_RacePan>
+  <RCB_Setting_RaceFramingNote>Some races do not fit the same portrait framing as a human - a tall one can lose the top of its head, a small one can sit lost in the middle. These adjust one race on top of the settings above. Races you have not adjusted are not stored, and an entry is kept even if its mod is turned off.</RCB_Setting_RaceFramingNote>
+  <RCB_Setting_Preview>Preview:</RCB_Setting_Preview>
+  <RCB_Setting_PreviewAuto>Auto</RCB_Setting_PreviewAuto>
+  <RCB_Setting_PreviewOpen>Hold open</RCB_Setting_PreviewOpen>
+  <RCB_Setting_PreviewClosed>Hold closed</RCB_Setting_PreviewClosed>
+  <RCB_Setting_PreviewTip>Pins the bar open or collapsed while you edit, so you can see what a setting does to the state it affects. Auto restores the normal behaviour: the bar opens when you point at it and collapses when left alone. This is not saved - it resets when you close the game.</RCB_Setting_PreviewTip>
+  <RCB_Setting_CardLayout>Card layout</RCB_Setting_CardLayout>
+  <RCB_Setting_CardLayout_Side>Side by side</RCB_Setting_CardLayout_Side>
+  <RCB_Setting_CardLayout_SideTip>Portrait on the left, name and details in a column beside it.</RCB_Setting_CardLayout_SideTip>
+  <RCB_Setting_CardLayout_Stacked>Stacked</RCB_Setting_CardLayout_Stacked>
+  <RCB_Setting_CardLayout_StackedTip>Portrait on top, with the name and every detail line centred underneath it.</RCB_Setting_CardLayout_StackedTip>
+  <RCB_Setting_CardLayoutNote>Stacked cards are much narrower, so more colonists fit before the bar wraps or pages - but each card is taller, and the portrait no longer sits beside the name.</RCB_Setting_CardLayoutNote>
+  <RCB_Setting_OpenMaxH>Open notch: max height: {0}</RCB_Setting_OpenMaxH>
+  <RCB_Setting_OpenMaxHNote>Ceiling on the open notch. When rows would exceed it, the bar widens past the width cap instead - a colonist you cannot reach is worse than a wide bar. Approximate, never hides anyone.</RCB_Setting_OpenMaxHNote>
+  <RCB_Setting_CollapsedMaxW>Collapsed notch: max width: {0}</RCB_Setting_CollapsedMaxW>
+  <RCB_Setting_CollapsedMaxWNote>Ceiling on the resting capsule. The pill's own contents (and the dev toolbar, in dev mode) set a floor - this trims slack, it never clips.</RCB_Setting_CollapsedMaxWNote>
+  <RCB_Setting_BubbleWidth>Speech bubble width: {0}</RCB_Setting_BubbleWidth>
+  <RCB_Setting_BubbleWidthNote>How wide a bubble may grow before it wraps. A short line still gets a short box - this is the ceiling, not the size. Auto scales with the bar.</RCB_Setting_BubbleWidthNote>
+  <RCB_Setting_BubbleLines>Speech bubble lines: {0}</RCB_Setting_BubbleLines>
+  <RCB_Setting_BubbleLinesNote>How tall a bubble may grow before the line is ellipsized. RimTalk writes paragraphs; raise this if you want to read them on the bar.</RCB_Setting_BubbleLinesNote>
+  <RCB_Head_Hidden>Hidden colonists</RCB_Head_Hidden>
+  <RCB_Setting_HiddenNone>Nobody is hidden. Right-click a colonist on the bar to hide them, and they will appear here so you can bring them back.</RCB_Setting_HiddenNone>
+  <RCB_Setting_HiddenNote>Hidden with right-click on the bar. They stay off the bar until you show them again, including across saves.</RCB_Setting_HiddenNote>
+  <RCB_Setting_HiddenShow>Show</RCB_Setting_HiddenShow>
+  <RCB_Setting_HiddenShowAll>Show everyone</RCB_Setting_HiddenShowAll>
+  <RCB_Setting_NotchPos>Notch position: {0}</RCB_Setting_NotchPos>
+  <RCB_Setting_NotchPosCentre>Centred</RCB_Setting_NotchPosCentre>
+  <RCB_Setting_NotchPosNote>Slides the notch along the top of the screen. It cannot leave it: 0% puts the left edge against the screen's, 100% the right, and a bar as wide as the screen has nowhere to go.</RCB_Setting_NotchPosNote>
+  <RCB_Setting_CollapsedMaxH>Collapsed notch: max height: {0}</RCB_Setting_CollapsedMaxH>
+  <RCB_Setting_CollapsedMaxHNote>Ceiling on the capsule body. The chrome strip and the alert band add their own height on top.</RCB_Setting_CollapsedMaxHNote>
+  <RCB_Setting_BarOpacity>Bar opacity: {0}%</RCB_Setting_BarOpacity>
+  <RCB_Setting_BarOpacityNote>How solid the bar's dark surface is. 100% is fully opaque; lower lets the terrain show through the notch. Only the surface fades - portraits, labels, meters and alerts stay fully visible.</RCB_Setting_BarOpacityNote>
+  <RCB_Setting_BandOpacity>Band opacity: {0}%</RCB_Setting_BandOpacity>
+  <RCB_Setting_BandOpacityNote>How solid the alert band's coloured fill is, set separately from the bar's own opacity. 100% is the shipped look. Lower blends it into the bar so it stays readable without dominating the screen; the message, icon and dots always stay fully visible.</RCB_Setting_BandOpacityNote>
+  <RCB_Setting_IslandCollapse>Minimize the bar when you stop using it</RCB_Setting_IslandCollapse>
+  <RCB_Setting_IslandCollapseTip>After the idle delay below, the top bar shrinks to a small summary pill showing your colonist count and one coloured dot per colonist. It expands again the instant you move the pointer over it, and it is always fully open when you arrive on a map. Alerts still show while it is minimized.</RCB_Setting_IslandCollapseTip>
+  <RCB_Setting_IslandAnim>Expand speed: {0}ms</RCB_Setting_IslandAnim>
+  <RCB_Setting_IslandAnimInstant>Expand speed: instant (no animation)</RCB_Setting_IslandAnimInstant>
+  <RCB_Setting_AlertBand>Alert band</RCB_Setting_AlertBand>
+  <RCB_Setting_AlertBandTip>A single coloured band across the bottom of the top bar, naming whatever needs attention right now - bleeding out, downed, a mental break, a break risk, starving, hypothermia or heatstroke, or a colonist who needs tending. With more than one it rotates through them; hovering pauses it, clicking jumps to the colonist. When the bar is collapsed the band shrinks to a thin coloured strip along the bottom of the summary pill, so it still shows what is wrong. Top-bar view only.</RCB_Setting_AlertBandTip>
+  <RCB_Setting_AlertCycle>Rotate every: {0}s</RCB_Setting_AlertCycle>
+  <RCB_Setting_AlertCycleStatic>Do not rotate (show the most urgent alert only)</RCB_Setting_AlertCycleStatic>
+
+  <RCB_Alert_BleedingOut>{PAWN} is bleeding out</RCB_Alert_BleedingOut>
+  <RCB_Alert_Downed>{PAWN} is down</RCB_Alert_Downed>
+  <RCB_Alert_Break>{PAWN} is having a mental break</RCB_Alert_Break>
+  <RCB_Alert_BreakRisk>{PAWN} is close to breaking</RCB_Alert_BreakRisk>
+  <RCB_Alert_Starving>{PAWN} is starving</RCB_Alert_Starving>
+  <RCB_Alert_Hypothermia>{PAWN} is getting hypothermia</RCB_Alert_Hypothermia>
+  <RCB_Alert_Heatstroke>{PAWN} is overheating</RCB_Alert_Heatstroke>
+  <RCB_Alert_NeedsTend>{PAWN} needs tending</RCB_Alert_NeedsTend>
+  <RCB_Alert_MetaNow>now</RCB_Alert_MetaNow>
+  <RCB_Alert_ClickToJump>Click to jump to this colonist. Hover to pause the rotation; scroll to step through it.</RCB_Alert_ClickToJump>
+
+  <RCB_Gear_Tip>Radius UI - Colonist Bar settings</RCB_Gear_Tip>
+  <RCB_CC_Tip>Command center - roster, squads, gear and policies</RCB_CC_Tip>
+  <RCB_Grip_Collapse>Fold the colonist bar away</RCB_Grip_Collapse>
+  <RCB_Grip_Expand>Show the colonist bar</RCB_Grip_Expand>
+  <RCB_CC_RailCollapse>Fold the rail to icons</RCB_CC_RailCollapse>
+  <RCB_CC_RailExpand>Show the rail's labels</RCB_CC_RailExpand>
+  <RCB_State_Idle>Idle</RCB_State_Idle>
+  <RCB_Cell_Mood>Mood</RCB_Cell_Mood>
+  <RCB_Cell_Health>Health</RCB_Cell_Health>
+  <RCB_Cell_Weapon>Weapon</RCB_Cell_Weapon>
+  <RCB_Cell_Unarmed>Unarmed</RCB_Cell_Unarmed>
+  <RCB_Weap_InHand>In hand</RCB_Weap_InHand>
+  <RCB_Weap_Stowed>Sidearm (stowed)</RCB_Weap_Stowed>
+  <RCB_Weap_SwapTo>Click to swap to:</RCB_Weap_SwapTo>
+  <RCB_Weap_AlsoCarrying>Also carrying:</RCB_Weap_AlsoCarrying>
+  <RCB_State_Critical>Critical</RCB_State_Critical>
+  <RCB_State_Warning>Warning</RCB_State_Warning>
+  <RCB_State_Drafted>Drafted</RCB_State_Drafted>
+  <RCB_State_Away>Away</RCB_State_Away>
+  <!-- The state pill's tooltip: one line per condition behind a Warning / Critical pill, worst first. -->
+  <RCB_Cond_BleedingOut>Bleeding out</RCB_Cond_BleedingOut>
+  <RCB_Cond_Break>Mental break</RCB_Cond_Break>
+  <RCB_Cond_Downed>Down</RCB_Cond_Downed>
+  <RCB_Cond_BreakRisk>Close to breaking</RCB_Cond_BreakRisk>
+  <RCB_Cond_Starving>Starving</RCB_Cond_Starving>
+  <RCB_Cond_Hypothermia>Hypothermia</RCB_Cond_Hypothermia>
+  <RCB_Cond_Heatstroke>Overheating</RCB_Cond_Heatstroke>
+  <RCB_Cond_NeedsTend>Needs tending</RCB_Cond_NeedsTend>
+  <!-- Feedback phase 1 settings -->
+  <RCB_Setting_CardOpacity>Card opacity: {0}%</RCB_Setting_CardOpacity>
+  <RCB_Setting_CardOpacityNote>How solid each colonist's card is, separately from the bar behind it. Lower it with the bar opacity if the cards look like solid blocks on a see-through bar. Portraits, labels, meters and the pill stay fully visible.</RCB_Setting_CardOpacityNote>
+  <RCB_Setting_JobTitleFallback>Only when there is no royal title or role</RCB_Setting_JobTitleFallback>
+  <RCB_Setting_JobTitleFallbackTip>Show the backstory title only for colonists who have neither a royal title nor an ideoligion role on their card. Titled colonists keep one line; the rest still get one.</RCB_Setting_JobTitleFallbackTip>
+  <RCB_TaskMode_Always>Always</RCB_TaskMode_Always>
+  <RCB_TaskMode_Hover>On hover</RCB_TaskMode_Hover>
+  <RCB_TaskMode_Off>Off</RCB_TaskMode_Off>
+  <RCB_Setting_StatePill>State pill (Critical / Warning / Drafted / Away)</RCB_Setting_StatePill>
+  <RCB_Setting_StatePillNote>The one-word chip on the portrait's bottom edge. Hover a Warning or Critical pill to see the conditions behind it. "Quiet while the alert band is up" hides only the Warning and Critical words while the band is already showing them; Drafted and Away stay.</RCB_Setting_StatePillNote>
+  <RCB_PillMode_Show>Show</RCB_PillMode_Show>
+  <RCB_PillMode_QuietWithBand>Quiet while the alert band is up</RCB_PillMode_QuietWithBand>
+  <RCB_PillMode_Off>Off</RCB_PillMode_Off>
+  <!-- Feedback phase 2 settings -->
+  <RCB_Setting_TitleColor>Colour</RCB_Setting_TitleColor>
+  <RCB_TitleColor_Accent>Accent (gold)</RCB_TitleColor_Accent>
+  <RCB_TitleColor_Faction>Faction blue</RCB_TitleColor_Faction>
+  <RCB_TitleColor_Ink>Bright</RCB_TitleColor_Ink>
+  <RCB_TitleColor_Quiet>Quiet</RCB_TitleColor_Quiet>
+  <RCB_TitleColor_Ideoligion>Ideoligion colour</RCB_TitleColor_Ideoligion>
+  <!-- Feedback phase 3 -->
+  <RCB_Head_Frames>Frames</RCB_Head_Frames>
+  <RCB_Setting_Frames>Lore frames</RCB_Setting_Frames>
+  <RCB_Setting_FramesNote>An ornamental frame around a colonist's card, in the colour of what they are: their psycaster path (Vanilla Psycasts Expanded), their psylink, their ideoligion role or their royal title. Off keeps the plain card.</RCB_Setting_FramesNote>
+  <RCB_FrameMode_Off>Off</RCB_FrameMode_Off>
+  <RCB_FrameMode_Cards>On the cards</RCB_FrameMode_Cards>
+  <RCB_FrameMode_CardsPopout>Cards and hover panel</RCB_FrameMode_CardsPopout>
+  <RCB_Setting_FrameStrength>Frame strength: {0}%</RCB_Setting_FrameStrength>
+  <RCB_Setting_FrameWatermark>Emblem on the hover panel</RCB_Setting_FrameWatermark>
+  <RCB_Setting_FrameWatermarkTip>A faint emblem of the frame's source behind the hover panel's content: the psycaster path's card art, the ideoligion's icon, the Empire's.</RCB_Setting_FrameWatermarkTip>
+  <RCB_Setting_FrameSources>Frame sources, first match wins</RCB_Setting_FrameSources>
+  <RCB_FrameSource_Path>Psycaster path (Vanilla Psycasts Expanded)</RCB_FrameSource_Path>
+  <RCB_FrameSource_Psylink>Psylink</RCB_FrameSource_Psylink>
+  <RCB_FrameSource_IdeoRole>Ideoligion role</RCB_FrameSource_IdeoRole>
+  <RCB_FrameSource_Royal>Royal title</RCB_FrameSource_Royal>
+  <RCB_Setting_SpeechPlacement>Speech goes</RCB_Setting_SpeechPlacement>
+  <RCB_SpeechPlace_Bubble>In a bubble under the speaker</RCB_SpeechPlace_Bubble>
+  <RCB_SpeechPlace_Card>On the card</RCB_SpeechPlace_Card>
+  <RCB_Setting_SpeechPlacementNote>On the card, the line takes the place of the name and titles for as long as it would have shown in a bubble. Hover the card for the full text.</RCB_Setting_SpeechPlacementNote>
+  <RCB_Setting_HealthStyle>Health meter</RCB_Setting_HealthStyle>
+  <RCB_HealthStyle_Rail>Rail</RCB_HealthStyle_Rail>
+  <RCB_HealthStyle_Ekg>EKG trace</RCB_HealthStyle_Ekg>
+  <RCB_Setting_HealthStyleNote>The EKG trace beats faster and taller the healthier the colonist, in green, amber or red, and flatlines when they are nearly dead. It costs a little more per card than the rail.</RCB_Setting_HealthStyleNote>
+  <RCB_Setting_BandStandsIn>Quiet the same alerts in Mission Control and Modern Notifications</RCB_Setting_BandStandsIn>
+  <RCB_Setting_BandStandsInTip>While the band is on, those two mods stop repeating the alerts it already shows. Turn this off to see them in all three places.</RCB_Setting_BandStandsInTip>
+  <RCB_Setting_DraftedWeaponCard>Drafted: show the weapon instead of titles</RCB_Setting_DraftedWeaponCard>
+  <RCB_Setting_DraftedWeaponCardTip>While a colonist is drafted, the rows under their name make way for their equipped weapon, drawn as large as the space allows. The card stays the same size. Sidearm chips under the portrait are hidden while the weapon is shown.</RCB_Setting_DraftedWeaponCardTip>
+  <RCB_Setting_WeaponModeNever>Never</RCB_Setting_WeaponModeNever>
+  <RCB_Setting_WeaponModeDrafted>When drafted</RCB_Setting_WeaponModeDrafted>
+  <RCB_Setting_WeaponModeAlways>Always</RCB_Setting_WeaponModeAlways>
+  <RCB_Setting_ShowWeaponIcon>Show weapon icon</RCB_Setting_ShowWeaponIcon>
+  <RCB_Setting_WeaponPrimaryOnly>Equipped weapon only</RCB_Setting_WeaponPrimaryOnly>
+  <RCB_Setting_WeaponPrimaryOnlyTip>Show only the weapon the pawn is holding. Spare weapons carried through Simple Sidearms are left out of the strip.</RCB_Setting_WeaponPrimaryOnlyTip>
+
+  <!-- ================= Effects tab ================= -->
+  <RCB_Setting_PulseOnDamage>Pulse frame red on damage</RCB_Setting_PulseOnDamage>
+
+  <!-- ================= Text tab ================= -->
+
+  <RCB_Font_Tiny>Tiny</RCB_Font_Tiny>
+  <RCB_Font_Small>Small</RCB_Font_Small>
+  <RCB_Font_Medium>Medium</RCB_Font_Medium>
+  <RCB_Weight_Regular>Regular</RCB_Weight_Regular>
+  <RCB_Weight_Bold>Bold</RCB_Weight_Bold>
+  <RCB_Weight_Italic>Italic</RCB_Weight_Italic>
+  <RCB_Weight_BoldItalic>Bold italic</RCB_Weight_BoldItalic>
+
+
+  <!-- ================= General tab ================= -->
+  <RCB_Setting_RenderMode>Render mode</RCB_Setting_RenderMode>
+  <RCB_Setting_RenderLiveCameras>Live cameras</RCB_Setting_RenderLiveCameras>
+  <RCB_Setting_RenderLivingPortraits>Living portraits</RCB_Setting_RenderLivingPortraits>
+  <RCB_Setting_LiveCamerasWarning>[Experimental] Live cameras render a real per-pawn camera every frame and can affect performance. Living portraits is the stable default.</RCB_Setting_LiveCamerasWarning>
+  <RCB_Setting_LivingPortraitsNote>Living portraits: clean, cached portraits on a dashboard tile.</RCB_Setting_LivingPortraitsNote>
+  <RCB_Setting_FaPortraits>Facial Animation in portraits</RCB_Setting_FaPortraits>
+  <RCB_Setting_FaPortraitsTip>Let [NL] Facial Animation play in the bar portraits, hover pop-out and Command Center, through the game's own portrait-animation path (the same one flashing pawns use), so blinks and expressions move live. Off = static faces (cheaper). If Facial Animation's own "Enable Facial Animation in Portraits" option is on, that setting takes over and its interval is used instead.</RCB_Setting_FaPortraitsTip>
+  <RCB_Setting_FaRate>Face refresh: about {0} times a second</RCB_Setting_FaRate>
+  <RCB_Setting_FaRateDeferred>Facial Animation is refreshing portraits itself (every {0} ticks). Change the rate in its mod options.</RCB_Setting_FaRateDeferred>
+
+  <RCB_Setting_FollowCam>Follow camera (default key: F5)</RCB_Setting_FollowCam>
+  <RCB_Setting_FollowCamTip>Smoothly chase the selected pawn with the camera. Press the key again or pan the camera to stop. A carried pawn resolves to its carrier - the camera chases the ambulance. Zoom stays under your control. Rebind the key in Options &gt; Keyboard configuration &gt; Camera.</RCB_Setting_FollowCamTip>
+  <RCB_Setting_FollowCamStabilize>Stabilized (steadicam)</RCB_Setting_FollowCamStabilize>
+  <RCB_Setting_FollowCamStabilizeTip>Camera-operator feel: the camera holds perfectly still while the pawn stays near screen center (a small dead-zone window), and moves with weight and inertia when it does chase - accelerating and braking smoothly instead of mirroring every twitch. Off = tight mode, glued straight to the pawn.</RCB_Setting_FollowCamStabilizeTip>
+  <RCB_Setting_FollowCamSmooth>Chase tightness: {0} ms (lower = tighter)</RCB_Setting_FollowCamSmooth>
+
+  <RCB_Setting_UseCcmb>Color-coded mood behind portraits</RCB_Setting_UseCcmb>
+  <RCB_Setting_UseCcmbTip>Show mood as a colored fill behind each portrait (all three views), using the six mood colors you set in Color Coded Mood Bar's mod options. The dedicated mood bar/strip is hidden while this is on, unless you've pointed that slot at a different stat. Off = keep the built-in mood bar with its green-to-aqua scheme.</RCB_Setting_UseCcmbTip>
+
+  <RCB_Setting_HideSlaves>Hide slaves</RCB_Setting_HideSlaves>
+  <RCB_Setting_HideMechs>Hide mechs and mutants</RCB_Setting_HideMechs>
+  <RCB_Setting_HideCorpses>Hide corpses</RCB_Setting_HideCorpses>
+
+  <!-- ================= Camera tab ================= -->
+  <RCB_Setting_LiveWholeMap>Live view across the whole map</RCB_Setting_LiveWholeMap>
+  <RCB_Setting_LiveWholeMapTip>Keep the live view active for every colony pawn, including off-screen ones.</RCB_Setting_LiveWholeMapTip>
+  <RCB_Setting_LiveZoom>Live view zoom: {0}x</RCB_Setting_LiveZoom>
+  <RCB_Setting_PortraitZoom>Portrait zoom: {0}x</RCB_Setting_PortraitZoom>
+
+  <!-- ================= Pop-out tab ================= -->
+  <RCB_Setting_PopoutOpacityLinked>Pop-out opacity follows the notch</RCB_Setting_PopoutOpacityLinked>
+  <RCB_Setting_PopoutOpacityLinkedTip>One opacity for the bar and its pop-out. Untick to set the pop-out separately.</RCB_Setting_PopoutOpacityLinkedTip>
+  <RCB_Setting_PopoutOpacityLinkedNote>Following the notch opacity: {0}%. Set on the Bar tab.</RCB_Setting_PopoutOpacityLinkedNote>
+  <RCB_Setting_PopoutOpacity>Pop-out opacity: {0}%</RCB_Setting_PopoutOpacity>
+  <RCB_Setting_PopoutScale>Pop-out size: {0}%</RCB_Setting_PopoutScale>
+  <RCB_Setting_PopoutPad>Inner padding: {0}px</RCB_Setting_PopoutPad>
+  <RCB_Setting_QaShow>Quick-access buttons (up to 6 shown, 2 rows of 3)</RCB_Setting_QaShow>
+  <RCB_Setting_QaDraft>Draft / undraft</RCB_Setting_QaDraft>
+  <RCB_Setting_QaJump>Jump to pawn</RCB_Setting_QaJump>
+  <RCB_Setting_QaHealth>Open health tab</RCB_Setting_QaHealth>
+  <RCB_Setting_QaBio>Open bio tab</RCB_Setting_QaBio>
+  <RCB_Setting_QaSocial>Open social tab</RCB_Setting_QaSocial>
+  <RCB_Setting_QaGear>Open gear tab</RCB_Setting_QaGear>
+  <RCB_Setting_QaPolicies>Policies (outfit / food / drugs)</RCB_Setting_QaPolicies>
+  <RCB_Setting_QaRename>Rename</RCB_Setting_QaRename>
+  <RCB_Setting_QaDefPos>Defensive position</RCB_Setting_QaDefPos>
+  <RCB_Setting_QaAdaptiveWork>Adaptive work priorities</RCB_Setting_QaAdaptiveWork>
+  <RCB_Setting_QaAdaptiveWorkTip>Adds a Work button to the pop-out that swaps it for Adaptive Work Priorities' pawn card. The button carries a badge counting that colonist's pending priority proposals.</RCB_Setting_QaAdaptiveWorkTip>
+
+  <!-- Pop-out quick action: hand-off to Adaptive Work Priorities -->
+  <RCB_Qa_Work>Work</RCB_Qa_Work>
+  <RCB_Qa_WorkTip>Open the adaptive work priorities card</RCB_Qa_WorkTip>
+  <RCB_Qa_WorkTipPending>Open the adaptive work priorities card - {0} pending</RCB_Qa_WorkTipPending>
+  <RCB_Qa_WorkUntracked>{0} is not tracked by Adaptive Work Priorities yet.</RCB_Qa_WorkUntracked>
+
+  <!-- ================= Layout tab ================= -->
+  <RCB_Setting_PortraitScale>Portrait size: {0}%</RCB_Setting_PortraitScale>
+  <RCB_Setting_BarTopOffset>Bar vertical offset: {0}px</RCB_Setting_BarTopOffset>
+
+  <!-- ================= Stat slot names ================= -->
+  <RCB_Stat_None>(none)</RCB_Stat_None>
+  <RCB_Stat_Health>Health</RCB_Stat_Health>
+  <RCB_Stat_Mood>Mood</RCB_Stat_Mood>
+  <RCB_Stat_Readiness>Combat readiness</RCB_Stat_Readiness>
+  <RCB_Stat_Psyfocus>Psyfocus</RCB_Stat_Psyfocus>
+  <RCB_Stat_Entropy>Neural heat</RCB_Stat_Entropy>
+  <RCB_Stat_Mmb>Mental health (MMB)</RCB_Stat_Mmb>
+
+  <!-- ===== settings page (rebuilt - tabs named for what the player wants to change) ===== -->
+  <RCB_Tab_Bar>Bar</RCB_Tab_Bar>
+  <RCB_Tab_Cards>Cards</RCB_Tab_Cards>
+  <RCB_Tab_Who>Who's shown</RCB_Tab_Who>
+  <RCB_Tab_Alerts>Alerts</RCB_Tab_Alerts>
+  <RCB_Tab_Portraits>Portraits</RCB_Tab_Portraits>
+  <RCB_Tab_Hover>Hover panel</RCB_Tab_Hover>
+  <RCB_Tab_Extras>Extras</RCB_Tab_Extras>
+
+  <RCB_Head_Look>Size and look</RCB_Head_Look>
+  <RCB_Head_Minimize>Minimizing</RCB_Head_Minimize>
+  <RCB_Head_Perf>Performance</RCB_Head_Perf>
+  <RCB_Head_Camera>Follow camera</RCB_Head_Camera>
+  <RCB_Head_Rows>Text on each card</RCB_Head_Rows>
+  <RCB_Head_Meters>Meters under the portrait</RCB_Head_Meters>
+  <RCB_Head_Markers>Warnings on the card</RCB_Head_Markers>
+  <RCB_Head_Extras>Extras</RCB_Head_Extras>
+  <RCB_Head_Paging>Colonists per page</RCB_Head_Paging>
+  <RCB_Head_Order>Order and groups</RCB_Head_Order>
+  <RCB_Head_WhoShows>Who appears on the bar</RCB_Head_WhoShows>
+  <RCB_Head_PortraitMode>How colonists are drawn</RCB_Head_PortraitMode>
+  <RCB_Head_Framing>Framing</RCB_Head_Framing>
+  <RCB_Head_Quality>Quality</RCB_Head_Quality>
+  <RCB_Head_Compat>Other mods</RCB_Head_Compat>
+  <RCB_Head_PopoutLook>Appearance</RCB_Head_PopoutLook>
+  <RCB_Head_QuickActions>Quick actions</RCB_Head_QuickActions>
+
+  <RCB_Setting_CardIntro>What each colonist's card shows.</RCB_Setting_CardIntro>
+  <RCB_Setting_RosterIntro>Who is on the bar, in what order, and how big colonies stay readable.</RCB_Setting_RosterIntro>
+  <RCB_Setting_AlertsIntro>A coloured band across the bottom of the bar naming whoever needs you most. Click it to jump to them.</RCB_Setting_AlertsIntro>
+  <RCB_Setting_MetersNote>Two thin bars under each portrait. Set either to "None" to hide it.</RCB_Setting_MetersNote>
+  <RCB_Setting_PortraitScaleNote>Makes every colonist card bigger or smaller.</RCB_Setting_PortraitScaleNote>
+  <RCB_Setting_BarTopOffsetNote>Moves the whole bar down the screen. Negative values tuck it further into the top edge.</RCB_Setting_BarTopOffsetNote>
+  <RCB_Setting_ShowJobTitleTip>The colonist's backstory occupation, like "Mercenary" or "Farm oaf".</RCB_Setting_ShowJobTitleTip>
+  <RCB_Setting_PulseOnDamageTip>Flashes a colonist's card red the moment they are hurt.</RCB_Setting_PulseOnDamageTip>
+  <RCB_Setting_AlertCycleNote>With several problems at once the band rotates through them. Drag all the way left to stop rotating and always show the worst one.</RCB_Setting_AlertCycleNote>
+  <RCB_Setting_Quality>Portrait quality</RCB_Setting_Quality>
+  <RCB_Setting_QualityNote>How sharply each colonist is rendered. Higher looks better up close and costs more memory and GPU time - on a small bar the difference is hard to see, so start at Medium.</RCB_Setting_QualityNote>
+  <RCB_Quality_Low>Low - cheapest</RCB_Quality_Low>
+  <RCB_Quality_Medium>Medium - recommended</RCB_Quality_Medium>
+  <RCB_Quality_High>High</RCB_Quality_High>
+  <RCB_Quality_Ultra>Very high - for large cards</RCB_Quality_Ultra>
+  <RCB_Setting_InfoRefresh>Refresh colonist details: {0} times a second</RCB_Setting_InfoRefresh>
+  <RCB_Setting_InfoRefreshNote>Names, titles and what each colonist is doing. Lower is cheaper. Health, mood and alerts always update instantly, whatever this says.</RCB_Setting_InfoRefreshNote>
+  <RCB_Setting_CameraBudget>Live camera updates: {0} colonists per frame</RCB_Setting_CameraBudget>
+  <RCB_Setting_CameraBudgetNote>Only used by live cameras. Lower means each colonist's view updates less often, but the game does less work each frame.</RCB_Setting_CameraBudgetNote>
+  <RCB_Setting_FollowCamNote>Higher values glide more smoothly; lower values stay tighter on the colonist.</RCB_Setting_FollowCamNote>
+  <RCB_Setting_PinNote>Pin a colonist from their right-click menu. Pinned colonists come first in every group and fill the Pinned tab.</RCB_Setting_PinNote>
+
+  <RCB_Setting_CollapseDelay>Collapse after: {0} without using the bar</RCB_Setting_CollapseDelay>
+  <RCB_Setting_CollapseDelayNone>Collapse as soon as the pointer leaves</RCB_Setting_CollapseDelayNone>
+  <RCB_Setting_CollapseDelayNote>The bar reopens instantly when you point at it; this only delays the closing. The countdown starts when you arrive on a map, so the bar is never already minimized when you get there.</RCB_Setting_CollapseDelayNote>
+
+  <RCB_Setting_ShowName>Name</RCB_Setting_ShowName>
+  <RCB_Setting_ShowRoyalTitle>Royal title</RCB_Setting_ShowRoyalTitle>
+  <RCB_Setting_ShowRoyalTitleTip>Shows an imperial honorific under the name, when the colonist has one.</RCB_Setting_ShowRoyalTitleTip>
+  <RCB_Setting_ShowJobTitle>Backstory job title</RCB_Setting_ShowJobTitle>
+  <RCB_Setting_ShowIdeoRole>Ideoligion role</RCB_Setting_ShowIdeoRole>
+  <RCB_Setting_ShowJobLabel>Current task</RCB_Setting_ShowJobLabel>
+  <RCB_Setting_ShowJobLabelTip>The bottom line of the card: what the colonist is doing right now, or what is wrong with them.</RCB_Setting_ShowJobLabelTip>
+  <RCB_Setting_RailTop>Left meter</RCB_Setting_RailTop>
+  <RCB_Setting_RailBottom>Right meter</RCB_Setting_RailBottom>
+  <RCB_Setting_ShowStatusIndicatorsTip>A corner badge for mental breaks, fleeing and inspirations.</RCB_Setting_ShowStatusIndicatorsTip>
+  <RCB_Setting_ShowSquadBadgesTip>Shows the colonist's Defensive Positions squad number in the corner of their portrait.</RCB_Setting_ShowSquadBadgesTip>
+
+  <RCB_Setting_HideSlavesTip>Keep slaves off the bar unless you switch to their tab.</RCB_Setting_HideSlavesTip>
+  <RCB_Setting_HideMechsTip>Keep mechanoids and mutants off the bar.</RCB_Setting_HideMechsTip>
+  <RCB_Setting_HideCorpsesTip>Keep dead colonists off the bar.</RCB_Setting_HideCorpsesTip>
+
+
+  <RCB_Setting_PortraitHoverInfo>Hover pop-out</RCB_Setting_PortraitHoverInfo>
+  <RCB_Setting_PortraitHoverInfoTip>A detail panel with mood, health, weapon and quick actions when you hover a colonist.</RCB_Setting_PortraitHoverInfoTip>
+  <RCB_Setting_QaShowTip>The row of buttons at the bottom of the pop-out.</RCB_Setting_QaShowTip>
+  <RCB_Setting_PopoutOffset>Nudge pop-out: {0}, {1} px</RCB_Setting_PopoutOffset>
+
+  <RCB_Setting_LivePan>Camera pan: {0}, {1}</RCB_Setting_LivePan>
+  <RCB_Setting_PortraitPan>Portrait pan: {0}, {1}</RCB_Setting_PortraitPan>
+  <RCB_Setting_DuetNote>When a colonist is dealing with someone - talking, tending, fighting - the other person appears too: portraits share the card, and live cameras pull back to frame both.</RCB_Setting_DuetNote>
+
+  <RCB_Alert_Inspired>{PAWN} is inspired</RCB_Alert_Inspired>
+  <RCB_Setting_AlertInspired>Also show inspirations</RCB_Setting_AlertInspired>
+  <RCB_Setting_AlertInspiredTip>Adds a light blue band for inspired colonists. Inspirations expire, so an unused one is a wasted one - but this is the only good news the band carries, so you can turn it off and keep the band purely for problems.</RCB_Setting_AlertInspiredTip>
+  <RCB_Alert_InspiredNamed>{PAWN} is inspired: {WHAT}</RCB_Alert_InspiredNamed>
+  <RCB_Cohort_Animals>Animals</RCB_Cohort_Animals>
+  <RCB_Setting_CollapseDisabledNote>Turn on "Minimize the bar when you stop using it" above to use these.</RCB_Setting_CollapseDisabledNote>
+  <RCB_Setting_Animals>Colony animals</RCB_Setting_Animals>
+  <RCB_Animals_Off>Not on the bar</RCB_Animals_Off>
+  <RCB_Animals_Bonded>Bonded animals only</RCB_Animals_Bonded>
+  <RCB_Animals_All>All colony animals</RCB_Animals_All>
+  <RCB_Setting_AnimalsNote>Animals get their own group and their own tab. "Bonded only" needs an actual bond - a freshly tamed animal does not have one yet.</RCB_Setting_AnimalsNote>
+  <RCB_Head_Diag>Diagnostics (dev mode)</RCB_Head_Diag>
+  <RCB_Setting_PopoutDiag>Pop-out layout overlay</RCB_Setting_PopoutDiag>
+  <RCB_Setting_PopoutDiagTip>Outlines the pop-out panel and the name's own rect, and prints the widths that decide whether the name is shortened. Green = the full name fits, magenta = it was shortened. Only ever drawn in dev mode.</RCB_Setting_PopoutDiagTip>
+  <RCB_Setting_CollapsedCount>Show the colonist count on the collapsed bar</RCB_Setting_CollapsedCount>
+  <RCB_Setting_CollapsedCountTip>The number at the left of the collapsed pill. Turn it off to keep the pill as narrow as possible - the coloured dots still show one per colonist.</RCB_Setting_CollapsedCountTip>
+  <RCB_Setting_MaxVisible>Maximum colonists shown at once: {0}</RCB_Setting_MaxVisible>
+  <RCB_Setting_MaxVisibleOff>Maximum colonists shown at once: no limit (everyone at once)</RCB_Setting_MaxVisibleOff>
+  <RCB_Setting_MaxVisibleNote>Above this, arrows appear at each end of the bar to page through the rest. The default of 5 keeps the bar one full-size row instead of a screen-wide strip of shrunken tiles; drag all the way left for no limit. Pinned colonists always stay on screen and are never paged. An arrow shows a coloured dot when someone hidden behind it needs attention.</RCB_Setting_MaxVisibleNote>
+  <RCB_Window_Tip>{COUNT} more this way. Click to scroll; the dots below jump a page at a time.</RCB_Window_Tip>
+  <RCB_Setting_CondMarkers>Show condition markers</RCB_Setting_CondMarkers>
+  <RCB_Setting_CondMarkersTip>A coloured bar along the bottom of a colonist's card showing the worst thing wrong with them, with a count at the top right when more than one thing is. Uses the same colours as the alert band, and shows nothing at all for a colonist who is fine.</RCB_Setting_CondMarkersTip>
+  <RCB_Setting_CondPulse>Pulse the marker at {0} conditions or more</RCB_Setting_CondPulse>
+  <RCB_Setting_CondPulseOff>Never pulse the marker</RCB_Setting_CondPulseOff>
+  <RCB_Setting_CondPulseNote>Past a few problems everything is the same red, so the marker starts breathing instead. Keep this high - if several colonists pulse at once it stops meaning anything.</RCB_Setting_CondPulseNote>
+
+  <!-- ===== Command Center (gen-15 rebuild, 2026-09-10): rail, modules, the band's counter ===== -->
+  <RCB_CC_Title>Command Center</RCB_CC_Title>
+  <RCB_CC_Roster>Roster</RCB_CC_Roster>
+  <RCB_CC_Overview>Overview</RCB_CC_Overview>
+  <RCB_CC_Health>Health</RCB_CC_Health>
+  <RCB_CC_Armory>Armory</RCB_CC_Armory>
+  <RCB_CC_Loadouts>Loadouts</RCB_CC_Loadouts>
+  <RCB_CC_Squads>Squads</RCB_CC_Squads>
+
+  <RCB_CC_ColonyDay>Colony · day {DAY}</RCB_CC_ColonyDay>
+  <RCB_CC_StatColonists>colonists</RCB_CC_StatColonists>
+  <RCB_CC_StatDrafted>drafted</RCB_CC_StatDrafted>
+  <RCB_CC_StatTending>need tending</RCB_CC_StatTending>
+  <RCB_CC_StatMood>mean mood</RCB_CC_StatMood>
+  <RCB_CC_StatWealth>colony wealth</RCB_CC_StatWealth>
+  <RCB_CC_NeedsAttention>Needs attention</RCB_CC_NeedsAttention>
+  <RCB_CC_AllQuiet>Nobody needs attention right now.</RCB_CC_AllQuiet>
+  <RCB_CC_Bleeding>Bleeding · {TIME}</RCB_CC_Bleeding>
+  <RCB_CC_BleedingUntended>Bleeding · untended · {TIME}</RCB_CC_BleedingUntended>
+  <RCB_CC_NeedsTending>Needs tending</RCB_CC_NeedsTending>
+  <RCB_CC_Stressed>Stressed · {PCT}% above break</RCB_CC_Stressed>
+  <RCB_CC_BreakRisk>Mood {PCT}% · below break</RCB_CC_BreakRisk>
+  <RCB_CC_Tend>Tend</RCB_CC_Tend>
+  <RCB_CC_Inspect>Inspect</RCB_CC_Inspect>
+
+  <RCB_CC_MedicalPolicies>Medical policies</RCB_CC_MedicalPolicies>
+  <RCB_CC_Colonists>Colonists</RCB_CC_Colonists>
+  <RCB_CC_Healthy>Healthy</RCB_CC_Healthy>
+  <RCB_CC_HealthLink>Health</RCB_CC_HealthLink>
+
+  <RCB_CC_AutoAssign>Auto-assign</RCB_CC_AutoAssign>
+  <RCB_CC_Apply>Apply</RCB_CC_Apply>
+  <RCB_CC_Cancel>Cancel</RCB_CC_Cancel>
+  <RCB_CC_Weapons>Weapons</RCB_CC_Weapons>
+  <RCB_CC_NoWeapons>No weapons found.</RCB_CC_NoWeapons>
+  <RCB_CC_QualityHp>{QUALITY} · {HP}%</RCB_CC_QualityHp>
+  <RCB_CC_HpOnly>{HP}%</RCB_CC_HpOnly>
+  <RCB_CC_Unassigned>Unassigned</RCB_CC_Unassigned>
+  <RCB_CC_Unarmed>unarmed</RCB_CC_Unarmed>
+  <RCB_CC_EquipOn>Equip on {PAWN}</RCB_CC_EquipOn>
+  <RCB_CC_JumpToWeapon>Jump to weapon</RCB_CC_JumpToWeapon>
+  <RCB_CC_ProposalHeader>Proposed changes ({N})</RCB_CC_ProposalHeader>
+  <RCB_CC_NoProposal>Nothing to improve: everyone already holds the best weapon they can reach.</RCB_CC_NoProposal>
+  <RCB_CC_Applied>{N} equip orders issued.</RCB_CC_Applied>
+
+  <RCB_CC_EditLoadouts>Edit loadouts</RCB_CC_EditLoadouts>
+  <RCB_CC_LoadoutsHeader>Loadouts</RCB_CC_LoadoutsHeader>
+  <RCB_CC_AddLoadout>+ Add</RCB_CC_AddLoadout>
+  <RCB_CC_KitDefaultName>Kit {N}</RCB_CC_KitDefaultName>
+  <RCB_CC_Missing>{N} missing</RCB_CC_Missing>
+  <RCB_CC_Complete>complete</RCB_CC_Complete>
+  <RCB_CC_NoLoadout>No loadout</RCB_CC_NoLoadout>
+  <RCB_CC_Edit>Edit</RCB_CC_Edit>
+  <RCB_CC_AssignKit>Assign {KIT}</RCB_CC_AssignKit>
+  <RCB_CC_AssignedKit>{KIT} (assigned)</RCB_CC_AssignedKit>
+  <RCB_CC_ApplyNow>Apply now</RCB_CC_ApplyNow>
+  <RCB_CC_ClearLoadout>Clear loadout</RCB_CC_ClearLoadout>
+  <RCB_CC_NoKitsYet>No loadouts yet. Add one above.</RCB_CC_NoKitsYet>
+
+  <RCB_CC_NewSquad>New squad</RCB_CC_NewSquad>
+  <RCB_CC_NewSquadEllipsis>New squad...</RCB_CC_NewSquadEllipsis>
+  <RCB_CC_SquadsHeader>Squads</RCB_CC_SquadsHeader>
+  <RCB_CC_SquadCount>{NAME} · {N}</RCB_CC_SquadCount>
+  <RCB_CC_UnassignedCount>Unassigned · {N}</RCB_CC_UnassignedCount>
+  <RCB_CC_Move>Move</RCB_CC_Move>
+  <RCB_CC_SquadRename>Rename</RCB_CC_SquadRename>
+  <RCB_CC_SquadMoveUp>Move up</RCB_CC_SquadMoveUp>
+  <RCB_CC_SquadMoveDown>Move down</RCB_CC_SquadMoveDown>
+  <RCB_CC_SquadDisband>Disband</RCB_CC_SquadDisband>
+  <RCB_CC_NoColonists>No colonists.</RCB_CC_NoColonists>
+  <RCB_Rename>Rename</RCB_Rename>
+
+  <RCB_Band_Counter>{CUR} of {N}</RCB_Band_Counter>
+</LanguageData>

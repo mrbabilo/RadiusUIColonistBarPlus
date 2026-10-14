@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- Follow / "ambulance chase" camera toggle. Lives in the vanilla Camera category so it is
+       rebindable in Options > Keyboard configuration > Camera.
+
+       Delete, NOT Home and NOT F5. Two wrong answers before this one:
+         - Home collides with TimeSpeed_Faster.
+         - F5 collides with MainTab_Wildlife.
+       The F5 miss is worth remembering: vanilla's function-key bindings are NOT in
+       Core/Misc/KeyBindings/KeyBindings.xml. KeyBindingDefGenerator.ImpliedKeyBindingDefs() SYNTHESIZES
+       a "MainTab_<defName>" KeyBindingDef for every MainButtonDef that has a <defaultHotKey>, so
+       F1-F9 (Work/Schedule/Assign/Animals/Wildlife/Research/Quests/World/History) plus F10-F11 are all
+       taken and only show up if you grep MainButtonDefs for defaultHotKey.
+
+       The genuinely free space is therefore tiny: vanilla binds every letter A-Z, Alpha1-4, F1-F11,
+       Home/End/Insert/PageUp/PageDown, Tab/Space/Return/Escape, the arrows, brackets, and the
+       punctuation keys. Delete is unbound by vanilla, sits in the same navigation cluster as the
+       camera-adjacent Home/End/Insert/PageUp/PageDown, and is not an OS/Steam default the way F12
+       (Steam screenshot) is. Follow can also be toggled by right-clicking a bar cell, so this binding
+       is a convenience, not the only route to the feature. -->
+  <KeyBindingDef>
+    <defName>RCB_FollowCam</defName>
+    <!-- ⚠ The LABEL carries the mod name and the defName does NOT: renaming RCB_FollowCam would
+         silently drop every player's existing binding, while the label is free to change. This one
+         shipped a full release still reading "Modern Colonist Bar" - a rename leaves player-facing
+         strings behind exactly where a namespace grep never reaches. -->
+    <label>follow selected pawn (Radius UI)</label>
+    <category>GameMapCamera</category>
+    <defaultKeyCodeA>Delete</defaultKeyCodeA>
+  </KeyBindingDef>
+
+</Defs>
