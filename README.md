@@ -14,9 +14,9 @@ Clic droit sur l'onglet d'une escouade dans la barre (ou menu d'une escouade dan
 - **Mobiliser / Démobiliser l'escouade** ;
 - **Tir à volonté / Cesser le feu** ;
 - **Regroupement** : tout le monde court vers le chef (le premier membre dans l'ordre de la barre) ;
-- **Assaut** : l'escouade attaque d'elle-même, en visant d'abord les ennemis les plus forts, les plus faibles, ou ceux qui fuient. Elle se met à couvert comme en vanilla et attaque n'importe quel ennemi à portée quand aucun ne correspond. L'assaut s'arrête quand on démobilise un membre, qu'on lui donne un ordre, ou qu'on coupe le tir à volonté.
+- **Assaut** : l'escouade attaque d'elle-même, en visant d'abord les ennemis les plus forts, les plus faibles, ou ceux qui fuient. Elle se met à couvert comme en vanilla et attaque n'importe quel ennemi à portée quand aucun ne correspond. L'assaut s'arrête quand on démobilise un membre, qu'on lui donne un ordre, ou qu'on coupe le tir à volonté (pour toute l'escouade ou avec le bouton d'un seul pion). L'attaque en cours s'interrompt aussitôt.
 
-Les ordres ne touchent que les membres présents sur la carte affichée. Les mécanoïdes sont ignorés.
+Les ordres ne touchent que les membres présents sur la carte affichée. Les mécanoïdes, les pions à terre, en crise de nerfs ou en repos mortel sont ignorés.
 
 Les onglets d'escouade n'apparaissent que si le réglage des onglets de groupes est actif et qu'il y a au moins deux onglets.
 
