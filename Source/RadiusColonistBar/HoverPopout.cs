@@ -1080,9 +1080,18 @@ public static class HoverPopout
 			num = position.xMax + 5f;
 		}
 		float num2 = Mathf.Max(10f, r.xMax - num - 6f);
+		// Colonist Bar Plus: the label is drawn by Widgets.Label, so it is measured and cut with the same vanilla font
+		// (RcbFont.Fit measures the narrower Radius font and let "Démobiliser" wrap). A label too long for Small, as
+		// translated ones can be, drops to Tiny before it is cut.
+		string text = label ?? "";
 		Text.Font = GameFont.Small;
+		if (Text.CalcSize(text).x > num2)
+		{
+			Text.Font = GameFont.Tiny;
+		}
 		Text.Anchor = TextAnchor.MiddleLeft;
-		Label(new Rect(num, r.y, num2, r.height), RcbFont.Fit(label ?? "", num2, bold: false, GameFont.Small), flag ? NameCol : DimCol, a);
+		Label(new Rect(num, r.y, num2, r.height), text.Truncate(num2), flag ? NameCol : DimCol, a);
+		Text.Font = GameFont.Small;
 		int num3 = ((badge > 0) ? badge : ((count > 1) ? count : 0));
 		if (num3 > 0)
 		{

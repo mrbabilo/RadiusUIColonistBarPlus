@@ -9,7 +9,7 @@ Pour rester compatible avec les parties existantes, le fork garde le namespace `
 
 ## Ordres d'escouade
 
-Un clic droit sur l'onglet d'une escouade ouvre sa carte d'ordres ; un second clic droit, un clic en dehors ou Échap la ferme. Depuis le module Escouades du Centre de commandement, la carte s'ouvre près de la souris et ajoute Renommer, Monter, Descendre et Dissoudre. La carte montre l'état de l'escouade (membres présents, mobilisation, tir à volonté, assaut) et reste ouverte après un ordre :
+Un clic droit sur l'onglet d'une escouade ouvre sa carte d'ordres, déplaçable à la souris ; son carré en haut à droite, un second clic droit, un clic en dehors ou Échap la ferme. Depuis le module Escouades du Centre de commandement, la carte s'ouvre près de la souris et ajoute Renommer, Monter, Descendre et Dissoudre. La carte montre l'état de l'escouade (membres présents, mobilisation, tir à volonté, assaut) et reste ouverte après un ordre :
 
 - **Mobiliser / Démobiliser l'escouade** ;
 - **Tir à volonté / Cesser le feu** ;

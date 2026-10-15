@@ -9,7 +9,8 @@ using Verse.Sound;
 namespace RadiusColonistBar;
 
 // Squad orders (Colonist Bar Plus): the order card, opened by right-clicking a squad tab or from the Squads module.
-// It re-reads the squad state every frame and stays open after an order, so the new state shows at once.
+// It re-reads the squad state every frame and stays open after an order, so the new state shows at once. It can be
+// dragged by any spot outside its buttons, and closes with the suite's close square.
 public class SquadOrderCard : Window
 {
 	private const float Width = 380f;
@@ -19,6 +20,9 @@ public class SquadOrderCard : Window
 	private const float BtnH = 30f;
 
 	private const float Gap = 4f;
+
+	// The close square (26 px) and its gap to the header text.
+	private const float CloseW = 30f;
 
 	private readonly int index;
 
@@ -54,6 +58,7 @@ public class SquadOrderCard : Window
 		doWindowBackground = false;
 		drawShadow = false;
 		doCloseX = false;
+		draggable = true;
 		closeOnClickedOutside = true;
 		closeOnCancel = true;
 		absorbInputAroundWindow = false;
@@ -136,7 +141,12 @@ public class SquadOrderCard : Window
 		float x = inRect.x + Pad;
 		float num = inRect.width - Pad * 2f;
 		float y = inRect.y + Pad;
-		DrawHeader(new Rect(x, y, num, 24f), get, state);
+		DrawHeader(new Rect(x, y, num - CloseW, 24f), get, state);
+		if (UIKit.Flat.CloseXIn(inRect, Pad * 2f + 24f))
+		{
+			Close();
+			return;
+		}
 		y += 24f;
 		RcbFont.Label(new Rect(x, y, num, 20f), flag ? StateLine(state) : "RCB_Orders_NoMember".Translate().ToString(), bold: false, GameFont.Tiny, RcbPalette.TextDim);
 		y += 28f;
