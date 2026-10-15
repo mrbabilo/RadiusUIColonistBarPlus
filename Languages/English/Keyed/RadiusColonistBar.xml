@@ -487,5 +487,17 @@
   <RCB_Card_HoldShort>Hold fire</RCB_Card_HoldShort>
   <RCB_Card_RegroupShort>Regroup</RCB_Card_RegroupShort>
   <RCB_Hotkey_NoSquad>No squad selected</RCB_Hotkey_NoSquad>
+  <RCB_Stations_Title>BATTLE STATIONS</RCB_Stations_Title>
+  <RCB_Stations_Go>Go to station</RCB_Stations_Go>
+  <RCB_Stations_GoTip>Drafts the squad, ends its assault and sends each member running to their station {0}. Members without a station {0} on this map are drafted and stay where they are.</RCB_Stations_GoTip>
+  <RCB_Stations_Save>Save</RCB_Stations_Save>
+  <RCB_Stations_SaveTip>Saves where every member on this map stands now as station {0}. Members who are absent, downed or in a mental break keep their previous station.</RCB_Stations_SaveTip>
+  <RCB_Stations_Clear>Clear</RCB_Stations_Clear>
+  <RCB_Stations_ClearTip>Clears station {0} for every member of the squad, on every map. Asks for confirmation.</RCB_Stations_ClearTip>
+  <RCB_Stations_PipTip>Station {0}: saved here for {1} of the {2} members able to take orders on this map.\n\nClick to make it the active station.</RCB_Stations_PipTip>
+  <RCB_Stations_Saved>Station {0} saved: {1} pawns</RCB_Stations_Saved>
+  <RCB_Stations_ClearConfirm>Clear station {0} of squad {1}? This cannot be undone.</RCB_Stations_ClearConfirm>
+  <RCB_Stations_Cleared>Station {0} cleared</RCB_Stations_Cleared>
+  <RCB_Stations_None>No member of {1} has a station {0} on this map</RCB_Stations_None>
 
 </LanguageData>

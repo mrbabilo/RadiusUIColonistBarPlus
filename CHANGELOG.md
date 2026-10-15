@@ -1,5 +1,11 @@
 # Journal des modifications
 
+## 1.1.0 — non publiée
+
+- **Postes de combat** dans la carte d'ordres : quatre postes par escouade. Enregistrer prend la position actuelle des membres présents ; Aller au poste mobilise l'escouade, arrête son assaut et envoie chacun en sprint à sa case ; Effacer demande confirmation. Le survol montre les cases sur la carte.
+- Raccourci « aller au poste de combat actif », sans touche par défaut.
+- Les postes appartiennent au pion et à la carte où ils ont été enregistrés ; ils sont sauvegardés avec les escouades.
+
 ## 1.0.0 — 2026-10-15
 
 - Fork de Radius UI - Colonist Bar (astryl). Corrections de décompilation pour compiler les sources, dont les cibles de trois correctifs Harmony perdues par ILSpy (taille de la barre, espacement des pions, largeur maximale) : sans elles, la barre gardait les dimensions du jeu et les pions débordaient de leur fond.

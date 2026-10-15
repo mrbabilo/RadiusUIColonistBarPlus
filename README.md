@@ -27,9 +27,21 @@ Sans ouvrir la carte :
 
 Les onglets d'escouade n'apparaissent que si le réglage des onglets de groupes est actif et qu'il y a au moins deux onglets.
 
+## Postes de combat
+
+La carte d'ordres a une section « Postes de combat » : quatre postes par escouade, dont un actif (pastille surlignée, un clic pour changer).
+
+- **Enregistrer** : chaque membre présent sur la carte prend sa position actuelle comme poste actif. Les membres absents, à terre ou en crise gardent leur poste précédent. Pour retoucher un seul pion : le déplacer, puis réenregistrer.
+- **Aller au poste** : l'escouade se mobilise, sort de l'assaut et chaque membre court à sa case. Une case devenue impraticable est remplacée par la case libre la plus proche. Un membre sans poste sur cette carte est mobilisé et reste sur place.
+- **Effacer** : retire le poste actif de tous les membres de l'escouade, sur toutes les cartes, après confirmation.
+
+Survoler une pastille ou « Aller au poste » montre sur la carte la case de chaque membre. Un poste appartient au pion et ne vaut que pour la carte où il a été enregistré : un pion qui change d'escouade garde ses postes. Un septième raccourci, « aller au poste de combat actif », se règle avec les autres.
+
 ## Sauvegardes
 
 Le mod ajoute un composant de partie (`SquadAssault`) qui retient le mode d'assaut de chaque pion. Le retirer en cours de partie donne une erreur au chargement ; seuls les assauts en cours sont perdus.
+
+Les postes de combat sont sauvegardés avec les escouades. Une partie rouverte avec le Colonist Bar d'origine les perd sans autre erreur.
 
 ## Traduction
 

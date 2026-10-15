@@ -32,6 +32,19 @@
   <RCB_Card_HoldShort>Cesser le feu</RCB_Card_HoldShort>
   <RCB_Card_RegroupShort>Regrouper</RCB_Card_RegroupShort>
   <RCB_Hotkey_NoSquad>Aucune escouade sélectionnée</RCB_Hotkey_NoSquad>
+  <!-- Postes de combat -->
+  <RCB_Stations_Title>POSTES DE COMBAT</RCB_Stations_Title>
+  <RCB_Stations_Go>Aller au poste</RCB_Stations_Go>
+  <RCB_Stations_GoTip>Mobilise l'escouade, met fin à son assaut et envoie chaque membre en courant à son poste {0}. Les membres sans poste {0} sur cette carte sont mobilisés et restent sur place.</RCB_Stations_GoTip>
+  <RCB_Stations_Save>Enregistrer</RCB_Stations_Save>
+  <RCB_Stations_SaveTip>Enregistre la position actuelle de chaque membre présent sur cette carte comme poste {0}. Les membres absents, à terre ou en crise gardent leur poste précédent.</RCB_Stations_SaveTip>
+  <RCB_Stations_Clear>Effacer</RCB_Stations_Clear>
+  <RCB_Stations_ClearTip>Efface le poste {0} de tous les membres de l'escouade, sur toutes les cartes. Demande confirmation.</RCB_Stations_ClearTip>
+  <RCB_Stations_PipTip>Poste {0} : enregistré ici pour {1} des {2} membres en état de recevoir un ordre sur cette carte.\n\nCliquer pour en faire le poste actif.</RCB_Stations_PipTip>
+  <RCB_Stations_Saved>Poste {0} enregistré : {1} pions</RCB_Stations_Saved>
+  <RCB_Stations_ClearConfirm>Effacer le poste {0} de l'escouade {1} ? Action définitive.</RCB_Stations_ClearConfirm>
+  <RCB_Stations_Cleared>Poste {0} effacé</RCB_Stations_Cleared>
+  <RCB_Stations_None>Aucun membre de {1} n'a de poste {0} sur cette carte</RCB_Stations_None>
   <!-- Carte de survol : actions rapides -->
   <RCB_Qa_Selected>{0} sélectionnés</RCB_Qa_Selected>
   <RCB_Qa_Jump>Centrer</RCB_Qa_Jump>

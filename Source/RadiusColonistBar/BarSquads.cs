@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using RadiusUI.Framework;
@@ -26,6 +27,30 @@ public class BarSquads : GameComponent
 	public HashSet<int> ccPinned = new HashSet<int>();
 
 	public int cohortTab;
+
+	// Battle stations (Colonist Bar Plus): the active station slot (0-3) of each squad, parallel to names.
+	public List<int> activeStation = new List<int>();
+
+	public const int StationSlots = 4;
+
+	// Battle stations belong to the pawn, not the squad: disbanding or moving a squad shifts nothing.
+	// Key: thingIDNumber * StationSlots + slot.
+	private Dictionary<long, Station> stations = new Dictionary<long, Station>();
+
+	private List<int> stationPawnScratch;
+
+	private List<int> stationSlotScratch;
+
+	private List<int> stationMapScratch;
+
+	private List<IntVec3> stationCellScratch;
+
+	private struct Station
+	{
+		public int map;
+
+		public IntVec3 cell;
+	}
 
 	private List<int> hiddenScratch;
 
@@ -94,6 +119,8 @@ public class BarSquads : GameComponent
 		{
 			hidden = ((hiddenScratch != null) ? new HashSet<int>(hiddenScratch) : new HashSet<int>());
 		}
+		Scribe_Collections.Look(ref activeStation, "mcbActiveStation", LookMode.Value);
+		ExposeStations();
 		if (Scribe.mode == LoadSaveMode.PostLoadInit)
 		{
 			if (names == null)
@@ -128,6 +155,88 @@ public class BarSquads : GameComponent
 			{
 				icons.Add(icons.Count % 8);
 			}
+			if (activeStation == null)
+			{
+				activeStation = new List<int>();
+			}
+			if (activeStation.Count > names.Count)
+			{
+				activeStation.RemoveRange(names.Count, activeStation.Count - names.Count);
+			}
+			while (activeStation.Count < names.Count)
+			{
+				activeStation.Add(0);
+			}
+			for (int i = 0; i < activeStation.Count; i++)
+			{
+				if (activeStation[i] < 0 || activeStation[i] >= StationSlots)
+				{
+					activeStation[i] = 0;
+				}
+			}
+		}
+	}
+
+	// Saved as four flat lists. Stations of a map that no longer exists are dropped here, and only here: a check on the
+	// pawn would miss pawns away from every map (quests, kidnapping) and wipe their stations.
+	private void ExposeStations()
+	{
+		if (Scribe.mode == LoadSaveMode.Saving)
+		{
+			stationPawnScratch = new List<int>();
+			stationSlotScratch = new List<int>();
+			stationMapScratch = new List<int>();
+			stationCellScratch = new List<IntVec3>();
+			HashSet<int> hashSet = new HashSet<int>();
+			List<Map> maps = Find.Maps;
+			if (maps != null)
+			{
+				for (int i = 0; i < maps.Count; i++)
+				{
+					hashSet.Add(maps[i].uniqueID);
+				}
+			}
+			foreach (KeyValuePair<long, Station> station in stations)
+			{
+				if (hashSet.Contains(station.Value.map))
+				{
+					stationPawnScratch.Add((int)(station.Key / StationSlots));
+					stationSlotScratch.Add((int)(station.Key % StationSlots));
+					stationMapScratch.Add(station.Value.map);
+					stationCellScratch.Add(station.Value.cell);
+				}
+			}
+		}
+		Scribe_Collections.Look(ref stationPawnScratch, "mcbStationPawn", LookMode.Value);
+		Scribe_Collections.Look(ref stationSlotScratch, "mcbStationSlot", LookMode.Value);
+		Scribe_Collections.Look(ref stationMapScratch, "mcbStationMap", LookMode.Value);
+		Scribe_Collections.Look(ref stationCellScratch, "mcbStationCell", LookMode.Value);
+		if (Scribe.mode == LoadSaveMode.LoadingVars)
+		{
+			stations = new Dictionary<long, Station>();
+			// Missing or mismatched lists (older save, hand-edited file): no station rather than a wrong one.
+			if (stationPawnScratch != null && stationSlotScratch != null && stationMapScratch != null && stationCellScratch != null && stationSlotScratch.Count == stationPawnScratch.Count && stationMapScratch.Count == stationPawnScratch.Count && stationCellScratch.Count == stationPawnScratch.Count)
+			{
+				for (int j = 0; j < stationPawnScratch.Count; j++)
+				{
+					int num = stationSlotScratch[j];
+					if (num >= 0 && num < StationSlots)
+					{
+						stations[StationKey(stationPawnScratch[j], num)] = new Station
+						{
+							map = stationMapScratch[j],
+							cell = stationCellScratch[j]
+						};
+					}
+				}
+			}
+		}
+		if (Scribe.mode == LoadSaveMode.Saving || Scribe.mode == LoadSaveMode.LoadingVars)
+		{
+			stationPawnScratch = null;
+			stationSlotScratch = null;
+			stationMapScratch = null;
+			stationCellScratch = null;
 		}
 	}
 
@@ -180,6 +289,90 @@ public class BarSquads : GameComponent
 		}
 	}
 
+	private static long StationKey(int pawnId, int slot)
+	{
+		return (long)pawnId * StationSlots + slot;
+	}
+
+	public int ActiveStation(int i)
+	{
+		return (i >= 0 && i < activeStation.Count) ? activeStation[i] : 0;
+	}
+
+	public void SetActiveStation(int i, int slot)
+	{
+		if (i >= 0 && i < activeStation.Count && slot >= 0 && slot < StationSlots)
+		{
+			activeStation[i] = slot;
+		}
+	}
+
+	// True only for a station saved on this map: a station elsewhere means nothing here.
+	public bool StationOn(Pawn p, int slot, Map map, out IntVec3 cell)
+	{
+		cell = IntVec3.Invalid;
+		if (p == null || map == null || !stations.TryGetValue(StationKey(p.thingIDNumber, slot), out var value) || value.map != map.uniqueID)
+		{
+			return false;
+		}
+		cell = value.cell;
+		return true;
+	}
+
+	public void SetStation(Pawn p, int slot, Map map, IntVec3 cell)
+	{
+		if (p != null && map != null && slot >= 0 && slot < StationSlots)
+		{
+			stations[StationKey(p.thingIDNumber, slot)] = new Station
+			{
+				map = map.uniqueID,
+				cell = cell
+			};
+		}
+	}
+
+	// A station on any map that still exists: what Clear would remove that the player can still use.
+	public bool HasLiveStation(Pawn p, int slot)
+	{
+		if (p == null || !stations.TryGetValue(StationKey(p.thingIDNumber, slot), out var value))
+		{
+			return false;
+		}
+		List<Map> maps = Find.Maps;
+		for (int i = 0; i < maps.Count; i++)
+		{
+			if (maps[i].uniqueID == value.map)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public void ClearSquadStation(int i, int slot)
+	{
+		foreach (KeyValuePair<int, int> item in squadOf)
+		{
+			if (item.Value == i)
+			{
+				stations.Remove(StationKey(item.Key, slot));
+			}
+		}
+	}
+
+	public override void GameComponentUpdate()
+	{
+		try
+		{
+			SquadStations.DrawHover();
+		}
+		catch (Exception ex)
+		{
+			// Runs every frame: one log line, not one per frame.
+			Log.ErrorOnce("[Radius UI - Colonist Bar] Battle station preview failed: " + ex, 0x52435354);
+		}
+	}
+
 	public void Assign(Pawn p, int i)
 	{
 		if (p != null)
@@ -212,6 +405,10 @@ public class BarSquads : GameComponent
 		names.Add("Squad " + (names.Count + 1));
 		colors.Add(SquadFill);
 		icons.Add((names.Count - 1) % 8);
+		while (activeStation.Count < names.Count)
+		{
+			activeStation.Add(0);
+		}
 		Dirty();
 		return names.Count - 1;
 	}
@@ -230,6 +427,10 @@ public class BarSquads : GameComponent
 		if (i < icons.Count)
 		{
 			icons.RemoveAt(i);
+		}
+		if (i < activeStation.Count)
+		{
+			activeStation.RemoveAt(i);
 		}
 		List<int> list = new List<int>(squadOf.Keys);
 		for (int j = 0; j < list.Count; j++)
@@ -291,6 +492,12 @@ public class BarSquads : GameComponent
 			int value6 = icons[i];
 			list5[index] = value5;
 			list6[index2] = value6;
+		}
+		if (i < activeStation.Count && num < activeStation.Count)
+		{
+			int value7 = activeStation[num];
+			activeStation[num] = activeStation[i];
+			activeStation[i] = value7;
 		}
 		List<int> list7 = new List<int>(squadOf.Keys);
 		for (int j = 0; j < list7.Count; j++)

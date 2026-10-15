@@ -47,7 +47,7 @@ Hors périmètre de ce lot : la capture des ennemis à terre (reportée, voir §
 - Retire le poste actif de **tous** les membres de l'escouade (présents ou non, toutes cartes).
 - Action sans retour : elle passe par une confirmation (`Dialog_MessageBox.CreateConfirmation`, « Effacer le poste {N} de l'escouade {nom} ? », bouton destructif). La carte se ferme avant d'ouvrir la confirmation, comme pour Renommer : sur la couche `Super`, elle couvrirait la boîte et capterait ses clics.
 - Message `SilentInput` après confirmation : « Poste {N} effacé ».
-- Bouton grisé si aucun membre de l'escouade n'a de poste à cet emplacement.
+- Bouton grisé si aucun membre vivant de l'escouade (cartes, caravanes, transports) n'a de poste à cet emplacement sur une carte qui existe encore. Calculé avec l'état d'escouade (`SquadStatus.State.stationMask`), déjà mis en cache.
 
 ## 2. Données et sauvegardes
 
@@ -64,7 +64,7 @@ Les données vont dans `BarSquads`, classe déjà sauvegardée et déjà propre 
 - En mémoire : `Dictionary<int, Station>`, clé = `thingIDNumber * 4 + emplacement` (emplacement 0-3). `Station` : structure privée `mapId` (`int`) + `cell` (`IntVec3`).
 - Sauvegarde : quatre listes plates, clés `mcbStationPawn`, `mcbStationSlot`, `mcbStationMap`, `mcbStationCell` (`LookMode.Value`), construites au `Saving`, relues au `LoadingVars` (même schéma que `hiddenScratch`).
 - Chargement : listes absentes, nulles ou de longueurs différentes : postes vides, sans exception ; emplacement hors 0-3 : entrée ignorée.
-- Accesseurs : `bool StationOf(Pawn, int slot, out int mapId, out IntVec3 cell)`, `void SetStation(Pawn, int slot, Map, IntVec3)`, `void ClearStation(int pawnId, int slot)`. « Effacer » et le comptage toutes cartes parcourent les identifiants de `squadOf` qui pointent vers l'escouade : aucun `Pawn` n'est nécessaire pour les membres absents.
+- Accesseurs : `int ActiveStation(int i)`, `void SetActiveStation(int i, int slot)`, `bool StationOn(Pawn, int slot, Map, out IntVec3 cell)` (vrai seulement pour un poste de cette carte), `void SetStation(Pawn, int slot, Map, IntVec3)`, `bool HasLiveStation(Pawn, int slot)` (poste sur une carte qui existe encore), `void ClearSquadStation(int i, int slot)`. « Effacer » parcourt les identifiants de `squadOf` qui pointent vers l'escouade : aucun `Pawn` n'est nécessaire pour les membres absents.
 
 ### Nettoyage
 
@@ -109,7 +109,7 @@ Coût par image : la carte appelle `SquadMembers.Able` **une fois** par image po
 | Fichier | Rôle |
 |---|---|
 | `BarSquads.cs` | Données § 2, accesseurs, `GameComponentUpdate`. |
-| `SquadStations.cs` (nouveau) | Classe statique, sur le modèle de `SquadOrders` : `Save(index)`, `Go(index)`, `Clear(index)`, `CountOnMap(index, slot, map)`, `CountAny(index, slot)`, état du survol, `DrawHover()`. |
+| `SquadStations.cs` (nouveau) | Classe statique, sur le modèle de `SquadOrders` : `Save(index)`, `Go(index)`, `AskClear(index)`, `CountOnMap(members, squads, slot, map)`, `Hover(index, slot)`, `DrawHover()`. |
 | `SquadOrderCard.cs` | Section « Postes de combat » § 3. |
 | `SquadHotkeys.cs`, `Defs/KeyBindings_Squads.xml` | Septième raccourci. |
 | `SquadStatus.cs` | `Invalidate` après chaque action, comme les autres ordres. |

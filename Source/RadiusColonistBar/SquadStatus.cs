@@ -24,6 +24,10 @@ internal static class SquadStatus
 		public bool hasCommonMode;
 
 		public AssaultMode commonMode;
+
+		// Battle stations (Colonist Bar Plus): bit n set when a living member, on any map, has station n on a map
+		// that still exists. Dead members and destroyed maps would otherwise keep Clear enabled with nothing to clear.
+		public int stationMask;
 	}
 
 	private const int CacheFrames = 20;
@@ -101,6 +105,13 @@ internal static class SquadStatus
 			if (get.SquadIndexOf(list2[j]) == index)
 			{
 				result.total++;
+				for (int k = 0; k < BarSquads.StationSlots; k++)
+				{
+					if (get.HasLiveStation(list2[j], k))
+					{
+						result.stationMask |= 1 << k;
+					}
+				}
 			}
 		}
 		result.total = Mathf.Max(result.total, result.present);

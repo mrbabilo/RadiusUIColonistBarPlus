@@ -22,6 +22,8 @@ internal static class SquadHotkeys
 
 	private static KeyBindingDef fleeing;
 
+	private static KeyBindingDef station;
+
 	private static bool bound;
 
 	private static readonly List<int> targets = new List<int>();
@@ -78,6 +80,10 @@ internal static class SquadHotkeys
 				SquadOrders.Assault(i, AssaultMode.Fleeing);
 			});
 		}
+		else if (Pressed(station))
+		{
+			Run(SquadStations.Go);
+		}
 	}
 
 	private static void Bind()
@@ -91,6 +97,7 @@ internal static class SquadHotkeys
 			strongest = DefDatabase<KeyBindingDef>.GetNamedSilentFail("RCB_SquadAssaultStrongest");
 			weakest = DefDatabase<KeyBindingDef>.GetNamedSilentFail("RCB_SquadAssaultWeakest");
 			fleeing = DefDatabase<KeyBindingDef>.GetNamedSilentFail("RCB_SquadAssaultFleeing");
+			station = DefDatabase<KeyBindingDef>.GetNamedSilentFail("RCB_SquadGoToStation");
 		}
 	}
 

@@ -4,32 +4,26 @@
 
 Principe : reprendre par lots les fonctions de groupe de [LTO] Colony Groups, réécrites au style Radius et appliquées aux escouades de Colonist Bar. Colony Groups n'a pas de licence : son code sert de référence de comportement et n'est jamais recopié.
 
-## Fait (1.0.0, publiée le 2026-10-15)
+## Fait (lots 1 et 1 bis publiés en 1.0.0 le 2026-10-15 ; lot 2 pour la 1.1.0)
 
 | Lot | Spec | Contenu |
 |---|---|---|
 | 1. Ordres de combat | `2026-10-14-ordres-de-combat-design.md` | Mobiliser, tir à volonté, regroupement sur le chef, assaut (plus forts, plus faibles, fuyards). `SquadAssault` (`GameComponent`), nœud `RCB_SquadAssault` dans l'arbre de pensée, ciblage vanilla filtré, sans `Lord` ni `DutyDef`. |
 | 1 bis. Carte d'ordres et aides | `2026-10-15-carte-ordres-design.md` | Carte Radius à la place du menu déroulant (déplaçable, fermable), état sur l'onglet, épée sur le portrait, six raccourcis clavier (catégorie `RCB_Squads`). Les raccourcis, prévus pour plus tard, sont arrivés avec ce lot. |
+| 2. Postes de combat | `2026-10-16-postes-de-combat-design.md` | Quatre postes par escouade, enregistrés par pion et par carte dans `BarSquads` ; Aller, Enregistrer, Effacer (avec confirmation) ; aperçu au survol ; raccourci `RCB_SquadGoToStation`. |
 
-Contrôles en jeu des deux lots : faits.
+Contrôles en jeu des lots 1 et 1 bis : faits. Lot 2 : codé, contrôles en jeu à faire.
 
 ## Publication 1.0.0 (faite le 2026-10-15)
 
 - `CHANGELOG.md` daté, tag `v1.0.0`, release GitHub avec le zip du dossier publié `Mods/RadiusUIColonistBarPlus`.
 - Page Workshop : texte prêt dans `docs/WORKSHOP.md` (incompatibilité avec Colonist Bar d'origine et Colony Groups, multijoueur non pris en charge). L'envoi se fait depuis le jeu, par le joueur.
 
-Prochaine étape : spec du lot 2.
+Prochaine étape : contrôles en jeu du lot 2, puis publication 1.1.0.
 
 ## Lots suivants
 
 Chaque lot a sa propre spec, puis son plan, avant tout code. Ordre proposé : du plus proche des ordres existants au plus intrusif pour les sauvegardes.
-
-### Lot 2 : postes de combat
-
-- Jusqu'à quatre formations par escouade, une position par pion (référence : `BattleStationsMenu`, `Formation` de Colony Groups).
-- Ordre « aller au poste » depuis la carte d'ordres, et raccourci clavier.
-- Positions sauvegardées par carte dans un `GameComponent` (ou dans `BarSquads` si la forme s'y prête) : à trancher dans la spec, avec le risque de sauvegarde.
-- Petit ajout possible dans le même lot : capture des ennemis à terre, seul ordre de combat de Colony Groups non repris au lot 1.
 
 ### Lot 3 : ordres médicaux
 
@@ -44,6 +38,7 @@ Chaque lot a sa propre spec, puis son plan, avant tout code. Ordre proposé : du
 
 ### À évaluer, sans lot pour l'instant
 
+- Capture des ennemis à terre (sortie du lot 2) : choix du lit de prisonnier, de l'ennemi et du porteur.
 - Menu du portrait (cité hors périmètre du lot 1, sans contenu défini).
 - Factures réservées à une escouade : patchs de `Bill.PawnAllowedToStartAnew` et `Dialog_BillConfig`, donnée sauvegardée sur chaque facture. Coût élevé.
 - Affichage de Colony Groups (barres de besoins, risque de crise) : Colonist Bar a déjà sa bande d'alertes ; à garder seulement si un manque réel apparaît en jeu.

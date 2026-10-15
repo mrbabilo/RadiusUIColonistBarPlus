@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using RadiusUI.Framework;
 using RimWorld;
 using RimWorld.Planet;
@@ -20,6 +21,9 @@ public class SquadOrderCard : Window
 	private const float BtnH = 30f;
 
 	private const float Gap = 4f;
+
+	// Station slot pips (Colonist Bar Plus).
+	private const float PipH = 24f;
 
 	// The close square (26 px) and its gap to the header text.
 	private const float CloseW = 30f;
@@ -117,8 +121,9 @@ public class SquadOrderCard : Window
 
 	private float ContentHeight()
 	{
-		// Header 24 + state 20 + 2 rows of orders + assault title 18 + assault row, plus the footer when managed.
-		float num = Pad + 24f + 20f + 8f + (BtnH * 2f + Gap) + 10f + 18f + BtnH + Pad;
+		// Header 24 + state 20 + 2 rows of orders + stations (title 18, pips, buttons) + assault title 18 + assault row,
+		// plus the footer when managed.
+		float num = Pad + 24f + 20f + 8f + (BtnH * 2f + Gap) + 10f + (18f + PipH + Gap + BtnH) + 10f + 18f + BtnH + Pad;
 		if (managed)
 		{
 			num += 8f + BtnH;
@@ -174,6 +179,11 @@ public class SquadOrderCard : Window
 			SquadOrders.Regroup(index);
 		}
 		y += BtnH + 10f;
+		if (DrawStations(x, ref y, num, get, state))
+		{
+			return;
+		}
+		y += 10f;
 		RcbPalette.MicroLabel(new Rect(x, y, num, 18f), "RCB_Card_AssaultTitle".Translate(), RcbPalette.TextDim2, TextAnchor.MiddleLeft, shadow: false);
 		y += 18f;
 		float num3 = (num - Gap * 2f) / 3f;
@@ -186,6 +196,80 @@ public class SquadOrderCard : Window
 			y += 8f;
 			DrawManageRow(new Rect(x, y, num, BtnH), managedSquads);
 		}
+	}
+
+	// Battle stations (Colonist Bar Plus): slot pips, then Go / Save / Clear on the active slot. One Able call for the
+	// whole section: it sorts and reads the bar, five calls a frame would add up. Returns true when the card closed.
+	private bool DrawStations(float x, ref float y, float w, BarSquads squads, SquadStatus.State state)
+	{
+		Map currentMap = Find.CurrentMap;
+		List<Pawn> list = SquadMembers.Able(currentMap, index);
+		int num = squads.ActiveStation(index);
+		RcbPalette.MicroLabel(new Rect(x, y, w, 18f), "RCB_Stations_Title".Translate(), RcbPalette.TextDim2, TextAnchor.MiddleLeft, shadow: false);
+		y += 18f;
+		float num2 = (w - Gap * 3f) / 4f;
+		for (int i = 0; i < BarSquads.StationSlots; i++)
+		{
+			Rect r = new Rect(x + (num2 + Gap) * (float)i, y, num2, PipH);
+			if (Mouse.IsOver(r))
+			{
+				SquadStations.Hover(index, i, list);
+			}
+			if (Pip(r, i, SquadStations.CountOnMap(list, squads, i, currentMap), list.Count, i == num))
+			{
+				squads.SetActiveStation(index, i);
+			}
+		}
+		y += PipH + Gap;
+		float num3 = (w - Gap * 2f) / 3f;
+		Rect rect = new Rect(x, y, num3, BtnH);
+		if (Mouse.IsOver(rect))
+		{
+			SquadStations.Hover(index, num, list);
+		}
+		if (Button(rect, null, "RCB_Stations_Go".Translate(), "RCB_Stations_GoTip".Translate(num + 1), SquadStations.CountOnMap(list, squads, num, currentMap) > 0, active: false))
+		{
+			SquadStations.Go(index);
+		}
+		if (Button(new Rect(x + num3 + Gap, y, num3, BtnH), null, "RCB_Stations_Save".Translate(), "RCB_Stations_SaveTip".Translate(num + 1), list.Count > 0, active: false))
+		{
+			SquadStations.Save(index);
+		}
+		if (Button(new Rect(x + (num3 + Gap) * 2f, y, num3, BtnH), null, "RCB_Stations_Clear".Translate(), "RCB_Stations_ClearTip".Translate(num + 1), (state.stationMask & (1 << num)) != 0, active: false))
+		{
+			// The card sits above dialogs: left open, it would cover the confirmation and keep its input.
+			Close();
+			SquadStations.AskClear(index);
+			return true;
+		}
+		y += BtnH;
+		return false;
+	}
+
+	// Active slot: accent. Slot saved on this map for at least one able member: filled. Otherwise: faint outline.
+	private static bool Pip(Rect r, int slot, int saved, int able, bool active)
+	{
+		bool flag = Mouse.IsOver(r);
+		if (active || saved > 0)
+		{
+			RcbSpatial.Rounded(r, active ? RcbPalette.Accent : Color.Lerp(RcbPalette.Ink, Color.white, flag ? 0.2f : 0.12f));
+		}
+		else
+		{
+			RcbSpatial.Ring(r, Color.Lerp(RcbPalette.Ink, Color.white, flag ? 0.22f : 0.12f), RcbPalette.Ink, 1.5f);
+		}
+		Color col = (active ? Palette.Flat.Rail : ((saved > 0) ? RcbPalette.Stat : RcbPalette.TextDim2));
+		RcbFont.Label(r, (slot + 1).ToString(), bold: true, GameFont.Small, col, TextAnchor.MiddleCenter);
+		if (flag)
+		{
+			TooltipHandler.TipRegion(r, "RCB_Stations_PipTip".Translate(slot + 1, saved, able));
+		}
+		if (Widgets.ButtonInvisible(r))
+		{
+			SoundDefOf.Click.PlayOneShotOnCamera();
+			return true;
+		}
+		return false;
 	}
 
 	private void DrawHeader(Rect r, BarSquads squads, SquadStatus.State state)

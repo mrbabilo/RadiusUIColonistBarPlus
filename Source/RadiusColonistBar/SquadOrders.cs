@@ -187,7 +187,7 @@ internal static class SquadOrders
 		return true;
 	}
 
-	private static void Try(Pawn pawn, Action action)
+	internal static void Try(Pawn pawn, Action action)
 	{
 		try
 		{
