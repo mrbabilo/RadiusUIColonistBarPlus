@@ -1,6 +1,6 @@
 # Journal des modifications
 
-## 1.0.0 — non publiée
+## 1.0.0 — 2026-10-15
 
 - Fork de Radius UI - Colonist Bar (astryl). Corrections de décompilation pour compiler les sources, dont les cibles de trois correctifs Harmony perdues par ILSpy (taille de la barre, espacement des pions, largeur maximale) : sans elles, la barre gardait les dimensions du jeu et les pions débordaient de leur fond.
 - **Ordres d'escouade** par clic droit sur l'onglet d'une escouade ou depuis le module Escouades : mobiliser ou démobiliser, tir à volonté, regroupement sur le chef, assaut (les plus forts d'abord, les plus faibles d'abord, poursuite des fuyards).
