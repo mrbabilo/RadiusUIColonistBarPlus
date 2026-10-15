@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RCB_SquadDraft.label>mobiliser / démobiliser l'escouade</RCB_SquadDraft.label>
+  <RCB_SquadFireAtWill.label>tir à volonté / cesser le feu</RCB_SquadFireAtWill.label>
+  <RCB_SquadRegroup.label>regrouper sur le chef</RCB_SquadRegroup.label>
+  <RCB_SquadAssaultStrongest.label>assaut : les plus forts d'abord</RCB_SquadAssaultStrongest.label>
+  <RCB_SquadAssaultWeakest.label>assaut : les plus faibles d'abord</RCB_SquadAssaultWeakest.label>
+  <RCB_SquadAssaultFleeing.label>assaut : poursuivre les fuyards</RCB_SquadAssaultFleeing.label>
+</LanguageData>

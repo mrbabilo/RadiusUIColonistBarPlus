@@ -4,23 +4,34 @@
 <LanguageData>
   <RCB_Sub_RightClickTip>Clic droit : ouvrir en sous-menu sans fermer ce menu.</RCB_Sub_RightClickTip>
   <RCB_Orders_NoMember>Aucun membre de l'escouade sur cette carte</RCB_Orders_NoMember>
-  <RCB_Orders_Draft>Mobiliser l'escouade</RCB_Orders_Draft>
   <RCB_Orders_DraftTip>Mobilise tous les membres de cette escouade présents sur cette carte.</RCB_Orders_DraftTip>
-  <RCB_Orders_Undraft>Démobiliser l'escouade</RCB_Orders_Undraft>
   <RCB_Orders_UndraftTip>Démobilise tous les membres de cette escouade présents sur cette carte. Leur assaut prend fin.</RCB_Orders_UndraftTip>
-  <RCB_Orders_FireAtWillOn>Tir à volonté</RCB_Orders_FireAtWillOn>
-  <RCB_Orders_FireAtWillOff>Cesser le feu</RCB_Orders_FireAtWillOff>
   <RCB_Orders_FireAtWillTip>Active le tir à volonté pour toute l'escouade, ou le coupe si tout le monde l'a déjà. Cesser le feu met fin à l'assaut.</RCB_Orders_FireAtWillTip>
-  <RCB_Orders_Regroup>Regroupement</RCB_Orders_Regroup>
   <RCB_Orders_RegroupTip>Mobilise l'escouade, met fin à son assaut et envoie chacun en courant vers le chef (le premier membre dans l'ordre de la barre).</RCB_Orders_RegroupTip>
-  <RCB_Orders_Assault>Assaut</RCB_Orders_Assault>
-  <RCB_Orders_AssaultStrongest>Les plus forts d'abord</RCB_Orders_AssaultStrongest>
   <RCB_Orders_AssaultStrongestTip>Mobilise l'escouade, qui attaque d'elle-même en visant d'abord les ennemis les plus forts à sa portée. Démobilisez un membre ou donnez-lui un ordre pour l'arrêter.</RCB_Orders_AssaultStrongestTip>
-  <RCB_Orders_AssaultWeakest>Les plus faibles d'abord</RCB_Orders_AssaultWeakest>
   <RCB_Orders_AssaultWeakestTip>Mobilise l'escouade, qui attaque d'elle-même en visant d'abord les ennemis les plus faibles à sa portée. Démobilisez un membre ou donnez-lui un ordre pour l'arrêter.</RCB_Orders_AssaultWeakestTip>
-  <RCB_Orders_AssaultFleeing>Poursuivre les fuyards</RCB_Orders_AssaultFleeing>
   <RCB_Orders_AssaultFleeingTip>Mobilise l'escouade, qui poursuit les ennemis en fuite ou qui quittent la carte, puis tout ennemi à sa portée. Démobilisez un membre ou donnez-lui un ordre pour l'arrêter.</RCB_Orders_AssaultFleeingTip>
-  <RCB_Orders_ActiveMark>{0} (en cours)</RCB_Orders_ActiveMark>
+  <!-- Carte d'ordres -->
+  <RCB_Card_Present>{0}/{1} sur la carte</RCB_Card_Present>
+  <RCB_Card_Drafted>Mobilisée</RCB_Card_Drafted>
+  <RCB_Card_DraftedPart>Mobilisée en partie</RCB_Card_DraftedPart>
+  <RCB_Card_Undrafted>Démobilisée</RCB_Card_Undrafted>
+  <RCB_Card_Fire>Tir à volonté</RCB_Card_Fire>
+  <RCB_Card_FirePart>Tir à volonté en partie</RCB_Card_FirePart>
+  <RCB_Card_FireOff>Feu cessé</RCB_Card_FireOff>
+  <RCB_Card_AssaultMode>Assaut : {0}</RCB_Card_AssaultMode>
+  <RCB_Card_AssaultPart>Assaut en partie</RCB_Card_AssaultPart>
+  <RCB_Card_AssaultTitle>ASSAUT</RCB_Card_AssaultTitle>
+  <RCB_Card_AssaultStopTip>Cliquer sur le mode actif arrête l'assaut. Les membres restent mobilisés.</RCB_Card_AssaultStopTip>
+  <RCB_Card_Strongest>Plus forts</RCB_Card_Strongest>
+  <RCB_Card_Weakest>Plus faibles</RCB_Card_Weakest>
+  <RCB_Card_Fleeing>Fuyards</RCB_Card_Fleeing>
+  <RCB_Card_DraftShort>Mobiliser</RCB_Card_DraftShort>
+  <RCB_Card_UndraftShort>Démobiliser</RCB_Card_UndraftShort>
+  <RCB_Card_FireShort>Tir à volonté</RCB_Card_FireShort>
+  <RCB_Card_HoldShort>Cesser le feu</RCB_Card_HoldShort>
+  <RCB_Card_RegroupShort>Regrouper</RCB_Card_RegroupShort>
+  <RCB_Hotkey_NoSquad>Aucune escouade sélectionnée</RCB_Hotkey_NoSquad>
   <!-- Carte de survol : actions rapides -->
   <RCB_Qa_Selected>{0} sélectionnés</RCB_Qa_Selected>
   <RCB_Qa_Jump>Centrer</RCB_Qa_Jump>

@@ -1012,7 +1012,12 @@ internal static class RcbIsland
 			}
 			int num9 = RcbCohorts.TokenSeverity(num7);
 			float num10 = ((num9 >= 0) ? 9f : 0f);
-			RcbPalette.MicroLabel(new Rect(rect.x + 7f, rect.y, rect.width - 14f - num10, rect.height), TabCaption(num7, shortNames), (flag || flag2) ? RcbPalette.Stat : Dim2, TextAnchor.MiddleLeft, shadow: false);
+			float marks = SquadMarksWidth(num7);
+			RcbPalette.MicroLabel(new Rect(rect.x + 7f, rect.y, rect.width - 14f - num10 - marks, rect.height), TabCaption(num7, shortNames), (flag || flag2) ? RcbPalette.Stat : Dim2, TextAnchor.MiddleLeft, shadow: false);
+			if (marks > 0f)
+			{
+				DrawSquadMarks(rect.xMax - 7f - num10 - marks, rect.center.y, num7);
+			}
 			if (num9 >= 0)
 			{
 				RcbSpatial.Dot(new Rect(rect.xMax - 11f, rect.center.y - 2.5f, 5f, 5f), Palette.Flat.Alert);
@@ -1082,14 +1087,16 @@ internal static class RcbIsland
 		return spillCap;
 	}
 
-	// Squad orders (Colonist Bar Plus): squad index of the rail tab under the mouse, or -1. Tabs folded into the
+	// Squad orders (Colonist Bar Plus): squad index and rect of the rail tab under the mouse, or -1. Tabs folded into the
 	// "+N" menu have no rect here; the Squads module covers them.
-	private static int SquadTabAt(Vector2 pos)
+	private static int SquadTabAt(Vector2 pos, out Rect tab)
 	{
+		tab = default(Rect);
 		for (int i = 0; i < tabRects.Count && i < railTok.Count; i++)
 		{
 			if (tabRects[i].Contains(pos) && RcbCohorts.TokenIsSquad(railTok[i], out var si))
 			{
+				tab = tabRects[i];
 				return si;
 			}
 		}
@@ -1172,7 +1179,40 @@ internal static class RcbIsland
 	{
 		TabCaption(t, shortNames);
 		float num = ((t >= 100) ? (shortNames ? sqCapSW[t - 100] : sqCapW[t - 100]) : tabCapWidth[t]);
-		return num + 14f + ((RcbCohorts.TokenSeverity(t) >= 0) ? 9f : 0f);
+		return num + 14f + ((RcbCohorts.TokenSeverity(t) >= 0) ? 9f : 0f) + SquadMarksWidth(t);
+	}
+
+	// Squad orders (Colonist Bar Plus): room for the drafted dot and the assault sword on a squad tab.
+	private static float SquadMarksWidth(int t)
+	{
+		if (!RcbCohorts.TokenIsSquad(t, out var si))
+		{
+			return 0f;
+		}
+		SquadStatus.State state = SquadStatus.Of(si);
+		return ((state.drafted > 0) ? 8f : 0f) + ((state.assault > 0) ? 13f : 0f);
+	}
+
+	// Squad orders (Colonist Bar Plus): drafted dot, then the assault sword.
+	private static void DrawSquadMarks(float x, float cy, int t)
+	{
+		if (!RcbCohorts.TokenIsSquad(t, out var si))
+		{
+			return;
+		}
+		SquadStatus.State state = SquadStatus.Of(si);
+		if (state.drafted > 0)
+		{
+			RcbSpatial.Dot(new Rect(x + 1f, cy - 2.5f, 5f, 5f), RcbPalette.Accent);
+			x += 8f;
+		}
+		if (state.assault > 0)
+		{
+			Color color = GUI.color;
+			GUI.color = RcbPalette.Accent;
+			GUI.DrawTexture(new Rect(x, cy - 5.5f, 11f, 11f), IconSet.Common.Sword);
+			GUI.color = color;
+		}
 	}
 
 	private static float RunWidth(bool shortNames)
@@ -1501,13 +1541,13 @@ internal static class RcbIsland
 			Event current2 = Event.current;
 			if (RcbInput.RightPress(current2) && RcbGuard.Finite(lastSlab) && lastSlab.Contains(current2.mousePosition) && !OverACard(current2.mousePosition))
 			{
-				// Squad orders (Colonist Bar Plus): right-click a squad tab for its orders; elsewhere on the rail it
-				// still goes back to "All".
-				int squadTab = SquadTabAt(current2.mousePosition);
+				// Squad orders (Colonist Bar Plus): right-click a squad tab for its order card (again to close it);
+				// elsewhere on the rail it still goes back to "All".
+				int squadTab = SquadTabAt(current2.mousePosition, out var tabRect);
 				if (squadTab >= 0)
 				{
 					SoundDefOf.Click.PlayOneShotOnCamera();
-					SquadOrderMenu.Open(squadTab);
+					SquadOrderCard.Toggle(squadTab, tabRect);
 				}
 				else if (RcbGuard.Finite(lastRailBand) && lastRailBand.height > 1f && lastRailBand.Contains(current2.mousePosition) && RcbCohorts.Token != 0)
 				{
@@ -1880,6 +1920,12 @@ internal static class RcbIsland
 			{
 				BadgeLayer.NumBox(new Rect(rect4.xMax - num18 - 2f, rect4.y + 2f, num18, num18), Palette.Flat.Faction, SmallStrings.Int(num19));
 			}
+		}
+		// Squad orders (Colonist Bar Plus): a sword in the bottom-right corner while the pawn follows an assault.
+		SquadAssault squadAssault = SquadAssault.Get;
+		if (squadAssault != null && squadAssault.TryGetMode(p, out var _))
+		{
+			BadgeLayer.Icon(new Rect(rect4.xMax - num18 - 2f, rect4.yMax - num18 - 2f, num18, num18), IconSet.Common.Sword, RcbPalette.Accent);
 		}
 		if (num16 > 0f)
 		{

@@ -37,6 +37,13 @@ public class Dialog_RenameSquad : Window
 		closeOnAccept = false;
 	}
 
+	// Squad orders (Colonist Bar Plus): give the keyboard focus back, or the squad hotkeys stay off after a rename.
+	public override void PostClose()
+	{
+		base.PostClose();
+		UI.UnfocusCurrentControl();
+	}
+
 	public override void DoWindowContents(Rect inRect)
 	{
 		Text.Font = GameFont.Small;

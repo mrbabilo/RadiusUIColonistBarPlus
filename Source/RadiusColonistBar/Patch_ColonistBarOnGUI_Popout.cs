@@ -17,6 +17,13 @@ internal static class Patch_ColonistBarOnGUI_Popout
 		}
 		try
 		{
+			SquadHotkeys.OnGUI();
+		}
+		catch
+		{
+		}
+		try
+		{
 			BadgeLayer.Flush();
 		}
 		catch

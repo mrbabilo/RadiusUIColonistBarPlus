@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using RimWorld;
 using Verse;
 using Verse.AI;
@@ -19,6 +20,7 @@ internal static class SquadOrders
 				pawn.drafter.Drafted = true;
 			});
 		}
+		SquadStatus.Invalidate();
 	}
 
 	internal static void Undraft(int index)
@@ -30,6 +32,7 @@ internal static class SquadOrders
 				pawn.drafter.Drafted = false;
 			});
 		}
+		SquadStatus.Invalidate();
 	}
 
 	// All on: switch it off for everyone, which also ends their assault. Otherwise switch it on for everyone.
@@ -45,6 +48,7 @@ internal static class SquadOrders
 				pawn.drafter.FireAtWill = !allOn;
 			});
 		}
+		SquadStatus.Invalidate();
 	}
 
 	internal static void Regroup(int index)
@@ -74,6 +78,7 @@ internal static class SquadOrders
 				}
 			});
 		}
+		SquadStatus.Invalidate();
 	}
 
 	internal static void Assault(int index, AssaultMode mode)
@@ -104,6 +109,31 @@ internal static class SquadOrders
 				}
 			});
 		}
+		SquadStatus.Invalidate();
+	}
+
+	// Squad orders (Colonist Bar Plus): ends the assault of the members on this map. They stay drafted. Downed or
+	// broken members are not "able" but keep their mode: they would resume the assault once back on their feet.
+	internal static void StopAssault(int index)
+	{
+		SquadAssault squadAssault = SquadAssault.Get;
+		Map currentMap = Find.CurrentMap;
+		BarSquads get = BarSquads.Get;
+		if (squadAssault == null || currentMap == null || get == null)
+		{
+			return;
+		}
+		foreach (Pawn pawn in currentMap.mapPawns.AllPawnsSpawned.ToList())
+		{
+			if (get.SquadIndexOf(pawn) == index && squadAssault.TryGetMode(pawn, out var _))
+			{
+				Try(pawn, delegate
+				{
+					squadAssault.End(pawn);
+				});
+			}
+		}
+		SquadStatus.Invalidate();
 	}
 
 	internal static bool AllDrafted(List<Pawn> pawns)

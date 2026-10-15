@@ -460,22 +460,32 @@
   <RCB_Qa_Defend>Defend</RCB_Qa_Defend>
   <RCB_Qa_DefendTip>Defensive position{0} - shift: set</RCB_Qa_DefendTip>
   <RCB_Orders_NoMember>No squad member on this map</RCB_Orders_NoMember>
-  <RCB_Orders_Draft>Draft squad</RCB_Orders_Draft>
   <RCB_Orders_DraftTip>Draft every member of this squad on this map.</RCB_Orders_DraftTip>
-  <RCB_Orders_Undraft>Undraft squad</RCB_Orders_Undraft>
   <RCB_Orders_UndraftTip>Undraft every member of this squad on this map. This also ends their assault.</RCB_Orders_UndraftTip>
-  <RCB_Orders_FireAtWillOn>Fire at will</RCB_Orders_FireAtWillOn>
-  <RCB_Orders_FireAtWillOff>Hold fire</RCB_Orders_FireAtWillOff>
   <RCB_Orders_FireAtWillTip>Turns fire at will on for the whole squad, or off if everyone already has it. Holding fire ends the assault.</RCB_Orders_FireAtWillTip>
-  <RCB_Orders_Regroup>Regroup</RCB_Orders_Regroup>
   <RCB_Orders_RegroupTip>Drafts the squad, ends its assault and sends everyone running to the squad leader (the first member in bar order).</RCB_Orders_RegroupTip>
-  <RCB_Orders_Assault>Assault</RCB_Orders_Assault>
-  <RCB_Orders_AssaultStrongest>Strongest first</RCB_Orders_AssaultStrongest>
   <RCB_Orders_AssaultStrongestTip>Drafts the squad and attacks on its own, going for the strongest enemies within reach first. Undraft or give a member an order to stop.</RCB_Orders_AssaultStrongestTip>
-  <RCB_Orders_AssaultWeakest>Weakest first</RCB_Orders_AssaultWeakest>
   <RCB_Orders_AssaultWeakestTip>Drafts the squad and attacks on its own, going for the weakest enemies within reach first. Undraft or give a member an order to stop.</RCB_Orders_AssaultWeakestTip>
-  <RCB_Orders_AssaultFleeing>Pursue the fleeing</RCB_Orders_AssaultFleeing>
   <RCB_Orders_AssaultFleeingTip>Drafts the squad and goes after enemies who are fleeing or leaving the map, then any enemy within reach. Undraft or give a member an order to stop.</RCB_Orders_AssaultFleeingTip>
-  <RCB_Orders_ActiveMark>{0} (current)</RCB_Orders_ActiveMark>
+  <RCB_Card_Present>{0}/{1} on this map</RCB_Card_Present>
+  <RCB_Card_Drafted>Drafted</RCB_Card_Drafted>
+  <RCB_Card_DraftedPart>Partly drafted</RCB_Card_DraftedPart>
+  <RCB_Card_Undrafted>Undrafted</RCB_Card_Undrafted>
+  <RCB_Card_Fire>Fire at will</RCB_Card_Fire>
+  <RCB_Card_FirePart>Partly firing at will</RCB_Card_FirePart>
+  <RCB_Card_FireOff>Holding fire</RCB_Card_FireOff>
+  <RCB_Card_AssaultMode>Assault: {0}</RCB_Card_AssaultMode>
+  <RCB_Card_AssaultPart>Partly assaulting</RCB_Card_AssaultPart>
+  <RCB_Card_AssaultTitle>ASSAULT</RCB_Card_AssaultTitle>
+  <RCB_Card_AssaultStopTip>Click the active mode to stop the assault. Members stay drafted.</RCB_Card_AssaultStopTip>
+  <RCB_Card_Strongest>Strongest</RCB_Card_Strongest>
+  <RCB_Card_Weakest>Weakest</RCB_Card_Weakest>
+  <RCB_Card_Fleeing>Fleeing</RCB_Card_Fleeing>
+  <RCB_Card_DraftShort>Draft</RCB_Card_DraftShort>
+  <RCB_Card_UndraftShort>Undraft</RCB_Card_UndraftShort>
+  <RCB_Card_FireShort>Fire at will</RCB_Card_FireShort>
+  <RCB_Card_HoldShort>Hold fire</RCB_Card_HoldShort>
+  <RCB_Card_RegroupShort>Regroup</RCB_Card_RegroupShort>
+  <RCB_Hotkey_NoSquad>No squad selected</RCB_Hotkey_NoSquad>
 
 </LanguageData>

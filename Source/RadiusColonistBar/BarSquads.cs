@@ -382,6 +382,8 @@ public class BarSquads : GameComponent
 
 	private static void Dirty()
 	{
+		// Squad orders (Colonist Bar Plus): indices and members changed, the cached squad state is stale.
+		SquadStatus.Invalidate();
 		if (Patch_Recache_SquadsAndHidden.Rebuilding)
 		{
 			Patch_Recache_SquadsAndHidden.PendingRebuild = true;

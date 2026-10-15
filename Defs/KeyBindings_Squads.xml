@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Squad orders (Colonist Bar Plus). No default keys: vanilla binds almost every key (see KeyBindings.xml).
+       The defNames carry the players' bindings: never rename them once published. -->
+  <KeyBindingCategoryDef>
+    <defName>RCB_Squads</defName>
+    <label>Radius UI - Squads</label>
+    <description>Orders for the squads of the selected pawns.</description>
+    <!-- These keys are read before the main tabs, windows and gizmos: warn the player who picks a key they use. -->
+    <checkForConflicts>
+      <li>Development</li>
+      <li>GameMapCamera</li>
+      <li>Game</li>
+      <li>SelectionMisc</li>
+      <li>SelectionSpecial</li>
+      <li>MainTabs</li>
+    </checkForConflicts>
+  </KeyBindingCategoryDef>
+
+  <KeyBindingDef>
+    <defName>RCB_SquadDraft</defName>
+    <label>draft / undraft squad</label>
+    <category>RCB_Squads</category>
+  </KeyBindingDef>
+  <KeyBindingDef>
+    <defName>RCB_SquadFireAtWill</defName>
+    <label>fire at will / hold fire</label>
+    <category>RCB_Squads</category>
+  </KeyBindingDef>
+  <KeyBindingDef>
+    <defName>RCB_SquadRegroup</defName>
+    <label>regroup on the leader</label>
+    <category>RCB_Squads</category>
+  </KeyBindingDef>
+  <KeyBindingDef>
+    <defName>RCB_SquadAssaultStrongest</defName>
+    <label>assault: strongest first</label>
+    <category>RCB_Squads</category>
+  </KeyBindingDef>
+  <KeyBindingDef>
+    <defName>RCB_SquadAssaultWeakest</defName>
+    <label>assault: weakest first</label>
+    <category>RCB_Squads</category>
+  </KeyBindingDef>
+  <KeyBindingDef>
+    <defName>RCB_SquadAssaultFleeing</defName>
+    <label>assault: chase the fleeing</label>
+    <category>RCB_Squads</category>
+  </KeyBindingDef>
+</Defs>
