@@ -807,6 +807,8 @@ internal static class SettingsUI
 		{
 			return;
 		}
+		list.Label(L("RCB_Setting_PopoutDelay", s.popoutDelay.ToString("0.00")), -1f, (TipSignal?)L("RCB_Setting_PopoutDelayTip"));
+		s.popoutDelay = Mathf.Round(list.Slider(s.popoutDelay, 0f, 1f) * 20f) / 20f;
 		Header(list, "RCB_Head_PopoutLook");
 		list.CheckboxLabeled(L("RCB_Setting_PopoutOpacityLinked"), ref s.popoutOpacityLinked, L("RCB_Setting_PopoutOpacityLinkedTip"));
 		bool popoutOpacityLinked = s.popoutOpacityLinked;

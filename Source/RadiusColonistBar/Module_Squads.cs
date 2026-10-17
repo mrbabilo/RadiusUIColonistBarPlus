@@ -88,10 +88,16 @@ internal sealed class Module_Squads : ICCModule
 	{
 		BarSquads squads = ctx.squads;
 		float y = r.y;
-		CCPattern.Primary(r, IconSet.CC.Squads, "RCB_CC_NewSquad".Translate(), out var clicked, ref y);
+		// Quick assignment (Colonist Bar Plus): a new squad takes the selected colonists and slaves.
+		int num4 = SquadMembers.SelectedCount();
+		CCPattern.Primary(r, IconSet.CC.Squads, (num4 > 0) ? "RCB_Members_NewSquad".Translate(num4) : "RCB_CC_NewSquad".Translate(), out var clicked, ref y);
 		if (clicked && squads != null)
 		{
 			int index = squads.NewSquad();
+			if (num4 > 0)
+			{
+				SquadMembers.AddSelected(index);
+			}
 			Find.WindowStack.Add(new Dialog_RenameSquad(squads, index));
 			ctx.requestRefresh();
 		}

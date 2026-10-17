@@ -26,6 +26,138 @@ internal static class SquadMembers
 		return list;
 	}
 
+	// Quick assignment (Colonist Bar Plus): the members on one map, downed ones included, for "Select members".
+	internal static List<Pawn> Spawned(Map map, int index)
+	{
+		List<Pawn> list = new List<Pawn>();
+		BarSquads get = BarSquads.Get;
+		if (map == null || get == null || index < 0)
+		{
+			return list;
+		}
+		foreach (Pawn item in map.mapPawns.FreeColonistsSpawned)
+		{
+			if (get.SquadIndexOf(item) == index && !list.Contains(item))
+			{
+				list.Add(item);
+			}
+		}
+		foreach (Pawn item2 in map.mapPawns.SlavesOfColonySpawned)
+		{
+			if (get.SquadIndexOf(item2) == index && !list.Contains(item2))
+			{
+				list.Add(item2);
+			}
+		}
+		return list;
+	}
+
+	// The pawns a squad can hold: the same colonists and slaves as Able, whatever their state.
+	internal static bool CanJoin(Pawn p)
+	{
+		return p != null && !p.Dead && (p.IsColonist || p.IsSlaveOfColony) && !p.IsPrisoner && !p.IsColonyMech && !p.IsSubhuman;
+	}
+
+	// Selected pawns that would join this squad (moved = those leaving another squad), or that already belong to it.
+	internal static void CountSelected(int index, out int joining, out int moved, out int inside)
+	{
+		joining = (moved = (inside = 0));
+		BarSquads get = BarSquads.Get;
+		if (get == null)
+		{
+			return;
+		}
+		foreach (Pawn selectedPawn in Find.Selector.SelectedPawns)
+		{
+			if (!CanJoin(selectedPawn))
+			{
+				continue;
+			}
+			int num = get.SquadIndexOf(selectedPawn);
+			if (num == index)
+			{
+				inside++;
+				continue;
+			}
+			joining++;
+			if (num >= 0)
+			{
+				moved++;
+			}
+		}
+	}
+
+	internal static int SelectedCount()
+	{
+		int num = 0;
+		foreach (Pawn selectedPawn in Find.Selector.SelectedPawns)
+		{
+			if (CanJoin(selectedPawn))
+			{
+				num++;
+			}
+		}
+		return num;
+	}
+
+	internal static void AddSelected(int index)
+	{
+		BarSquads get = BarSquads.Get;
+		if (get == null)
+		{
+			return;
+		}
+		int num = 0;
+		foreach (Pawn selectedPawn in Find.Selector.SelectedPawns)
+		{
+			if (CanJoin(selectedPawn) && get.SquadIndexOf(selectedPawn) != index)
+			{
+				get.Assign(selectedPawn, index);
+				num++;
+			}
+		}
+		if (num > 0)
+		{
+			Messages.Message("RCB_Members_Added".Translate(num, get.SquadName(index)), MessageTypeDefOf.SilentInput, historical: false);
+		}
+	}
+
+	internal static void RemoveSelected(int index)
+	{
+		BarSquads get = BarSquads.Get;
+		if (get == null)
+		{
+			return;
+		}
+		int num = 0;
+		foreach (Pawn selectedPawn in Find.Selector.SelectedPawns)
+		{
+			if (get.SquadIndexOf(selectedPawn) == index)
+			{
+				get.Remove(selectedPawn);
+				num++;
+			}
+		}
+		if (num > 0)
+		{
+			Messages.Message("RCB_Members_Removed".Translate(num, get.SquadName(index)), MessageTypeDefOf.SilentInput, historical: false);
+		}
+	}
+
+	internal static void SelectAll(Map map, int index)
+	{
+		List<Pawn> list = Spawned(map, index);
+		if (list.Count == 0)
+		{
+			return;
+		}
+		Find.Selector.ClearSelection();
+		for (int i = 0; i < list.Count; i++)
+		{
+			Find.Selector.Select(list[i], playSound: false);
+		}
+	}
+
 	private static void Add(List<Pawn> into, List<Pawn> from, BarSquads squads, int index)
 	{
 		for (int i = 0; i < from.Count; i++)

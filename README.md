@@ -17,6 +17,10 @@ Un clic droit sur l'onglet d'une escouade ouvre sa carte d'ordres, déplaçable 
 - **Assaut** : l'escouade attaque d'elle-même, en visant d'abord les ennemis les plus forts, les plus faibles, ou ceux qui fuient. Elle se met à couvert comme en vanilla et attaque n'importe quel ennemi à portée quand aucun ne correspond. L'assaut s'arrête quand on démobilise un membre, qu'on lui donne un ordre, ou qu'on coupe le tir à volonté (pour toute l'escouade ou avec le bouton d'un seul pion). L'attaque en cours s'interrompt aussitôt.
   Le mode d'assaut en cours est surligné : un clic dessus arrête l'assaut, les membres restent mobilisés.
 
+La section « Membres » de la carte gère l'escouade à partir de la sélection : **Ajouter la sélection** y met les colons et esclaves sélectionnés (un pion d'une autre escouade en change), **Retirer la sélection** en sort les membres sélectionnés, et **Sélectionner**, à côté de Regroupement, sélectionne les membres présents. Dans le module Escouades, « Nouvelle escouade » prend la sélection quand il y en a une. Dissoudre demande confirmation.
+
+Mobiliser et Tir à volonté sont surlignés quand toute l'escouade est dans cet état, soulignés quand seule une partie l'est. Un bouton grisé dit pourquoi dans son infobulle, et les infobulles indiquent la touche des raccourcis qui en ont une.
+
 Les ordres ne touchent que les membres présents sur la carte affichée. Les mécanoïdes, les pions à terre, en crise de nerfs ou en repos mortel sont ignorés.
 
 Sans ouvrir la carte :

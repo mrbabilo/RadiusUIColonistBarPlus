@@ -101,6 +101,38 @@ internal static class SquadHotkeys
 		}
 	}
 
+	internal enum Key
+	{
+		Draft,
+		Fire,
+		Regroup,
+		Strongest,
+		Weakest,
+		Fleeing,
+		Station
+	}
+
+	// The order card's tooltips name the bound key; nothing when the key is unbound (the default).
+	internal static string WithKey(string tip, Key key)
+	{
+		Bind();
+		KeyBindingDef keyBindingDef = key switch
+		{
+			Key.Draft => draft,
+			Key.Fire => fire,
+			Key.Regroup => regroup,
+			Key.Strongest => strongest,
+			Key.Weakest => weakest,
+			Key.Fleeing => fleeing,
+			_ => station,
+		};
+		if (keyBindingDef == null || keyBindingDef.MainKey == KeyCode.None)
+		{
+			return tip;
+		}
+		return tip + "\n\n" + "RCB_Orders_KeyHint".Translate(keyBindingDef.MainKeyLabel).ToString();
+	}
+
 	private static bool Pressed(KeyBindingDef def)
 	{
 		return def != null && def.MainKey != KeyCode.None && def.KeyDownEvent;

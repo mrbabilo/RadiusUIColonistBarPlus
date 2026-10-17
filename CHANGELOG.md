@@ -5,6 +5,11 @@
 - **Postes de combat** dans la carte d'ordres : quatre postes par escouade. Enregistrer prend la position actuelle des membres présents ; Aller au poste mobilise l'escouade, arrête son assaut et envoie chacun en sprint à sa case ; Effacer demande confirmation. Le survol montre les cases sur la carte.
 - Raccourci « aller au poste de combat actif », sans touche par défaut.
 - Les postes appartiennent au pion et à la carte où ils ont été enregistrés ; ils sont sauvegardés avec les escouades.
+- **Affectation rapide** : la carte d'ordres a une section « Membres » avec « Ajouter la sélection » et « Retirer la sélection » (colons et esclaves sélectionnés ; un pion d'une autre escouade change d'escouade, l'infobulle le compte). « Sélectionner » sélectionne les membres présents, y compris ceux à terre. Dans le module Escouades, « Nouvelle escouade » prend la sélection quand il y en a une.
+- Carte d'ordres : Mobiliser et Tir à volonté sont surlignés quand toute l'escouade est dans cet état, soulignés quand seule une partie l'est. Un bouton grisé dit pourquoi dans son infobulle. Les infobulles indiquent la touche des raccourcis qui en ont une.
+- Dissoudre une escouade demande confirmation.
+- Infobulle de l'onglet d'escouade : le clic droit ouvre les ordres (et non plus « afficher tout le monde »).
+- Fiche de survol : délai avant ouverture (0,25 s par défaut, réglable dans l'onglet Panneau de survol), sans délai pour passer d'un portrait au voisin ; ligne d'aide sur les clics droits du portrait.
 
 ## 1.0.0 — 2026-10-15
 

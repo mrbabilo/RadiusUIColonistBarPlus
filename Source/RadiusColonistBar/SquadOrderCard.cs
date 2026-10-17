@@ -121,9 +121,9 @@ public class SquadOrderCard : Window
 
 	private float ContentHeight()
 	{
-		// Header 24 + state 20 + 2 rows of orders + stations (title 18, pips, buttons) + assault title 18 + assault row,
-		// plus the footer when managed.
-		float num = Pad + 24f + 20f + 8f + (BtnH * 2f + Gap) + 10f + (18f + PipH + Gap + BtnH) + 10f + 18f + BtnH + Pad;
+		// Header 24 + state 20 + 2 rows of orders + stations (title 18, pips, buttons) + assault title 18 + assault row
+		// + members title 18 + members row, plus the footer when managed.
+		float num = Pad + 24f + 20f + 8f + (BtnH * 2f + Gap) + 10f + (18f + PipH + Gap + BtnH) + 10f + 18f + BtnH + 10f + 18f + BtnH + Pad;
 		if (managed)
 		{
 			num += 8f + BtnH;
@@ -156,8 +156,10 @@ public class SquadOrderCard : Window
 		RcbFont.Label(new Rect(x, y, num, 20f), flag ? StateLine(state) : "RCB_Orders_NoMember".Translate().ToString(), bold: false, GameFont.Tiny, RcbPalette.TextDim);
 		y += 28f;
 		float num2 = (num - Gap) / 2f;
+		// Shown on every order while nobody can take one.
+		string why = "RCB_Orders_NoMember".Translate().ToString();
 		bool flag2 = flag && state.drafted == state.present;
-		if (Button(new Rect(x, y, num2, BtnH), IconSet.Action.Draft, (flag2 ? "RCB_Card_UndraftShort" : "RCB_Card_DraftShort").Translate(), (flag2 ? "RCB_Orders_UndraftTip" : "RCB_Orders_DraftTip").Translate(), flag, active: false))
+		if (Button(new Rect(x, y, num2, BtnH), IconSet.Action.Draft, (flag2 ? "RCB_Card_UndraftShort" : "RCB_Card_DraftShort").Translate(), Tip(SquadHotkeys.WithKey((flag2 ? "RCB_Orders_UndraftTip" : "RCB_Orders_DraftTip").Translate(), SquadHotkeys.Key.Draft), flag, why), flag, flag2, flag && !flag2 && state.drafted > 0))
 		{
 			if (flag2)
 			{
@@ -169,14 +171,20 @@ public class SquadOrderCard : Window
 			}
 		}
 		bool flag3 = flag && state.fireAtWill == state.present;
-		if (Button(new Rect(x + num2 + Gap, y, num2, BtnH), IconSet.Alert.Threat, (flag3 ? "RCB_Card_HoldShort" : "RCB_Card_FireShort").Translate(), "RCB_Orders_FireAtWillTip".Translate(), flag, active: false))
+		if (Button(new Rect(x + num2 + Gap, y, num2, BtnH), IconSet.Alert.Threat, (flag3 ? "RCB_Card_HoldShort" : "RCB_Card_FireShort").Translate(), Tip(SquadHotkeys.WithKey("RCB_Orders_FireAtWillTip".Translate(), SquadHotkeys.Key.Fire), flag, why), flag, flag3, flag && !flag3 && state.fireAtWill > 0))
 		{
 			SquadOrders.ToggleFireAtWill(index);
 		}
 		y += BtnH + Gap;
-		if (Button(new Rect(x, y, num2, BtnH), IconSet.Action.DefPos, "RCB_Card_RegroupShort".Translate(), "RCB_Orders_RegroupTip".Translate(), flag, active: false))
+		if (Button(new Rect(x, y, num2, BtnH), IconSet.Action.DefPos, "RCB_Card_RegroupShort".Translate(), Tip(SquadHotkeys.WithKey("RCB_Orders_RegroupTip".Translate(), SquadHotkeys.Key.Regroup), flag, why), flag, active: false))
 		{
 			SquadOrders.Regroup(index);
+		}
+		// Quick assignment (Colonist Bar Plus): downed members count, Able would leave them out.
+		int count = SquadMembers.Spawned(Find.CurrentMap, index).Count;
+		if (Button(new Rect(x + num2 + Gap, y, num2, BtnH), null, "RCB_Members_Select".Translate(count), Tip("RCB_Members_SelectTip".Translate(), count > 0, "RCB_Orders_NoMember".Translate()), count > 0, active: false))
+		{
+			SquadMembers.SelectAll(Find.CurrentMap, index);
 		}
 		y += BtnH + 10f;
 		if (DrawStations(x, ref y, num, get, state))
@@ -187,10 +195,11 @@ public class SquadOrderCard : Window
 		RcbPalette.MicroLabel(new Rect(x, y, num, 18f), "RCB_Card_AssaultTitle".Translate(), RcbPalette.TextDim2, TextAnchor.MiddleLeft, shadow: false);
 		y += 18f;
 		float num3 = (num - Gap * 2f) / 3f;
-		AssaultButton(new Rect(x, y, num3, BtnH), AssaultMode.Strongest, "RCB_Card_Strongest", "RCB_Orders_AssaultStrongestTip", state, flag);
-		AssaultButton(new Rect(x + num3 + Gap, y, num3, BtnH), AssaultMode.Weakest, "RCB_Card_Weakest", "RCB_Orders_AssaultWeakestTip", state, flag);
-		AssaultButton(new Rect(x + (num3 + Gap) * 2f, y, num3, BtnH), AssaultMode.Fleeing, "RCB_Card_Fleeing", "RCB_Orders_AssaultFleeingTip", state, flag);
-		y += BtnH;
+		AssaultButton(new Rect(x, y, num3, BtnH), AssaultMode.Strongest, "RCB_Card_Strongest", "RCB_Orders_AssaultStrongestTip", SquadHotkeys.Key.Strongest, state, flag);
+		AssaultButton(new Rect(x + num3 + Gap, y, num3, BtnH), AssaultMode.Weakest, "RCB_Card_Weakest", "RCB_Orders_AssaultWeakestTip", SquadHotkeys.Key.Weakest, state, flag);
+		AssaultButton(new Rect(x + (num3 + Gap) * 2f, y, num3, BtnH), AssaultMode.Fleeing, "RCB_Card_Fleeing", "RCB_Orders_AssaultFleeingTip", SquadHotkeys.Key.Fleeing, state, flag);
+		y += BtnH + 10f;
+		DrawMembers(x, ref y, num, get);
 		if (managed && managedSquads != null)
 		{
 			y += 8f;
@@ -227,15 +236,18 @@ public class SquadOrderCard : Window
 		{
 			SquadStations.Hover(index, num, list);
 		}
-		if (Button(rect, null, "RCB_Stations_Go".Translate(), "RCB_Stations_GoTip".Translate(num + 1), SquadStations.CountOnMap(list, squads, num, currentMap) > 0, active: false))
+		bool flag = SquadStations.CountOnMap(list, squads, num, currentMap) > 0;
+		string why = ((list.Count == 0) ? "RCB_Orders_NoMember".Translate() : "RCB_Stations_None".Translate(num + 1, squads.SquadName(index))).ToString();
+		if (Button(rect, null, "RCB_Stations_Go".Translate(), Tip(SquadHotkeys.WithKey("RCB_Stations_GoTip".Translate(num + 1), SquadHotkeys.Key.Station), flag, why), flag, active: false))
 		{
 			SquadStations.Go(index);
 		}
-		if (Button(new Rect(x + num3 + Gap, y, num3, BtnH), null, "RCB_Stations_Save".Translate(), "RCB_Stations_SaveTip".Translate(num + 1), list.Count > 0, active: false))
+		if (Button(new Rect(x + num3 + Gap, y, num3, BtnH), null, "RCB_Stations_Save".Translate(), Tip("RCB_Stations_SaveTip".Translate(num + 1), list.Count > 0, "RCB_Orders_NoMember".Translate()), list.Count > 0, active: false))
 		{
 			SquadStations.Save(index);
 		}
-		if (Button(new Rect(x + (num3 + Gap) * 2f, y, num3, BtnH), null, "RCB_Stations_Clear".Translate(), "RCB_Stations_ClearTip".Translate(num + 1), (state.stationMask & (1 << num)) != 0, active: false))
+		bool flag2 = (state.stationMask & (1 << num)) != 0;
+		if (Button(new Rect(x + (num3 + Gap) * 2f, y, num3, BtnH), null, "RCB_Stations_Clear".Translate(), Tip("RCB_Stations_ClearTip".Translate(num + 1), flag2, "RCB_Stations_ClearNone".Translate(num + 1)), flag2, active: false))
 		{
 			// The card sits above dialogs: left open, it would cover the confirmation and keep its input.
 			Close();
@@ -307,7 +319,7 @@ public class SquadOrderCard : Window
 		};
 	}
 
-	private void AssaultButton(Rect r, AssaultMode mode, string labelKey, string tipKey, SquadStatus.State state, bool enabled)
+	private void AssaultButton(Rect r, AssaultMode mode, string labelKey, string tipKey, SquadHotkeys.Key key, SquadStatus.State state, bool enabled)
 	{
 		bool flag = state.hasCommonMode && state.commonMode == mode;
 		string tip = tipKey.Translate().ToString();
@@ -315,6 +327,7 @@ public class SquadOrderCard : Window
 		{
 			tip = tip + "\n\n" + "RCB_Card_AssaultStopTip".Translate().ToString();
 		}
+		tip = Tip(SquadHotkeys.WithKey(tip, key), enabled, "RCB_Orders_NoMember".Translate());
 		if (Button(r, IconSet.Common.Sword, labelKey.Translate(), tip, enabled, flag))
 		{
 			if (flag)
@@ -350,9 +363,58 @@ public class SquadOrderCard : Window
 		}
 		if (Button(new Rect(r.x + (num + Gap) * 3f, r.y, num, r.height), null, "RCB_CC_SquadDisband".Translate(), null, enabled: true, active: false))
 		{
-			squads.Disband(index);
-			Changed(closeCard: true);
+			AskDisband(squads);
 		}
+	}
+
+	// Disbanding loses the squad's name, colour and icon: it asks first, like clearing a station. The card closes so
+	// it cannot cover the confirmation; the callback re-checks the squad by name, since indices may have moved.
+	private void AskDisband(BarSquads squads)
+	{
+		int i = index;
+		string name = squads.SquadName(i);
+		Action action = refresh;
+		Close();
+		Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation("RCB_Squad_DisbandConfirm".Translate(name), delegate
+		{
+			if (i < squads.names.Count && squads.names[i] == name)
+			{
+				squads.Disband(i);
+				SquadStatus.Invalidate();
+				action?.Invoke();
+			}
+		}, destructive: true));
+	}
+
+	// Quick assignment (Colonist Bar Plus): add the selected colonists and slaves to this squad, or take them out.
+	private void DrawMembers(float x, ref float y, float w, BarSquads squads)
+	{
+		RcbPalette.MicroLabel(new Rect(x, y, w, 18f), "RCB_Members_Title".Translate(), RcbPalette.TextDim2, TextAnchor.MiddleLeft, shadow: false);
+		y += 18f;
+		SquadMembers.CountSelected(index, out var joining, out var moved, out var inside);
+		float num = (w - Gap) / 2f;
+		string text = "RCB_Members_AddTip".Translate(squads.SquadName(index)).ToString();
+		if (moved > 0)
+		{
+			text = text + "\n\n" + "RCB_Members_AddMoves".Translate(moved).ToString();
+		}
+		if (Button(new Rect(x, y, num, BtnH), null, "RCB_Members_Add".Translate(joining), Tip(text, joining > 0, "RCB_Members_AddNone".Translate()), joining > 0, active: false))
+		{
+			SquadMembers.AddSelected(index);
+			Changed(closeCard: false);
+		}
+		if (Button(new Rect(x + num + Gap, y, num, BtnH), null, "RCB_Members_Remove".Translate(inside), Tip("RCB_Members_RemoveTip".Translate(), inside > 0, "RCB_Members_RemoveNone".Translate()), inside > 0, active: false))
+		{
+			SquadMembers.RemoveSelected(index);
+			Changed(closeCard: false);
+		}
+		y += BtnH;
+	}
+
+	// A greyed button says why after what it does.
+	private static string Tip(string tip, bool enabled, string why)
+	{
+		return enabled ? tip : (tip + "\n\n" + why);
 	}
 
 	// Moving or disbanding changes the squad indices: the card would point at another squad, so it closes.
@@ -366,11 +428,16 @@ public class SquadOrderCard : Window
 		}
 	}
 
-	private static bool Button(Rect r, Texture2D icon, string label, string tip, bool enabled, bool active)
+	// active: the whole squad is in this state (accent fill). partial: only some members are (accent underline).
+	private static bool Button(Rect r, Texture2D icon, string label, string tip, bool enabled, bool active, bool partial = false)
 	{
 		bool flag = enabled && Mouse.IsOver(r);
 		Color c = (active ? RcbPalette.Accent : Color.Lerp(RcbPalette.Ink, Color.white, flag ? 0.16f : 0.08f));
 		RcbSpatial.Rounded(r, enabled ? c : Palette.WithAlpha(c, 0.45f));
+		if (partial && !active)
+		{
+			RcbSpatial.Rounded(new Rect(r.x + 8f, r.yMax - 4f, r.width - 16f, 2f), RcbPalette.Accent, 1f);
+		}
 		Color color = ((!enabled) ? RcbPalette.TextDim2 : (active ? Palette.Flat.Rail : (flag ? RcbPalette.Stat : RcbPalette.TextDim)));
 		float num = r.x + 8f;
 		if (icon != null)

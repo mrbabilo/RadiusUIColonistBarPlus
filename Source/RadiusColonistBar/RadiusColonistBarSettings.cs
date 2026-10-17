@@ -121,6 +121,9 @@ public class RadiusColonistBarSettings : ModSettings
 
 	public float popoutScale = 1f;
 
+	// Colonist Bar Plus: seconds of hover before the pop-out opens.
+	public float popoutDelay = 0.25f;
+
 	public float popoutPad = 8f;
 
 	public float popoutOffsetX = 0f;
@@ -576,6 +579,7 @@ public class RadiusColonistBarSettings : ModSettings
 		Scribe_Values.Look(ref popoutOpacity, "popoutOpacity", 0.97f);
 		Scribe_Values.Look(ref popoutOpacityLinked, "popoutOpacityLinked", defaultValue: true);
 		Scribe_Values.Look(ref popoutScale, "popoutScale", 1f);
+		Scribe_Values.Look(ref popoutDelay, "popoutDelay", 0.25f);
 		Scribe_Values.Look(ref popoutPad, "popoutPad", 8f);
 		Scribe_Values.Look(ref popoutOffsetX, "popoutOffsetX", 0f);
 		Scribe_Values.Look(ref popoutOffsetY, "popoutOffsetY", 0f);
@@ -676,6 +680,7 @@ public class RadiusColonistBarSettings : ModSettings
 		portraitPanY = RcbGuard.Sane(portraitPanY, 0.3f);
 		popoutOpacity = RcbGuard.Sane(popoutOpacity, 0.97f);
 		popoutScale = RcbGuard.Sane(popoutScale, 1f);
+		popoutDelay = RcbGuard.Sane(popoutDelay, 0.25f);
 		popoutPad = RcbGuard.Sane(popoutPad, 8f);
 		popoutOffsetX = RcbGuard.Sane(popoutOffsetX, 0f);
 		popoutOffsetY = RcbGuard.Sane(popoutOffsetY, 0f);

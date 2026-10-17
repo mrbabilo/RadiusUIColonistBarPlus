@@ -1232,6 +1232,11 @@ internal static class RcbIsland
 		{
 			text = text + "\n" + "RCB_Cohort_TipAlert".Translate().ToString();
 		}
+		// Squad orders (Colonist Bar Plus): on a squad tab, a right-click opens its orders instead of showing everyone.
+		if (RcbCohorts.TokenIsSquad(t, out var _))
+		{
+			return text + "\n" + "RCB_Squad_TabTip".Translate().ToString();
+		}
 		return text + "\n" + "RCB_Cohort_TipAll".Translate().ToString();
 	}
 

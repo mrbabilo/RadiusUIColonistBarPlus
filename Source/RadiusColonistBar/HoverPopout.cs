@@ -240,6 +240,18 @@ public static class HoverPopout
 
 	private static float lastAlive;
 
+	// Opening delay (Colonist Bar Plus): when the pop-out shows, and when it was last drawn. Crossing the bar no longer
+	// flashes a pop-out per portrait; moving from one shown pop-out to the next portrait stays instant.
+	private static float openAt;
+
+	private static float lastShown = -1f;
+
+	private const float WarmSwitch = 0.3f;
+
+	private const float HintGap = 6f;
+
+	private const float HintH = 16f;
+
 	private static float suppressUntil;
 
 	private static int layFrame = -1;
@@ -310,6 +322,8 @@ public static class HoverPopout
 			if (p != pawn || Time.frameCount - frame > 1)
 			{
 				startTime = Time.realtimeSinceStartup;
+				bool flag = (popWin != null && popWin.IsOpen) || startTime - lastShown < WarmSwitch;
+				openAt = startTime + (flag ? 0f : Mathf.Clamp(RadiusColonistBarMod.Settings?.popoutDelay ?? 0.25f, 0f, 1f));
 			}
 			pawn = p;
 			anchor = cellPortrait;
@@ -334,6 +348,15 @@ public static class HoverPopout
 			Release();
 			return;
 		}
+		if (Time.realtimeSinceStartup < openAt)
+		{
+			// Still waiting: let go only once the portrait is no longer hovered, or the wait would restart forever.
+			if (Time.frameCount - frame > 2)
+			{
+				Release();
+			}
+			return;
+		}
 		Layout layout = Compute(pawn, anchor, settings);
 		bool flag = Time.frameCount - frame <= 2;
 		bool flag2 = layout.panel.Contains(Event.current.mousePosition);
@@ -346,7 +369,8 @@ public static class HoverPopout
 			Release();
 			return;
 		}
-		float num = Mathf.Clamp01((Time.realtimeSinceStartup - startTime) / 0.14f);
+		float num = Mathf.Clamp01((Time.realtimeSinceStartup - openAt) / 0.14f);
+		lastShown = Time.realtimeSinceStartup;
 		float num2 = 1f - (1f - num) * (1f - num);
 		drawFrame = Time.frameCount;
 		Rect windowRect = new Rect(Mathf.Round(layout.panel.x), Mathf.Round(layout.panel.y + (1f - num2) * 10f), Mathf.Round(layout.panel.width), Mathf.Round(layout.panel.height));
@@ -555,7 +579,8 @@ public static class HoverPopout
 			layout.buttonsH = (float)num9 * 34f + 2f;
 		}
 		Text.Font = GameFont.Small;
-		float baseH = Pad + layout.headerH + 6f + layout.cellsH + ((layout.statusH > 0f) ? (8f + layout.statusH) : 0f) + ((layout.taskH > 0f) ? (8f + layout.taskH) : 0f) + ((layout.buttonsH > 0f) ? (8f + layout.buttonsH) : 0f) + Pad;
+		// Colonist Bar Plus: + the click hint line under the buttons.
+		float baseH = Pad + layout.headerH + 6f + layout.cellsH + ((layout.statusH > 0f) ? (8f + layout.statusH) : 0f) + ((layout.taskH > 0f) ? (8f + layout.taskH) : 0f) + ((layout.buttonsH > 0f) ? (8f + layout.buttonsH) : 0f) + HintGap + HintH + Pad;
 		float scale = Mathf.Clamp(s?.popoutScale ?? 1f, 0.7f, 1.5f);
 		layout.baseW = num3;
 		layout.baseH = baseH;
@@ -996,6 +1021,8 @@ public static class HoverPopout
 		{
 			DrawButtons(new Rect(panel.x + Pad, y, lay.contentW, lay.buttonsH), a);
 		}
+		// Colonist Bar Plus: the portrait's right-click gestures are otherwise invisible.
+		RcbPalette.MicroLabel(new Rect(panel.x + Pad, y + lay.buttonsH + HintGap, lay.contentW, HintH), RcbFont.Fit("RCB_Popout_ClickHint".Translate(), lay.contentW, bold: false, GameFont.Tiny), Alpha(RcbPalette.TextDim2, a), TextAnchor.MiddleLeft, shadow: false);
 		GUI.color = Color.white;
 		Text.Font = GameFont.Small;
 		Text.Anchor = TextAnchor.UpperLeft;

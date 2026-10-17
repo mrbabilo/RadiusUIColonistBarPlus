@@ -12,14 +12,16 @@ Principe : reprendre par lots les fonctions de groupe de [LTO] Colony Groups, r�
 | 1 bis. Carte d'ordres et aides | `2026-10-15-carte-ordres-design.md` | Carte Radius à la place du menu déroulant (déplaçable, fermable), état sur l'onglet, épée sur le portrait, six raccourcis clavier (catégorie `RCB_Squads`). Les raccourcis, prévus pour plus tard, sont arrivés avec ce lot. |
 | 2. Postes de combat | `2026-10-16-postes-de-combat-design.md` | Quatre postes par escouade, enregistrés par pion et par carte dans `BarSquads` ; Aller, Enregistrer, Effacer (avec confirmation) ; aperçu au survol ; raccourci `RCB_SquadGoToStation`. |
 
-Contrôles en jeu des lots 1 et 1 bis : faits. Lot 2 : codé, contrôles en jeu à faire.
+Contrôles en jeu des lots 1, 1 bis et 2 : faits.
+
+Retouches d'ergonomie pour la 1.1.0 (hors lot, sans changement de sauvegarde) : affectation rapide depuis la sélection, état des bascules et raisons des boutons grisés sur la carte, raccourcis dans les infobulles, confirmation de Dissoudre, infobulle de l'onglet d'escouade, délai et ligne d'aide de la fiche de survol. Contrôles en jeu à faire.
 
 ## Publication 1.0.0 (faite le 2026-10-15)
 
 - `CHANGELOG.md` daté, tag `v1.0.0`, release GitHub avec le zip du dossier publié `Mods/RadiusUIColonistBarPlus`.
 - Page Workshop : texte prêt dans `docs/WORKSHOP.md` (incompatibilité avec Colonist Bar d'origine et Colony Groups, multijoueur non pris en charge). L'envoi se fait depuis le jeu, par le joueur.
 
-Prochaine étape : contrôles en jeu du lot 2, puis publication 1.1.0.
+Prochaine étape : contrôles en jeu des retouches d'ergonomie, puis publication 1.1.0.
 
 ## Lots suivants
 
@@ -40,6 +42,7 @@ Chaque lot a sa propre spec, puis son plan, avant tout code. Ordre proposé : du
 
 - Capture des ennemis à terre (sortie du lot 2) : choix du lit de prisonnier, de l'ennemi et du porteur.
 - Menu du portrait (cité hors périmètre du lot 1, sans contenu défini).
+- Réglages au style Radius : 107 options sur 7 onglets dessinées avec les widgets vanilla (`Listing_Standard`), sans recherche ni réinitialisation par onglet. Gros chantier, relevé par l'analyse d'ergonomie du 2026-10-17. Au passage : « Still to come » est écrit en dur dans la fiche de survol (`HoverPopout.DrawPanel`).
 - Factures réservées à une escouade : patchs de `Bill.PawnAllowedToStartAnew` et `Dialog_BillConfig`, donnée sauvegardée sur chaque facture. Coût élevé.
 - Affichage de Colony Groups (barres de besoins, risque de crise) : Colonist Bar a déjà sa bande d'alertes ; à garder seulement si un manque réel apparaît en jeu.
 

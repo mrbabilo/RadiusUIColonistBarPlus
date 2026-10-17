@@ -53,4 +53,25 @@
   <RCB_Qa_PoliciesTip>Règles (tenue, nourriture, drogue)</RCB_Qa_PoliciesTip>
   <RCB_Qa_Defend>Défendre</RCB_Qa_Defend>
   <RCB_Qa_DefendTip>Position défensive{0} - Maj : définir</RCB_Qa_DefendTip>
+  <!-- Affectation rapide, aides, délai de la fiche de survol -->
+  <RCB_Members_Title>MEMBRES</RCB_Members_Title>
+  <RCB_Members_Add>Ajouter la sélection ({0})</RCB_Members_Add>
+  <RCB_Members_AddTip>Met les colons et esclaves sélectionnés dans {0}.</RCB_Members_AddTip>
+  <RCB_Members_AddMoves>{0} d'entre eux quittent leur escouade actuelle.</RCB_Members_AddMoves>
+  <RCB_Members_AddNone>Sélectionnez d'abord des colons ou des esclaves hors de cette escouade.</RCB_Members_AddNone>
+  <RCB_Members_Remove>Retirer la sélection ({0})</RCB_Members_Remove>
+  <RCB_Members_RemoveTip>Retire de cette escouade les membres sélectionnés. Ils gardent leurs postes de combat.</RCB_Members_RemoveTip>
+  <RCB_Members_RemoveNone>Sélectionnez d'abord des membres de cette escouade.</RCB_Members_RemoveNone>
+  <RCB_Members_Select>Sélectionner ({0})</RCB_Members_Select>
+  <RCB_Members_SelectTip>Sélectionne tous les membres de cette escouade présents sur cette carte, y compris ceux à terre.</RCB_Members_SelectTip>
+  <RCB_Members_Added>Ajoutés à {1} : {0}</RCB_Members_Added>
+  <RCB_Members_Removed>Retirés de {1} : {0}</RCB_Members_Removed>
+  <RCB_Members_NewSquad>Nouvelle escouade avec la sélection ({0})</RCB_Members_NewSquad>
+  <RCB_Squad_DisbandConfirm>Dissoudre {0} ? Ses membres quittent l'escouade, et son nom, sa couleur et son icône sont perdus. Les membres gardent leurs postes de combat.</RCB_Squad_DisbandConfirm>
+  <RCB_Squad_TabTip>Clic droit sur cet onglet : ordres de l'escouade. Clic droit ailleurs sur la rangée : tout le monde.</RCB_Squad_TabTip>
+  <RCB_Stations_ClearNone>Aucun membre de cette escouade n'a de poste {0}.</RCB_Stations_ClearNone>
+  <RCB_Orders_KeyHint>Raccourci : {0}</RCB_Orders_KeyHint>
+  <RCB_Popout_ClickHint>Clic droit : actions sur ce pion · Maj + clic droit : équipements</RCB_Popout_ClickHint>
+  <RCB_Setting_PopoutDelay>Délai avant l'ouverture de la fiche : {0} s</RCB_Setting_PopoutDelay>
+  <RCB_Setting_PopoutDelayTip>Temps de survol d'un portrait avant l'ouverture de sa fiche. Passer au portrait voisin pendant qu'une fiche est affichée reste instantané.</RCB_Setting_PopoutDelayTip>
 </LanguageData>

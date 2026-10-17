@@ -500,4 +500,25 @@
   <RCB_Stations_Cleared>Station {0} cleared</RCB_Stations_Cleared>
   <RCB_Stations_None>No member of {1} has a station {0} on this map</RCB_Stations_None>
 
+  <!-- Colonist Bar Plus: quick assignment, hints, pop-out delay -->
+  <RCB_Members_Title>MEMBERS</RCB_Members_Title>
+  <RCB_Members_Add>Add selection ({0})</RCB_Members_Add>
+  <RCB_Members_AddTip>Puts the selected colonists and slaves in {0}.</RCB_Members_AddTip>
+  <RCB_Members_AddMoves>{0} of them leave their current squad.</RCB_Members_AddMoves>
+  <RCB_Members_AddNone>Select colonists or slaves who are not in this squad first.</RCB_Members_AddNone>
+  <RCB_Members_Remove>Remove selection ({0})</RCB_Members_Remove>
+  <RCB_Members_RemoveTip>Takes the selected members out of this squad. They keep their battle stations.</RCB_Members_RemoveTip>
+  <RCB_Members_RemoveNone>Select members of this squad first.</RCB_Members_RemoveNone>
+  <RCB_Members_Select>Select ({0})</RCB_Members_Select>
+  <RCB_Members_SelectTip>Selects every member of this squad on this map, downed ones included.</RCB_Members_SelectTip>
+  <RCB_Members_Added>Added to {1}: {0}</RCB_Members_Added>
+  <RCB_Members_Removed>Removed from {1}: {0}</RCB_Members_Removed>
+  <RCB_Members_NewSquad>New squad with the selection ({0})</RCB_Members_NewSquad>
+  <RCB_Squad_DisbandConfirm>Disband {0}? Its members leave the squad and its name, colour and icon are lost. Members keep their battle stations.</RCB_Squad_DisbandConfirm>
+  <RCB_Squad_TabTip>Right-click this tab: squad orders. Right-click elsewhere on the tab row: show everyone.</RCB_Squad_TabTip>
+  <RCB_Stations_ClearNone>No member of this squad has a station {0}.</RCB_Stations_ClearNone>
+  <RCB_Orders_KeyHint>Shortcut: {0}</RCB_Orders_KeyHint>
+  <RCB_Popout_ClickHint>Right-click: actions on this pawn · Shift + right-click: loadouts</RCB_Popout_ClickHint>
+  <RCB_Setting_PopoutDelay>Delay before the pop-out opens: {0} s</RCB_Setting_PopoutDelay>
+  <RCB_Setting_PopoutDelayTip>How long a portrait must be hovered before its pop-out opens. Moving to the next portrait while a pop-out is shown stays instant.</RCB_Setting_PopoutDelayTip>
 </LanguageData>
