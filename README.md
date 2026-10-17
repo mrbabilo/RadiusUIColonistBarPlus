@@ -1,6 +1,6 @@
 # Radius UI - Colonist Bar Plus
 
-Mod RimWorld 1.6 : fork de **Radius UI - Colonist Bar** (astryl) avec des ordres de combat d'escouade. Il remplace Colonist Bar : désactivez-le. Incompatible avec [LTO] Colony Groups. Multijoueur non pris en charge.
+Mod RimWorld 1.6 : fork de **Radius UI - Colonist Bar** (astryl) avec des ordres d'escouade : combat, postes de combat, soins. Il remplace Colonist Bar : désactivez-le. Incompatible avec [LTO] Colony Groups. Multijoueur non pris en charge.
 
 - packageId : `mrbabilo.RadiusUI.ColonistBarPlus`
 - Dépendances : Harmony et Radius UI Framework
@@ -9,7 +9,7 @@ Pour rester compatible avec les parties existantes, le fork garde le namespace `
 
 ## Ordres d'escouade
 
-Un clic droit sur l'onglet d'une escouade ouvre sa carte d'ordres, déplaçable à la souris ; son carré en haut à droite, un second clic droit, un clic en dehors ou Échap la ferme. Depuis le module Escouades du Centre de commandement, la carte s'ouvre près de la souris et ajoute Renommer, Monter, Descendre et Dissoudre. La carte montre l'état de l'escouade (membres présents, mobilisation, tir à volonté, assaut) et reste ouverte après un ordre :
+Un clic droit sur l'onglet d'une escouade ouvre sa carte d'ordres, déplaçable à la souris ; son carré en haut à droite, un second clic droit, un clic en dehors ou Échap la ferme. Depuis le module Escouades du Centre de commandement, la carte s'ouvre près de la souris et ajoute Renommer, Monter, Descendre et Dissoudre. La carte montre l'état de l'escouade (membres présents, mobilisation, tir à volonté, assaut, membres à terre et à soigner) et reste ouverte après un ordre :
 
 - **Mobiliser / Démobiliser l'escouade** ;
 - **Tir à volonté / Cesser le feu** ;

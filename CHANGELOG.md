@@ -1,6 +1,6 @@
 # Journal des modifications
 
-## 1.2.0 — non publiée
+## 1.2.0 — 2026-10-18
 
 - **Soins** dans la carte d'ordres : Secourir porte les pions à terre au lit, Soigner envoie les membres qui savent soigner vers les blessés, Au lit met les membres blessés au repos médical jusqu'à guérison. Patients : colons et esclaves de la carte, hémorragies mortelles d'abord, puis membres de l'escouade ; un patient par membre, le plus proche.
 - Les boutons comptent les pions concernés, les nomment dans l'infobulle et les entourent sur la carte au survol.

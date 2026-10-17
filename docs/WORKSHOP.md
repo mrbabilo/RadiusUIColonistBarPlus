@@ -23,20 +23,21 @@ Right-click a squad tab on the bar, or open a squad in the Command Center, to ge
 [*][b]Regroup[/b]: everyone runs to the squad leader
 [*][b]Assault[/b]: the squad attacks on its own, targeting the strongest enemies, the weakest ones, or those fleeing. It takes cover like vanilla and attacks any enemy in range when none matches.
 [*][b]Battle stations[/b]: four per squad. Save records where the present members stand; Go drafts the squad, stops its assault and sends each member sprinting to their cell. Hovering a station shows its cells on the map.
+[*][b]Care[/b]: Rescue carries the downed to a bed, Tend sends members who can doctor to the wounded, To bed sends wounded members to rest in a medical bed until healed. Patients are the colonists and slaves on the map, those bleeding out first, then squad members; each gets the nearest free member. Hovering a button outlines its patients on the map.
 [*][b]Members[/b]: add the selected colonists to the squad, remove them, or select every member on the map. In the Command Center, a new squad takes the current selection.
 [/list]
-The card shows the squad's state, stays open after an order, can be dragged, and closes with its button, a click outside or Escape. An assault stops when you give a member an order, undraft them or switch off fire at will.
+The card shows the squad's state (including members down or needing tending), stays open after an order, can be dragged (it reopens where you left it), and closes with its button, a click outside or Escape. An assault stops when you give a member an order, undraft them or switch off fire at will.
 
 Without opening the card:
 [list]
-[*]a squad tab shows a dot when members are drafted, and a sword during an assault;
+[*]a squad tab shows a dot when members are drafted, and a sword during an assault; its tooltip starts with the squad's state;
 [*]a colonist taking part in an assault shows a sword on their portrait;
-[*]seven key bindings (draft, fire at will, regroup, three assault modes, go to the active battle station) in Options > Controls > "Radius UI - Squads", with no default key.
+[*]ten key bindings (draft, fire at will, regroup, three assault modes, go to the active battle station, rescue, tend, send to bed) in Options > Controls > "Radius UI - Squads", with no default key.
 [/list]
 
 A colonist's hover card now opens after a short delay (0.25 s by default, 0 to 1 s in the Hover panel settings tab), and moves to a neighbouring portrait without waiting.
 
-Orders only affect members on the current map. Mechanoids and colonists who are downed, in a mental break or in deathrest are left out.
+Orders only affect members on the current map. Mechanoids and colonists who are downed, in a mental break or in deathrest are left out. Care orders are vanilla jobs: they add nothing to the save.
 
 [h2]Saves[/h2]
 The mod adds a game component that remembers each colonist's assault mode. Battle stations are saved with the squads. Removing the mod mid-game gives one error on load; only assaults in progress and battle stations are lost.
