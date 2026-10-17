@@ -1,6 +1,6 @@
 # Journal des modifications
 
-## 1.3.0 — non publiée
+## 1.3.0 — 2026-10-18
 
 - **Onglets** dans la carte d'ordres : Combat et Règles. La section Membres reste sous les deux, la carte garde sa hauteur, l'onglet ouvert est retenu pour la session.
 - **Règles d'escouade** : tenue, nourriture, drogues, soins médicaux, zone et réaction aux menaces réglées en une fois pour toute l'escouade, avec la valeur commune ou « Mixte » et la valeur de chacun en infobulle. Zone : membres de la carte affichée seulement. « Modifier… » ouvre la gestion des règles du jeu ; « Libérer » retire les vêtements forcés.

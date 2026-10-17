@@ -26,6 +26,9 @@ Right-click a squad tab on the bar, or open a squad in the Command Center, to ge
 [*][b]Care[/b]: Rescue carries the downed to a bed, Tend sends members who can doctor to the wounded, To bed sends wounded members to rest in a medical bed until healed. Patients are the colonists and slaves on the map, those bleeding out first, then squad members; each gets the nearest free member. Hovering a button outlines its patients on the map.
 [*][b]Members[/b]: add the selected colonists to the squad, remove them, or select every member on the map. In the Command Center, a new squad takes the current selection.
 [/list]
+[h2]Squad rules[/h2]
+The order card has two tabs, Combat (the orders above) and Rules. The Rules tab sets the Assign tab's policies for the whole squad at once: apparel, food, drugs, medical care, area (members on the current map) and threat response. Each row shows the shared value or "Mixed", with every member's value in the tooltip; "Edit..." opens the game's policy manager, and forced apparel can be released in one click. Pacifists never get "Attack".
+
 The card shows the squad's state (including members down or needing tending), stays open after an order, can be dragged (it reopens where you left it), and closes with its button, a click outside or Escape. An assault stops when you give a member an order, undraft them or switch off fire at will.
 
 Without opening the card:
