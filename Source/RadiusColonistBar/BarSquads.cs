@@ -365,11 +365,12 @@ public class BarSquads : GameComponent
 		try
 		{
 			SquadStations.DrawHover();
+			SquadMedical.DrawHover();
 		}
 		catch (Exception ex)
 		{
 			// Runs every frame: one log line, not one per frame.
-			Log.ErrorOnce("[Radius UI - Colonist Bar] Battle station preview failed: " + ex, 0x52435354);
+			Log.ErrorOnce("[Radius UI - Colonist Bar] Squad order preview failed: " + ex, 0x52435354);
 		}
 	}
 

@@ -21,7 +21,9 @@ Retouches d'ergonomie pour la 1.1.0 (hors lot, sans changement de sauvegarde) : 
 - `CHANGELOG.md` daté, tag `v1.0.0`, release GitHub avec le zip du dossier publié `Mods/RadiusUIColonistBarPlus`.
 - Page Workshop : texte prêt dans `docs/WORKSHOP.md` (incompatibilité avec Colonist Bar d'origine et Colony Groups, multijoueur non pris en charge). L'envoi se fait depuis le jeu, par le joueur.
 
-Prochaine étape : lot 3, après sa spec.
+Lot 3 (ordres médicaux) : spec `2026-10-17-ordres-medicaux-design.md`, plan `2026-10-17-ordres-medicaux.md`, code fait, contrôles en jeu faits. Prochaine étape : publication 1.2.0.
+
+Retouches d'ergonomie pour la 1.2.0 (hors lot, sans changement de sauvegarde) : état « à terre / à soigner » sur la carte et dans l'infobulle de l'onglet, secours et soins en cours soulignés, carte qui dit quand aucun membre présent n'est en état d'agir, position de la carte retenue pour la session, carte relue toutes les 6 images au lieu de chaque image. Contrôles en jeu faits.
 
 ## Lots suivants
 

@@ -27,7 +27,9 @@ Sans ouvrir la carte :
 
 - l'onglet d'une escouade porte un point quand des membres sont mobilisés, et une épée pendant un assaut ;
 - le portrait d'un pion qui suit un assaut porte une épée dans le coin bas droit ;
-- six raccourcis clavier (mobiliser, tir à volonté, regrouper, trois modes d'assaut) se règlent dans Options > Commandes > « Radius UI - Escouades ». Ils n'ont pas de touche par défaut et visent l'escouade de chaque pion sélectionné.
+- six raccourcis clavier (mobiliser, tir à volonté, regrouper, trois modes d'assaut), plus ceux des postes de combat et des soins, se règlent dans Options > Commandes > « Radius UI - Escouades ». Ils n'ont pas de touche par défaut et visent l'escouade de chaque pion sélectionné.
+
+L'infobulle d'un onglet d'escouade commence par la ligne d'état de la carte. Une carte déplacée à la souris se rouvre à la même place jusqu'à la fin de la session.
 
 Les onglets d'escouade n'apparaissent que si le réglage des onglets de groupes est actif et qu'il y a au moins deux onglets.
 
@@ -40,6 +42,16 @@ La carte d'ordres a une section « Postes de combat » : quatre postes par escou
 - **Effacer** : retire le poste actif de tous les membres de l'escouade, sur toutes les cartes, après confirmation.
 
 Survoler une pastille ou « Aller au poste » montre sur la carte la case de chaque membre. Un poste appartient au pion et ne vaut que pour la carte où il a été enregistré : un pion qui change d'escouade garde ses postes. Un septième raccourci, « aller au poste de combat actif », se règle avec les autres.
+
+## Soins
+
+La section « Soins » de la carte d'ordres relève et soigne en un clic. Les patients sont les colons et esclaves de la carte affichée, membres de l'escouade ou non : d'abord ceux en hémorragie mortelle, puis les membres, puis les autres. Chaque patient reçoit le membre libre le plus proche, un patient par membre ; un membre qui secourt ou soigne déjà n'est pas réaffecté.
+
+- **Secourir** : porte les pions à terre dans un lit, médical d'abord (lit d'esclave pour un esclave). Les bébés n'en font pas partie : le jeu les confie aux soins aux enfants.
+- **Soigner** : les membres qui savent soigner s'occupent des blessés, avec le meilleur médicament que la règle de soins du patient autorise. Un patient debout attend son soigneur.
+- **Au lit** : les membres blessés sont démobilisés et se reposent dans un lit médical jusqu'à guérison.
+
+Chaque bouton indique le nombre de pions concernés ; son infobulle les nomme avec leur état, et son survol les entoure sur la carte. Secourir et Soigner restent soulignés tant que des membres secourent ou soignent ; la ligne d'état de la carte compte les membres à terre et à soigner. Trois raccourcis de plus, sans touche par défaut : secourir, soigner, envoyer au lit. Rien n'est ajouté à la sauvegarde : ce sont des ordres vanilla.
 
 ## Fiche de survol
 

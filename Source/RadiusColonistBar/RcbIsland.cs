@@ -1233,9 +1233,12 @@ internal static class RcbIsland
 			text = text + "\n" + "RCB_Cohort_TipAlert".Translate().ToString();
 		}
 		// Squad orders (Colonist Bar Plus): on a squad tab, a right-click opens its orders instead of showing everyone.
-		if (RcbCohorts.TokenIsSquad(t, out var _))
+		// The squad's state line from the order card comes first, so a glance at the tab can save opening it.
+		if (RcbCohorts.TokenIsSquad(t, out var si))
 		{
-			return text + "\n" + "RCB_Squad_TabTip".Translate().ToString();
+			SquadStatus.State state = SquadStatus.Of(si);
+			string text2 = ((state.present > 0) ? (SquadOrderCard.StateLine(state) + "\n") : ((state.downed + state.wounded > 0) ? ("RCB_Card_NoneAble".Translate() + SquadOrderCard.MedicalLine(state) + "\n") : ""));
+			return text2 + text + "\n" + "RCB_Squad_TabTip".Translate().ToString();
 		}
 		return text + "\n" + "RCB_Cohort_TipAll".Translate().ToString();
 	}

@@ -24,6 +24,13 @@ internal static class SquadHotkeys
 
 	private static KeyBindingDef station;
 
+	// Medical orders (Colonist Bar Plus).
+	private static KeyBindingDef rescue;
+
+	private static KeyBindingDef tend;
+
+	private static KeyBindingDef toBed;
+
 	private static bool bound;
 
 	private static readonly List<int> targets = new List<int>();
@@ -84,6 +91,18 @@ internal static class SquadHotkeys
 		{
 			Run(SquadStations.Go);
 		}
+		else if (Pressed(rescue))
+		{
+			Run(SquadMedical.Rescue);
+		}
+		else if (Pressed(tend))
+		{
+			Run(SquadMedical.Tend);
+		}
+		else if (Pressed(toBed))
+		{
+			Run(SquadMedical.ToBed);
+		}
 	}
 
 	private static void Bind()
@@ -98,6 +117,9 @@ internal static class SquadHotkeys
 			weakest = DefDatabase<KeyBindingDef>.GetNamedSilentFail("RCB_SquadAssaultWeakest");
 			fleeing = DefDatabase<KeyBindingDef>.GetNamedSilentFail("RCB_SquadAssaultFleeing");
 			station = DefDatabase<KeyBindingDef>.GetNamedSilentFail("RCB_SquadGoToStation");
+			rescue = DefDatabase<KeyBindingDef>.GetNamedSilentFail("RCB_SquadRescue");
+			tend = DefDatabase<KeyBindingDef>.GetNamedSilentFail("RCB_SquadTend");
+			toBed = DefDatabase<KeyBindingDef>.GetNamedSilentFail("RCB_SquadToBed");
 		}
 	}
 
@@ -109,7 +131,10 @@ internal static class SquadHotkeys
 		Strongest,
 		Weakest,
 		Fleeing,
-		Station
+		Station,
+		Rescue,
+		Tend,
+		Bed
 	}
 
 	// The order card's tooltips name the bound key; nothing when the key is unbound (the default).
@@ -124,6 +149,9 @@ internal static class SquadHotkeys
 			Key.Strongest => strongest,
 			Key.Weakest => weakest,
 			Key.Fleeing => fleeing,
+			Key.Rescue => rescue,
+			Key.Tend => tend,
+			Key.Bed => toBed,
 			_ => station,
 		};
 		if (keyBindingDef == null || keyBindingDef.MainKey == KeyCode.None)

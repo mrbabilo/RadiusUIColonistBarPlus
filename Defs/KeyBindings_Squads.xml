@@ -52,4 +52,19 @@
     <label>go to the active battle station</label>
     <category>RCB_Squads</category>
   </KeyBindingDef>
+  <KeyBindingDef>
+    <defName>RCB_SquadRescue</defName>
+    <label>rescue the downed</label>
+    <category>RCB_Squads</category>
+  </KeyBindingDef>
+  <KeyBindingDef>
+    <defName>RCB_SquadTend</defName>
+    <label>tend the wounded</label>
+    <category>RCB_Squads</category>
+  </KeyBindingDef>
+  <KeyBindingDef>
+    <defName>RCB_SquadToBed</defName>
+    <label>send the wounded to bed</label>
+    <category>RCB_Squads</category>
+  </KeyBindingDef>
 </Defs>

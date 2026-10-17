@@ -7,4 +7,7 @@
   <RCB_SquadAssaultWeakest.label>assaut : les plus faibles d'abord</RCB_SquadAssaultWeakest.label>
   <RCB_SquadAssaultFleeing.label>assaut : poursuivre les fuyards</RCB_SquadAssaultFleeing.label>
   <RCB_SquadGoToStation.label>aller au poste de combat actif</RCB_SquadGoToStation.label>
+  <RCB_SquadRescue.label>secourir les pions à terre</RCB_SquadRescue.label>
+  <RCB_SquadTend.label>soigner les blessés</RCB_SquadTend.label>
+  <RCB_SquadToBed.label>envoyer les blessés au lit</RCB_SquadToBed.label>
 </LanguageData>

@@ -1,5 +1,16 @@
 # Journal des modifications
 
+## 1.2.0 — non publiée
+
+- **Soins** dans la carte d'ordres : Secourir porte les pions à terre au lit, Soigner envoie les membres qui savent soigner vers les blessés, Au lit met les membres blessés au repos médical jusqu'à guérison. Patients : colons et esclaves de la carte, hémorragies mortelles d'abord, puis membres de l'escouade ; un patient par membre, le plus proche.
+- Les boutons comptent les pions concernés, les nomment dans l'infobulle et les entourent sur la carte au survol.
+- Trois raccourcis sans touche par défaut : secourir, soigner, envoyer au lit.
+- La ligne d'état de la carte compte les membres à terre et à soigner ; Secourir et Soigner sont soulignés tant que des membres secourent ou soignent.
+- L'infobulle d'un onglet d'escouade commence par cette ligne d'état : plus besoin d'ouvrir la carte pour voir où en est l'escouade.
+- Quand tous les membres présents sont à terre ou en crise, la carte le dit au lieu d'annoncer « aucun membre sur cette carte ».
+- Une carte d'ordres déplacée se rouvre à la même place (pour la session ; carte de la barre et carte du Centre de commandement séparément).
+- Carte d'ordres plus légère : l'état et les listes de membres sont relus toutes les 6 images, ou aussitôt après un ordre, au lieu de chaque image.
+
 ## 1.1.0 — 2026-10-17
 
 - **Postes de combat** dans la carte d'ordres : quatre postes par escouade. Enregistrer prend la position actuelle des membres présents ; Aller au poste mobilise l'escouade, arrête son assaut et envoie chacun en sprint à sa case ; Effacer demande confirmation. Le survol montre les cases sur la carte.

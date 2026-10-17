@@ -48,6 +48,44 @@ public class SquadOrderCard : Window
 
 	private static SquadOrderCard open;
 
+	// Where the player last dragged a card, bar card and Command Center card apart: it reopens there.
+	private static Vector2? movedBar;
+
+	private static Vector2? movedManaged;
+
+	private Vector2 openedAt;
+
+	// The squad's state and member lists, rebuilt every few frames or after an order instead of every frame: each list
+	// sorts or scans the map, and a dozen buttons read them. An order bumps SquadStatus.Version, so its effect shows
+	// on the next frame; a change made by the game shows up to SnapFrames late.
+	private const int SnapFrames = 6;
+
+	private int snapFrame = -1000;
+
+	private int snapVersion = -1;
+
+	private Map snapMap;
+
+	private SquadStatus.State snapState;
+
+	private List<Pawn> able = new List<Pawn>();
+
+	private int spawned;
+
+	private readonly int[] stationCounts = new int[BarSquads.StationSlots];
+
+	private List<Pawn> rescue = new List<Pawn>();
+
+	private List<Pawn> tend = new List<Pawn>();
+
+	private List<Pawn> rest = new List<Pawn>();
+
+	private bool anyDoctor;
+
+	private int rescuing;
+
+	private int tending;
+
 	public override Vector2 InitialSize => new Vector2(Width, ContentHeight());
 
 	protected override float Margin => 0f;
@@ -102,6 +140,17 @@ public class SquadOrderCard : Window
 	public override void PostClose()
 	{
 		base.PostClose();
+		if ((windowRect.position - openedAt).sqrMagnitude > 4f)
+		{
+			if (managed)
+			{
+				movedManaged = windowRect.position;
+			}
+			else
+			{
+				movedBar = windowRect.position;
+			}
+		}
 		closedIndex = index;
 		closedFrame = Time.frameCount;
 		closedManaged = managed;
@@ -114,16 +163,18 @@ public class SquadOrderCard : Window
 	protected override void SetInitialSizeAndPosition()
 	{
 		Vector2 initialSize = InitialSize;
-		float x = Mathf.Clamp(anchor.x, 4f, (float)UI.screenWidth - initialSize.x - 4f);
-		float y = Mathf.Clamp(anchor.yMax + 4f, 4f, (float)UI.screenHeight - initialSize.y - 4f);
+		Vector2? vector = (managed ? movedManaged : movedBar);
+		float x = Mathf.Clamp(vector.HasValue ? vector.Value.x : anchor.x, 4f, (float)UI.screenWidth - initialSize.x - 4f);
+		float y = Mathf.Clamp(vector.HasValue ? vector.Value.y : (anchor.yMax + 4f), 4f, (float)UI.screenHeight - initialSize.y - 4f);
 		windowRect = new Rect(x, y, initialSize.x, initialSize.y).Rounded();
+		openedAt = windowRect.position;
 	}
 
 	private float ContentHeight()
 	{
 		// Header 24 + state 20 + 2 rows of orders + stations (title 18, pips, buttons) + assault title 18 + assault row
-		// + members title 18 + members row, plus the footer when managed.
-		float num = Pad + 24f + 20f + 8f + (BtnH * 2f + Gap) + 10f + (18f + PipH + Gap + BtnH) + 10f + 18f + BtnH + 10f + 18f + BtnH + Pad;
+		// + care title 18 + care row + members title 18 + members row, plus the footer when managed.
+		float num = Pad + 24f + 20f + 8f + (BtnH * 2f + Gap) + 10f + (18f + PipH + Gap + BtnH) + 10f + 18f + BtnH + 10f + 18f + BtnH + 10f + 18f + BtnH + Pad;
 		if (managed)
 		{
 			num += 8f + BtnH;
@@ -141,7 +192,8 @@ public class SquadOrderCard : Window
 			return;
 		}
 		RcbSpatial.Rounded(inRect, Palette.WithAlpha(RcbPalette.Ink, 0.96f), 14f);
-		SquadStatus.State state = SquadStatus.Fresh(index);
+		Snapshot(get);
+		SquadStatus.State state = snapState;
 		bool flag = state.present > 0;
 		float x = inRect.x + Pad;
 		float num = inRect.width - Pad * 2f;
@@ -153,11 +205,14 @@ public class SquadOrderCard : Window
 			return;
 		}
 		y += 24f;
-		RcbFont.Label(new Rect(x, y, num, 20f), flag ? StateLine(state) : "RCB_Orders_NoMember".Translate().ToString(), bold: false, GameFont.Tiny, RcbPalette.TextDim);
+		// Shown on every order while nobody can take one.
+		string why = NoMemberWhy();
+		// The short form here; the full reason stays in the tooltips. Fit, not wrap: a partial state plus the medical
+		// counts can outgrow the line.
+		string text = (flag ? StateLine(state) : (((spawned > 0) ? "RCB_Card_NoneAble" : "RCB_Orders_NoMember").Translate() + MedicalLine(state)));
+		RcbFont.Label(new Rect(x, y, num, 20f), RcbFont.Fit(text, num, bold: false, GameFont.Tiny), bold: false, GameFont.Tiny, RcbPalette.TextDim);
 		y += 28f;
 		float num2 = (num - Gap) / 2f;
-		// Shown on every order while nobody can take one.
-		string why = "RCB_Orders_NoMember".Translate().ToString();
 		bool flag2 = flag && state.drafted == state.present;
 		if (Button(new Rect(x, y, num2, BtnH), IconSet.Action.Draft, (flag2 ? "RCB_Card_UndraftShort" : "RCB_Card_DraftShort").Translate(), Tip(SquadHotkeys.WithKey((flag2 ? "RCB_Orders_UndraftTip" : "RCB_Orders_DraftTip").Translate(), SquadHotkeys.Key.Draft), flag, why), flag, flag2, flag && !flag2 && state.drafted > 0))
 		{
@@ -181,7 +236,7 @@ public class SquadOrderCard : Window
 			SquadOrders.Regroup(index);
 		}
 		// Quick assignment (Colonist Bar Plus): downed members count, Able would leave them out.
-		int count = SquadMembers.Spawned(Find.CurrentMap, index).Count;
+		int count = spawned;
 		if (Button(new Rect(x + num2 + Gap, y, num2, BtnH), null, "RCB_Members_Select".Translate(count), Tip("RCB_Members_SelectTip".Translate(), count > 0, "RCB_Orders_NoMember".Translate()), count > 0, active: false))
 		{
 			SquadMembers.SelectAll(Find.CurrentMap, index);
@@ -199,6 +254,8 @@ public class SquadOrderCard : Window
 		AssaultButton(new Rect(x + num3 + Gap, y, num3, BtnH), AssaultMode.Weakest, "RCB_Card_Weakest", "RCB_Orders_AssaultWeakestTip", SquadHotkeys.Key.Weakest, state, flag);
 		AssaultButton(new Rect(x + (num3 + Gap) * 2f, y, num3, BtnH), AssaultMode.Fleeing, "RCB_Card_Fleeing", "RCB_Orders_AssaultFleeingTip", SquadHotkeys.Key.Fleeing, state, flag);
 		y += BtnH + 10f;
+		DrawMedical(x, ref y, num, flag, why);
+		y += 10f;
 		DrawMembers(x, ref y, num, get);
 		if (managed && managedSquads != null)
 		{
@@ -207,12 +264,52 @@ public class SquadOrderCard : Window
 		}
 	}
 
-	// Battle stations (Colonist Bar Plus): slot pips, then Go / Save / Clear on the active slot. One Able call for the
-	// whole section: it sorts and reads the bar, five calls a frame would add up. Returns true when the card closed.
-	private bool DrawStations(float x, ref float y, float w, BarSquads squads, SquadStatus.State state)
+	private void Snapshot(BarSquads squads)
 	{
 		Map currentMap = Find.CurrentMap;
-		List<Pawn> list = SquadMembers.Able(currentMap, index);
+		if (Time.frameCount - snapFrame < SnapFrames && snapVersion == SquadStatus.Version && snapMap == currentMap)
+		{
+			return;
+		}
+		snapFrame = Time.frameCount;
+		snapVersion = SquadStatus.Version;
+		snapMap = currentMap;
+		snapState = SquadStatus.Fresh(index);
+		able = SquadMembers.Able(currentMap, index);
+		spawned = SquadMembers.Spawned(currentMap, index).Count;
+		for (int i = 0; i < BarSquads.StationSlots; i++)
+		{
+			stationCounts[i] = SquadStations.CountOnMap(able, squads, i, currentMap);
+		}
+		rescue = SquadMedical.Targets(currentMap, index, SquadMedical.Kind.Rescue);
+		tend = SquadMedical.Targets(currentMap, index, SquadMedical.Kind.Tend);
+		rest = SquadMedical.ToRest(able);
+		anyDoctor = SquadMedical.AnyDoctor(able);
+		rescuing = (tending = 0);
+		for (int j = 0; j < able.Count; j++)
+		{
+			if (able[j].CurJobDef == JobDefOf.Rescue)
+			{
+				rescuing++;
+			}
+			else if (able[j].CurJobDef == JobDefOf.TendPatient)
+			{
+				tending++;
+			}
+		}
+	}
+
+	// Members on the map but none able (all down, in a break or in deathrest) is not the same as nobody here.
+	private string NoMemberWhy()
+	{
+		return ((spawned > 0) ? "RCB_Orders_NoneAble" : "RCB_Orders_NoMember").Translate().ToString();
+	}
+
+	// Battle stations (Colonist Bar Plus): slot pips, then Go / Save / Clear on the active slot, from the card's
+	// snapshot. Returns true when the card closed.
+	private bool DrawStations(float x, ref float y, float w, BarSquads squads, SquadStatus.State state)
+	{
+		List<Pawn> list = able;
 		int num = squads.ActiveStation(index);
 		RcbPalette.MicroLabel(new Rect(x, y, w, 18f), "RCB_Stations_Title".Translate(), RcbPalette.TextDim2, TextAnchor.MiddleLeft, shadow: false);
 		y += 18f;
@@ -224,7 +321,7 @@ public class SquadOrderCard : Window
 			{
 				SquadStations.Hover(index, i, list);
 			}
-			if (Pip(r, i, SquadStations.CountOnMap(list, squads, i, currentMap), list.Count, i == num))
+			if (Pip(r, i, stationCounts[i], list.Count, i == num))
 			{
 				squads.SetActiveStation(index, i);
 			}
@@ -236,13 +333,13 @@ public class SquadOrderCard : Window
 		{
 			SquadStations.Hover(index, num, list);
 		}
-		bool flag = SquadStations.CountOnMap(list, squads, num, currentMap) > 0;
-		string why = ((list.Count == 0) ? "RCB_Orders_NoMember".Translate() : "RCB_Stations_None".Translate(num + 1, squads.SquadName(index))).ToString();
+		bool flag = stationCounts[num] > 0;
+		string why = ((list.Count == 0) ? NoMemberWhy() : "RCB_Stations_None".Translate(num + 1, squads.SquadName(index)).ToString());
 		if (Button(rect, null, "RCB_Stations_Go".Translate(), Tip(SquadHotkeys.WithKey("RCB_Stations_GoTip".Translate(num + 1), SquadHotkeys.Key.Station), flag, why), flag, active: false))
 		{
 			SquadStations.Go(index);
 		}
-		if (Button(new Rect(x + num3 + Gap, y, num3, BtnH), null, "RCB_Stations_Save".Translate(), Tip("RCB_Stations_SaveTip".Translate(num + 1), list.Count > 0, "RCB_Orders_NoMember".Translate()), list.Count > 0, active: false))
+		if (Button(new Rect(x + num3 + Gap, y, num3, BtnH), null, "RCB_Stations_Save".Translate(), Tip("RCB_Stations_SaveTip".Translate(num + 1), list.Count > 0, NoMemberWhy()), list.Count > 0, active: false))
 		{
 			SquadStations.Save(index);
 		}
@@ -293,7 +390,7 @@ public class SquadOrderCard : Window
 		RcbFont.Label(new Rect(r.xMax - num, r.y, num, r.height), text, bold: false, GameFont.Tiny, RcbPalette.TextDim, TextAnchor.MiddleRight);
 	}
 
-	private static string StateLine(SquadStatus.State s)
+	internal static string StateLine(SquadStatus.State s)
 	{
 		string text = ((s.drafted == s.present) ? "RCB_Card_Drafted" : ((s.drafted > 0) ? "RCB_Card_DraftedPart" : "RCB_Card_Undrafted")).Translate();
 		string text2 = ((s.fireAtWill == s.present) ? "RCB_Card_Fire" : ((s.fireAtWill > 0) ? "RCB_Card_FirePart" : "RCB_Card_FireOff")).Translate();
@@ -306,7 +403,22 @@ public class SquadOrderCard : Window
 		{
 			text3 = text3 + " · " + "RCB_Card_AssaultPart".Translate();
 		}
-		return text3;
+		return text3 + MedicalLine(s);
+	}
+
+	// Medical orders (Colonist Bar Plus): " · 2 down · 1 to tend", or nothing.
+	internal static string MedicalLine(SquadStatus.State s)
+	{
+		string text = "";
+		if (s.downed > 0)
+		{
+			text = text + " · " + "RCB_Card_Downed".Translate(s.downed);
+		}
+		if (s.wounded > 0)
+		{
+			text = text + " · " + "RCB_Card_Wounded".Translate(s.wounded);
+		}
+		return text;
 	}
 
 	private static string ModeLabel(AssaultMode mode)
@@ -327,7 +439,7 @@ public class SquadOrderCard : Window
 		{
 			tip = tip + "\n\n" + "RCB_Card_AssaultStopTip".Translate().ToString();
 		}
-		tip = Tip(SquadHotkeys.WithKey(tip, key), enabled, "RCB_Orders_NoMember".Translate());
+		tip = Tip(SquadHotkeys.WithKey(tip, key), enabled, NoMemberWhy());
 		if (Button(r, IconSet.Common.Sword, labelKey.Translate(), tip, enabled, flag))
 		{
 			if (flag)
@@ -384,6 +496,65 @@ public class SquadOrderCard : Window
 				action?.Invoke();
 			}
 		}, destructive: true));
+	}
+
+	// Medical orders (Colonist Bar Plus): rescue, tend, to bed, from the card's snapshot. The patient lists skip path
+	// and bed searches; the click checks everything again. An order still running (members rescuing or tending) gets
+	// the partial underline, like a squad partly drafted.
+	private void DrawMedical(float x, ref float y, float w, bool anyAble, string noMember)
+	{
+		RcbPalette.MicroLabel(new Rect(x, y, w, 18f), "RCB_Medical_Title".Translate(), RcbPalette.TextDim2, TextAnchor.MiddleLeft, shadow: false);
+		y += 18f;
+		float num = (w - Gap * 2f) / 3f;
+		string why = (anyAble ? "RCB_Medical_NoDowned".Translate().ToString() : noMember);
+		if (MedicalButton(new Rect(x, y, num, BtnH), IconSet.Alert.Crit, "RCB_Medical_Rescue", "RCB_Medical_RescueTip", SquadHotkeys.Key.Rescue, rescue, SquadMedical.Kind.Rescue, anyAble && rescue.Count > 0, why, rescuing))
+		{
+			SquadMedical.Rescue(index);
+		}
+		string why2 = ((!anyAble) ? noMember : ((tend.Count == 0) ? "RCB_Medical_NoWounded".Translate().ToString() : "RCB_Medical_NoDoctor".Translate().ToString()));
+		if (MedicalButton(new Rect(x + num + Gap, y, num, BtnH), IconSet.Status.Medical, "RCB_Medical_Tend", "RCB_Medical_TendTip", SquadHotkeys.Key.Tend, tend, SquadMedical.Kind.Tend, anyAble && anyDoctor && tend.Count > 0, why2, tending))
+		{
+			SquadMedical.Tend(index);
+		}
+		string why3 = (anyAble ? "RCB_Medical_NoRest".Translate().ToString() : noMember);
+		if (MedicalButton(new Rect(x + (num + Gap) * 2f, y, num, BtnH), IconSet.Status.Zzz, "RCB_Medical_Bed", "RCB_Medical_BedTip", SquadHotkeys.Key.Bed, rest, SquadMedical.Kind.Bed, rest.Count > 0, why3, 0))
+		{
+			SquadMedical.ToBed(index);
+		}
+		y += BtnH;
+	}
+
+	// The tooltip names the patients (six at most) with the alert band's words for their state. Built only on hover.
+	private bool MedicalButton(Rect r, Texture2D icon, string labelKey, string tipKey, SquadHotkeys.Key key, List<Pawn> pawns, SquadMedical.Kind kind, bool enabled, string why, int busy)
+	{
+		string tip = null;
+		if (Mouse.IsOver(r))
+		{
+			SquadMedical.Hover(index, pawns);
+			System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder(tipKey.Translate().ToString());
+			if (busy > 0)
+			{
+				stringBuilder.Append("\n\n").Append("RCB_Medical_Busy".Translate(busy));
+			}
+			if (pawns.Count > 0)
+			{
+				stringBuilder.Append('\n');
+			}
+			for (int i = 0; i < pawns.Count && i < 6; i++)
+			{
+				stringBuilder.Append('\n').Append(pawns[i].LabelShortCap);
+				if (kind != SquadMedical.Kind.Bed)
+				{
+					stringBuilder.Append(" · ").Append(SquadMedical.Condition(pawns[i], kind));
+				}
+			}
+			if (pawns.Count > 6)
+			{
+				stringBuilder.Append('\n').Append("RCB_Medical_More".Translate(pawns.Count - 6));
+			}
+			tip = Tip(SquadHotkeys.WithKey(stringBuilder.ToString(), key), enabled, why);
+		}
+		return Button(r, icon, labelKey.Translate(pawns.Count), tip, enabled, active: false, busy > 0);
 	}
 
 	// Quick assignment (Colonist Bar Plus): add the selected colonists and slaves to this squad, or take them out.

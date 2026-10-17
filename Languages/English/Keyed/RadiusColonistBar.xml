@@ -521,4 +521,26 @@
   <RCB_Popout_ClickHint>Right-click: actions on this pawn · Shift + right-click: loadouts</RCB_Popout_ClickHint>
   <RCB_Setting_PopoutDelay>Delay before the pop-out opens: {0} s</RCB_Setting_PopoutDelay>
   <RCB_Setting_PopoutDelayTip>How long a portrait must be hovered before its pop-out opens. Moving to the next portrait while a pop-out is shown stays instant.</RCB_Setting_PopoutDelayTip>
+  <!-- Medical orders (Colonist Bar Plus). -->
+  <RCB_Medical_Title>CARE</RCB_Medical_Title>
+  <RCB_Medical_Rescue>Rescue ({0})</RCB_Medical_Rescue>
+  <RCB_Medical_Tend>Tend ({0})</RCB_Medical_Tend>
+  <RCB_Medical_Bed>To bed ({0})</RCB_Medical_Bed>
+  <RCB_Medical_RescueTip>Each free member carries one downed colonist or slave on this map to a bed, nearest first. Those bleeding out come first, then squad members.</RCB_Medical_RescueTip>
+  <RCB_Medical_TendTip>Each free member who can doctor tends one wounded colonist or slave on this map, nearest first, with the best medicine their medical care allows. Those bleeding out come first, then squad members.</RCB_Medical_TendTip>
+  <RCB_Medical_BedTip>The wounded members undraft and rest in a medical bed until healed.</RCB_Medical_BedTip>
+  <RCB_Medical_More>+{0} more</RCB_Medical_More>
+  <RCB_Medical_NoDowned>Nobody is down on this map.</RCB_Medical_NoDowned>
+  <RCB_Medical_NoWounded>Nobody needs tending on this map.</RCB_Medical_NoWounded>
+  <RCB_Medical_NoDoctor>No member here can doctor.</RCB_Medical_NoDoctor>
+  <RCB_Medical_NoRest>No member needs medical rest.</RCB_Medical_NoRest>
+  <RCB_Medical_RescueDone>Rescue: {0} on the way</RCB_Medical_RescueDone>
+  <RCB_Medical_TendDone>Tending: {0} on the way</RCB_Medical_TendDone>
+  <RCB_Medical_BedDone>To bed: {0}</RCB_Medical_BedDone>
+  <RCB_Medical_Busy>Already under way: {0}</RCB_Medical_Busy>
+  <RCB_Card_Downed>{0} down</RCB_Card_Downed>
+  <RCB_Card_Wounded>{0} to tend</RCB_Card_Wounded>
+  <RCB_Card_NoneAble>No member fit for orders</RCB_Card_NoneAble>
+  <RCB_Orders_NoneAble>No squad member here can take orders (down, in a mental break or in deathrest)</RCB_Orders_NoneAble>
+  <RCB_Medical_NoneFree>No free member could take this order.</RCB_Medical_NoneFree>
 </LanguageData>

@@ -74,4 +74,26 @@
   <RCB_Popout_ClickHint>Clic droit : actions sur ce pion · Maj + clic droit : équipements</RCB_Popout_ClickHint>
   <RCB_Setting_PopoutDelay>Délai avant l'ouverture de la fiche : {0} s</RCB_Setting_PopoutDelay>
   <RCB_Setting_PopoutDelayTip>Temps de survol d'un portrait avant l'ouverture de sa fiche. Passer au portrait voisin pendant qu'une fiche est affichée reste instantané.</RCB_Setting_PopoutDelayTip>
+  <!-- Ordres médicaux (Colonist Bar Plus). -->
+  <RCB_Medical_Title>SOINS</RCB_Medical_Title>
+  <RCB_Medical_Rescue>Secourir ({0})</RCB_Medical_Rescue>
+  <RCB_Medical_Tend>Soigner ({0})</RCB_Medical_Tend>
+  <RCB_Medical_Bed>Au lit ({0})</RCB_Medical_Bed>
+  <RCB_Medical_RescueTip>Chaque membre libre porte au lit un colon ou esclave à terre sur cette carte, le plus proche d'abord. Priorité aux hémorragies mortelles, puis aux membres de l'escouade.</RCB_Medical_RescueTip>
+  <RCB_Medical_TendTip>Chaque membre libre qui sait soigner s'occupe d'un colon ou esclave blessé sur cette carte, le plus proche d'abord, avec le meilleur médicament que sa règle de soins autorise. Priorité aux hémorragies mortelles, puis aux membres de l'escouade.</RCB_Medical_TendTip>
+  <RCB_Medical_BedTip>Les membres blessés sont démobilisés et se reposent dans un lit médical jusqu'à guérison.</RCB_Medical_BedTip>
+  <RCB_Medical_More>+{0} autres</RCB_Medical_More>
+  <RCB_Medical_NoDowned>Personne n'est à terre sur cette carte.</RCB_Medical_NoDowned>
+  <RCB_Medical_NoWounded>Personne n'a besoin de soins sur cette carte.</RCB_Medical_NoWounded>
+  <RCB_Medical_NoDoctor>Aucun membre présent ne peut soigner.</RCB_Medical_NoDoctor>
+  <RCB_Medical_NoRest>Aucun membre n'a besoin de repos médical.</RCB_Medical_NoRest>
+  <RCB_Medical_RescueDone>Secours : {0} en route</RCB_Medical_RescueDone>
+  <RCB_Medical_TendDone>Soins : {0} en route</RCB_Medical_TendDone>
+  <RCB_Medical_BedDone>Au lit : {0}</RCB_Medical_BedDone>
+  <RCB_Medical_Busy>Déjà en cours : {0}</RCB_Medical_Busy>
+  <RCB_Card_Downed>{0} à terre</RCB_Card_Downed>
+  <RCB_Card_Wounded>{0} à soigner</RCB_Card_Wounded>
+  <RCB_Card_NoneAble>Aucun membre en état d'agir</RCB_Card_NoneAble>
+  <RCB_Orders_NoneAble>Aucun membre présent ne peut recevoir d'ordre (à terre, en crise ou en repos mortel)</RCB_Orders_NoneAble>
+  <RCB_Medical_NoneFree>Aucun membre libre n'a pu prendre cet ordre.</RCB_Medical_NoneFree>
 </LanguageData>

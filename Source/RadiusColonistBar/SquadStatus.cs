@@ -28,6 +28,11 @@ internal static class SquadStatus
 		// Battle stations (Colonist Bar Plus): bit n set when a living member, on any map, has station n on a map
 		// that still exists. Dead members and destroyed maps would otherwise keep Clear enabled with nothing to clear.
 		public int stationMask;
+
+		// Medical orders (Colonist Bar Plus): members on this map who are down (rescue would take them) or need tending.
+		public int downed;
+
+		public int wounded;
 	}
 
 	private const int CacheFrames = 20;
@@ -38,9 +43,13 @@ internal static class SquadStatus
 
 	private static Map cacheMap;
 
+	// Bumped on every Invalidate: the order card rebuilds its own snapshot when it changes.
+	internal static int Version { get; private set; }
+
 	internal static void Invalidate()
 	{
 		cache.Clear();
+		Version++;
 	}
 
 	// Recomputed now, for the card and the hotkeys: a draft made by the game would otherwise show up to
@@ -98,6 +107,17 @@ internal static class SquadStatus
 			}
 		}
 		result.hasCommonMode = SquadOrders.CommonMode(list, out result.commonMode);
+		foreach (Pawn item in SquadMembers.Spawned(map, index))
+		{
+			if (SquadMedical.WantsRescue(item))
+			{
+				result.downed++;
+			}
+			else if (PawnUiCache.Get(item).needsTend)
+			{
+				result.wounded++;
+			}
+		}
 		// All maps, caravans and transporters, slaves included: the bar's own list follows the squad tab filter.
 		List<Pawn> list2 = PawnsFinder.AllMapsCaravansAndTravellingTransporters_Alive_Colonists;
 		for (int j = 0; j < list2.Count; j++)
