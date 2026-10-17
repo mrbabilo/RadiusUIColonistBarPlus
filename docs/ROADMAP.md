@@ -14,14 +14,14 @@ Principe : reprendre par lots les fonctions de groupe de [LTO] Colony Groups, r�
 
 Contrôles en jeu des lots 1, 1 bis et 2 : faits.
 
-Retouches d'ergonomie pour la 1.1.0 (hors lot, sans changement de sauvegarde) : affectation rapide depuis la sélection, état des bascules et raisons des boutons grisés sur la carte, raccourcis dans les infobulles, confirmation de Dissoudre, infobulle de l'onglet d'escouade, délai et ligne d'aide de la fiche de survol. Contrôles en jeu à faire.
+Retouches d'ergonomie pour la 1.1.0 (hors lot, sans changement de sauvegarde) : affectation rapide depuis la sélection, état des bascules et raisons des boutons grisés sur la carte, raccourcis dans les infobulles, confirmation de Dissoudre, infobulle de l'onglet d'escouade, délai et ligne d'aide de la fiche de survol. Contrôles en jeu faits.
 
 ## Publication 1.0.0 (faite le 2026-10-15)
 
 - `CHANGELOG.md` daté, tag `v1.0.0`, release GitHub avec le zip du dossier publié `Mods/RadiusUIColonistBarPlus`.
 - Page Workshop : texte prêt dans `docs/WORKSHOP.md` (incompatibilité avec Colonist Bar d'origine et Colony Groups, multijoueur non pris en charge). L'envoi se fait depuis le jeu, par le joueur.
 
-Prochaine étape : contrôles en jeu des retouches d'ergonomie, puis publication 1.1.0.
+Prochaine étape : publication 1.1.0.
 
 ## Lots suivants
 
