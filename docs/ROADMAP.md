@@ -4,7 +4,7 @@
 
 Principe : reprendre par lots les fonctions de groupe de [LTO] Colony Groups, réécrites au style Radius et appliquées aux escouades de Colonist Bar. Colony Groups n'a pas de licence : son code sert de référence de comportement et n'est jamais recopié.
 
-## Fait (lots 1 et 1 bis publiés en 1.0.0 le 2026-10-15 ; lot 2 pour la 1.1.0)
+## Fait (lots 1 et 1 bis publiés en 1.0.0 le 2026-10-15 ; lot 2 et retouches d'ergonomie en 1.1.0 le 2026-10-17)
 
 | Lot | Spec | Contenu |
 |---|---|---|
@@ -16,12 +16,12 @@ Contrôles en jeu des lots 1, 1 bis et 2 : faits.
 
 Retouches d'ergonomie pour la 1.1.0 (hors lot, sans changement de sauvegarde) : affectation rapide depuis la sélection, état des bascules et raisons des boutons grisés sur la carte, raccourcis dans les infobulles, confirmation de Dissoudre, infobulle de l'onglet d'escouade, délai et ligne d'aide de la fiche de survol. Contrôles en jeu faits.
 
-## Publication 1.0.0 (faite le 2026-10-15)
+## Publications (1.0.0 le 2026-10-15, 1.1.0 le 2026-10-17)
 
 - `CHANGELOG.md` daté, tag `v1.0.0`, release GitHub avec le zip du dossier publié `Mods/RadiusUIColonistBarPlus`.
 - Page Workshop : texte prêt dans `docs/WORKSHOP.md` (incompatibilité avec Colonist Bar d'origine et Colony Groups, multijoueur non pris en charge). L'envoi se fait depuis le jeu, par le joueur.
 
-Prochaine étape : publication 1.1.0.
+Prochaine étape : lot 3, après sa spec.
 
 ## Lots suivants
 

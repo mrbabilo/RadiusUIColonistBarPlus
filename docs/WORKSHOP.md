@@ -22,6 +22,8 @@ Right-click a squad tab on the bar, or open a squad in the Command Center, to ge
 [*][b]Fire at will / Hold fire[/b]
 [*][b]Regroup[/b]: everyone runs to the squad leader
 [*][b]Assault[/b]: the squad attacks on its own, targeting the strongest enemies, the weakest ones, or those fleeing. It takes cover like vanilla and attacks any enemy in range when none matches.
+[*][b]Battle stations[/b]: four per squad. Save records where the present members stand; Go drafts the squad, stops its assault and sends each member sprinting to their cell. Hovering a station shows its cells on the map.
+[*][b]Members[/b]: add the selected colonists to the squad, remove them, or select every member on the map. In the Command Center, a new squad takes the current selection.
 [/list]
 The card shows the squad's state, stays open after an order, can be dragged, and closes with its button, a click outside or Escape. An assault stops when you give a member an order, undraft them or switch off fire at will.
 
@@ -29,13 +31,13 @@ Without opening the card:
 [list]
 [*]a squad tab shows a dot when members are drafted, and a sword during an assault;
 [*]a colonist taking part in an assault shows a sword on their portrait;
-[*]six key bindings (draft, fire at will, regroup, three assault modes) in Options > Controls > "Radius UI - Squads", with no default key.
+[*]seven key bindings (draft, fire at will, regroup, three assault modes, go to the active battle station) in Options > Controls > "Radius UI - Squads", with no default key.
 [/list]
 
 Orders only affect members on the current map. Mechanoids and colonists who are downed, in a mental break or in deathrest are left out.
 
 [h2]Saves[/h2]
-The mod adds a game component that remembers each colonist's assault mode. Removing the mod mid-game gives one error on load; only assaults in progress are lost.
+The mod adds a game component that remembers each colonist's assault mode. Battle stations are saved with the squads. Removing the mod mid-game gives one error on load; only assaults in progress and battle stations are lost.
 
 [h2]From the original Colonist Bar[/h2]
 Replaces the colonist bar with a single slab across the top of the screen: each colonist gets a portrait, their name, role and current task, and two meters you choose. An alert band underneath names whoever needs attention. A Command Center window handles health, weapons, loadouts and squads, and the bar folds away when you are not using it.

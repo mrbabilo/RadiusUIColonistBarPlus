@@ -1,6 +1,6 @@
 # Journal des modifications
 
-## 1.1.0 — non publiée
+## 1.1.0 — 2026-10-17
 
 - **Postes de combat** dans la carte d'ordres : quatre postes par escouade. Enregistrer prend la position actuelle des membres présents ; Aller au poste mobilise l'escouade, arrête son assaut et envoie chacun en sprint à sa case ; Effacer demande confirmation. Le survol montre les cases sur la carte.
 - Raccourci « aller au poste de combat actif », sans touche par défaut.
