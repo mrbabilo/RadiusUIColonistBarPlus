@@ -34,6 +34,8 @@ Without opening the card:
 [*]seven key bindings (draft, fire at will, regroup, three assault modes, go to the active battle station) in Options > Controls > "Radius UI - Squads", with no default key.
 [/list]
 
+A colonist's hover card now opens after a short delay (0.25 s by default, 0 to 1 s in the Hover panel settings tab), and moves to a neighbouring portrait without waiting.
+
 Orders only affect members on the current map. Mechanoids and colonists who are downed, in a mental break or in deathrest are left out.
 
 [h2]Saves[/h2]

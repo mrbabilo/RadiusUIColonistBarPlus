@@ -3,7 +3,7 @@
   <name>Radius UI - Colonist Bar Plus</name>
   <packageId>mrbabilo.RadiusUI.ColonistBarPlus</packageId>
   <author>mrbabilo</author>
-  <description>A fork of [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3788278207]Radius UI - Colonist Bar[/url] by astryl, with squad combat orders. Right-click a squad tab on the bar (or open a squad in the Command Center) to draft or undraft the squad, toggle fire at will, regroup on the squad leader, or send it on an assault that targets the strongest enemies, the weakest ones, or those fleeing. Each squad also has four battle stations: save where its members stand, then send them back with one click.
+  <description>A fork of [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3788278207]Radius UI - Colonist Bar[/url] by astryl, with squad combat orders. Right-click a squad tab on the bar (or open a squad in the Command Center) to draft or undraft the squad, toggle fire at will, regroup on the squad leader, or send it on an assault that targets the strongest enemies, the weakest ones, or those fleeing. Each squad also has four battle stations: save where its members stand, then send them back with one click. The same card adds the selected colonists to the squad, removes them, or selects every member.
 
 Replaces Radius UI - Colonist Bar: disable it. A save made with Colonist Bar keeps its squads, kits and histories. Not compatible with [LTO] Colony Groups. Multiplayer is not supported.
 

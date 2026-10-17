@@ -41,9 +41,13 @@ La carte d'ordres a une section « Postes de combat » : quatre postes par escou
 
 Survoler une pastille ou « Aller au poste » montre sur la carte la case de chaque membre. Un poste appartient au pion et ne vaut que pour la carte où il a été enregistré : un pion qui change d'escouade garde ses postes. Un septième raccourci, « aller au poste de combat actif », se règle avec les autres.
 
+## Fiche de survol
+
+La fiche d'un pion s'ouvre après un court délai de survol de son portrait : 0,25 s par défaut, de 0 à 1 s dans l'onglet Panneau de survol des réglages. Passer d'un portrait au voisin la change sans attendre. Une ligne en bas de la fiche rappelle les clics droits du portrait.
+
 ## Sauvegardes
 
-Le mod ajoute un composant de partie (`SquadAssault`) qui retient le mode d'assaut de chaque pion. Le retirer en cours de partie donne une erreur au chargement ; seuls les assauts en cours sont perdus.
+Le mod ajoute un composant de partie (`SquadAssault`) qui retient le mode d'assaut de chaque pion. Le retirer en cours de partie donne une erreur au chargement ; seuls les assauts en cours et les postes de combat sont perdus.
 
 Les postes de combat sont sauvegardés avec les escouades. Une partie rouverte avec le Colonist Bar d'origine les perd sans autre erreur.
 
