@@ -232,13 +232,14 @@ internal static class Patch_HandleClicks_RightClickMenu
 		List<FloatMenuOption> list = new List<FloatMenuOption>();
 		List<Pawn> targets = Affected(p);
 		int n = targets.Count;
-		string text = ((n > 1) ? ("  (" + n + " selected)") : "");
+		// Colonist Bar Plus: these texts were hard-coded in English; they go through keys, shared with the squad rules.
+		string text = ((n > 1) ? ("  " + "RCB_Policies_Selected".Translate(n)) : "");
 		try
 		{
 			if (p.outfits != null)
 			{
 				string text2 = Shared(targets, (Pawn t) => t.outfits?.CurrentApparelPolicy?.label);
-				list.Add(new FloatMenuOptionSub("Outfit: " + text2 + text, delegate
+				list.Add(new FloatMenuOptionSub("RCB_Policies_Line".Translate(SquadRules.Label(SquadRules.Rule.Apparel), text2) + text, delegate
 				{
 					List<FloatMenuOption> list2 = new List<FloatMenuOption>();
 					foreach (ApparelPolicy allOutfit in Current.Game.outfitDatabase.AllOutfits)
@@ -259,7 +260,7 @@ internal static class Patch_HandleClicks_RightClickMenu
 								{
 								}
 							}
-							Confirm("Outfit", pp.label, n);
+							Confirm(SquadRules.Label(SquadRules.Rule.Apparel), pp.label, n);
 						}));
 					}
 					return list2;
@@ -268,7 +269,7 @@ internal static class Patch_HandleClicks_RightClickMenu
 			if (p.foodRestriction != null)
 			{
 				string text3 = Shared(targets, (Pawn t) => t.foodRestriction?.CurrentFoodPolicy?.label);
-				list.Add(new FloatMenuOptionSub("Food: " + text3 + text, delegate
+				list.Add(new FloatMenuOptionSub("RCB_Policies_Line".Translate(SquadRules.Label(SquadRules.Rule.Food), text3) + text, delegate
 				{
 					List<FloatMenuOption> list2 = new List<FloatMenuOption>();
 					foreach (FoodPolicy allFoodRestriction in Current.Game.foodRestrictionDatabase.AllFoodRestrictions)
@@ -289,7 +290,7 @@ internal static class Patch_HandleClicks_RightClickMenu
 								{
 								}
 							}
-							Confirm("Food", pp.label, n);
+							Confirm(SquadRules.Label(SquadRules.Rule.Food), pp.label, n);
 						}));
 					}
 					return list2;
@@ -298,7 +299,7 @@ internal static class Patch_HandleClicks_RightClickMenu
 			if (p.drugs != null)
 			{
 				string text4 = Shared(targets, (Pawn t) => t.drugs?.CurrentPolicy?.label);
-				list.Add(new FloatMenuOptionSub("Drugs: " + text4 + text, delegate
+				list.Add(new FloatMenuOptionSub("RCB_Policies_Line".Translate(SquadRules.Label(SquadRules.Rule.Drugs), text4) + text, delegate
 				{
 					List<FloatMenuOption> list2 = new List<FloatMenuOption>();
 					foreach (DrugPolicy allPolicy in Current.Game.drugPolicyDatabase.AllPolicies)
@@ -319,7 +320,7 @@ internal static class Patch_HandleClicks_RightClickMenu
 								{
 								}
 							}
-							Confirm("Drug", pp.label, n);
+							Confirm(SquadRules.Label(SquadRules.Rule.Drugs), pp.label, n);
 						}));
 					}
 					return list2;
@@ -331,7 +332,7 @@ internal static class Patch_HandleClicks_RightClickMenu
 		}
 		if (list.Count == 0)
 		{
-			list.Add(new FloatMenuOption("No policies available", null)
+			list.Add(new FloatMenuOption("RCB_Policies_NoneAvailable".Translate(), null)
 			{
 				Disabled = true
 			});
@@ -360,17 +361,17 @@ internal static class Patch_HandleClicks_RightClickMenu
 			}
 			else if (text2 != text)
 			{
-				return "Mixed";
+				return "RCB_Rules_Mixed".Translate();
 			}
 		}
-		return text ?? "None";
+		return text ?? "RCB_Policies_None".Translate().ToString();
 	}
 
 	private static void Confirm(string kind, string label, int n)
 	{
 		if (n > 1)
 		{
-			Messages.Message(kind + " policy \"" + label + "\" set for " + n + " colonists.", MessageTypeDefOf.SilentInput, historical: false);
+			Messages.Message("RCB_Policies_Set".Translate(kind, label, n), MessageTypeDefOf.SilentInput, historical: false);
 		}
 	}
 

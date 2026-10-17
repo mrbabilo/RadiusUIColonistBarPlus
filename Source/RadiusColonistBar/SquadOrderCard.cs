@@ -28,6 +28,19 @@ public class SquadOrderCard : Window
 	// The close square (26 px) and its gap to the header text.
 	private const float CloseW = 30f;
 
+	// Squad rules (Colonist Bar Plus): the tab strip, and the tallest tab (Combat: two order rows, stations, assault,
+	// care). The Rules tab, six rows plus the forced-apparel row, fits under it.
+	private const float TabH = 22f;
+
+	private const float TabAreaH = BtnH * 2f + Gap + 10f + (18f + PipH + Gap + BtnH) + 10f + 18f + BtnH + 10f + 18f + BtnH;
+
+	private const float RuleLabelW = 92f;
+
+	private const float RuleEditW = 72f;
+
+	// The open tab, kept for the session and shared by every squad: the same settings are often made squad after squad.
+	private static int tab;
+
 	private readonly int index;
 
 	private readonly Rect anchor;
@@ -85,6 +98,24 @@ public class SquadOrderCard : Window
 	private int rescuing;
 
 	private int tending;
+
+	// Squad rules (Colonist Bar Plus): per rule, the shared value (or null), whether members differ, and the members
+	// it applies to. Read only while the Rules tab is open.
+	private readonly string[] ruleValue = new string[6];
+
+	private readonly bool[] ruleMixed = new bool[6];
+
+	private readonly List<Pawn>[] ruleMembers = new List<Pawn>[6]
+	{
+		new List<Pawn>(),
+		new List<Pawn>(),
+		new List<Pawn>(),
+		new List<Pawn>(),
+		new List<Pawn>(),
+		new List<Pawn>()
+	};
+
+	private int forced;
 
 	public override Vector2 InitialSize => new Vector2(Width, ContentHeight());
 
@@ -172,9 +203,8 @@ public class SquadOrderCard : Window
 
 	private float ContentHeight()
 	{
-		// Header 24 + state 20 + 2 rows of orders + stations (title 18, pips, buttons) + assault title 18 + assault row
-		// + care title 18 + care row + members title 18 + members row, plus the footer when managed.
-		float num = Pad + 24f + 20f + 8f + (BtnH * 2f + Gap) + 10f + (18f + PipH + Gap + BtnH) + 10f + 18f + BtnH + 10f + 18f + BtnH + 10f + 18f + BtnH + Pad;
+		// Header 24 + state 20 + tab strip + tab area + members title 18 + members row, plus the footer when managed.
+		float num = Pad + 24f + 20f + 8f + TabH + 8f + TabAreaH + 10f + 18f + BtnH + Pad;
 		if (managed)
 		{
 			num += 8f + BtnH;
@@ -212,6 +242,34 @@ public class SquadOrderCard : Window
 		string text = (flag ? StateLine(state) : (((spawned > 0) ? "RCB_Card_NoneAble" : "RCB_Orders_NoMember").Translate() + MedicalLine(state)));
 		RcbFont.Label(new Rect(x, y, num, 20f), RcbFont.Fit(text, num, bold: false, GameFont.Tiny), bold: false, GameFont.Tiny, RcbPalette.TextDim);
 		y += 28f;
+		// Squad rules (Colonist Bar Plus): the card's sections sit in tabs; the tab area keeps the height of the
+		// tallest tab, so switching never moves the card or its bottom rows.
+		DrawTabs(new Rect(x, y, num, TabH));
+		y += TabH + 8f;
+		float num4 = y + TabAreaH;
+		if (tab == 1)
+		{
+			if (DrawRules(x, y, num))
+			{
+				return;
+			}
+		}
+		else if (DrawCombat(x, ref y, num, get, state, flag, why))
+		{
+			return;
+		}
+		y = num4 + 10f;
+		DrawMembers(x, ref y, num, get);
+		if (managed && managedSquads != null)
+		{
+			y += 8f;
+			DrawManageRow(new Rect(x, y, num, BtnH), managedSquads);
+		}
+	}
+
+	// The Combat tab: orders, battle stations, assault and care, as before the tabs. Returns true when the card closed.
+	private bool DrawCombat(float x, ref float y, float num, BarSquads get, SquadStatus.State state, bool flag, string why)
+	{
 		float num2 = (num - Gap) / 2f;
 		bool flag2 = flag && state.drafted == state.present;
 		if (Button(new Rect(x, y, num2, BtnH), IconSet.Action.Draft, (flag2 ? "RCB_Card_UndraftShort" : "RCB_Card_DraftShort").Translate(), Tip(SquadHotkeys.WithKey((flag2 ? "RCB_Orders_UndraftTip" : "RCB_Orders_DraftTip").Translate(), SquadHotkeys.Key.Draft), flag, why), flag, flag2, flag && !flag2 && state.drafted > 0))
@@ -244,7 +302,7 @@ public class SquadOrderCard : Window
 		y += BtnH + 10f;
 		if (DrawStations(x, ref y, num, get, state))
 		{
-			return;
+			return true;
 		}
 		y += 10f;
 		RcbPalette.MicroLabel(new Rect(x, y, num, 18f), "RCB_Card_AssaultTitle".Translate(), RcbPalette.TextDim2, TextAnchor.MiddleLeft, shadow: false);
@@ -255,13 +313,7 @@ public class SquadOrderCard : Window
 		AssaultButton(new Rect(x + (num3 + Gap) * 2f, y, num3, BtnH), AssaultMode.Fleeing, "RCB_Card_Fleeing", "RCB_Orders_AssaultFleeingTip", SquadHotkeys.Key.Fleeing, state, flag);
 		y += BtnH + 10f;
 		DrawMedical(x, ref y, num, flag, why);
-		y += 10f;
-		DrawMembers(x, ref y, num, get);
-		if (managed && managedSquads != null)
-		{
-			y += 8f;
-			DrawManageRow(new Rect(x, y, num, BtnH), managedSquads);
-		}
+		return false;
 	}
 
 	private void Snapshot(BarSquads squads)
@@ -285,6 +337,15 @@ public class SquadOrderCard : Window
 		tend = SquadMedical.Targets(currentMap, index, SquadMedical.Kind.Tend);
 		rest = SquadMedical.ToRest(able);
 		anyDoctor = SquadMedical.AnyDoctor(able);
+		if (tab == 1)
+		{
+			List<Pawn> members = SquadRules.Members(index);
+			for (int k = 0; k < SquadRules.All.Length; k++)
+			{
+				ruleValue[k] = SquadRules.Shared(members, SquadRules.All[k], ruleMembers[k], out ruleMixed[k]);
+			}
+			forced = SquadRules.ForcedCount(members);
+		}
 		rescuing = (tending = 0);
 		for (int j = 0; j < able.Count; j++)
 		{
@@ -297,6 +358,109 @@ public class SquadOrderCard : Window
 				tending++;
 			}
 		}
+	}
+
+	private void DrawTabs(Rect r)
+	{
+		string[] array = new string[2]
+		{
+			"RCB_Tab_Combat".Translate(),
+			"RCB_Tab_Rules".Translate()
+		};
+		float num = (r.width - Gap * (float)(array.Length - 1)) / (float)array.Length;
+		for (int i = 0; i < array.Length; i++)
+		{
+			Rect rect = new Rect(r.x + (num + Gap) * (float)i, r.y, num, r.height);
+			bool flag = i == tab;
+			bool flag2 = Mouse.IsOver(rect);
+			if (flag || flag2)
+			{
+				RcbSpatial.Rounded(rect, Color.Lerp(RcbPalette.Ink, Color.white, flag ? 0.14f : 0.07f), 6f);
+			}
+			if (flag)
+			{
+				RcbSpatial.Rounded(new Rect(rect.x + 8f, rect.yMax - 3f, rect.width - 16f, 2f), RcbPalette.Accent, 1f);
+			}
+			RcbPalette.MicroLabel(rect, array[i], (flag || flag2) ? RcbPalette.Stat : RcbPalette.TextDim2, TextAnchor.MiddleCenter, shadow: false);
+			if (!flag && Widgets.ButtonInvisible(rect))
+			{
+				SoundDefOf.Click.PlayOneShotOnCamera();
+				tab = i;
+				// The rules are only read while their tab is open: read them now, before the tab draws.
+				snapFrame = -1000;
+				BarSquads get = BarSquads.Get;
+				if (get != null)
+				{
+					Snapshot(get);
+				}
+			}
+		}
+	}
+
+	// Squad rules (Colonist Bar Plus): one row per rule, label, shared value (a menu of choices), and vanilla's editor
+	// when it has one. Returns true when the card closed.
+	private bool DrawRules(float x, float y, float w)
+	{
+		for (int i = 0; i < SquadRules.All.Length; i++)
+		{
+			SquadRules.Rule rule = SquadRules.All[i];
+			RcbFont.Label(new Rect(x, y, RuleLabelW, BtnH), RcbFont.Fit(SquadRules.Label(rule), RuleLabelW - 4f, bold: false, GameFont.Tiny), bold: false, GameFont.Tiny, RcbPalette.TextDim);
+			bool flag = SquadRules.HasEditor(rule);
+			float num = w - RuleLabelW - (flag ? (RuleEditW + Gap) : 0f);
+			Rect r = new Rect(x + RuleLabelW, y, num, BtnH);
+			List<Pawn> list = ruleMembers[i];
+			bool flag2 = list.Count > 0;
+			string text = ((!flag2) ? "-" : (ruleMixed[i] ? "RCB_Rules_Mixed".Translate().ToString() : ruleValue[i]));
+			string tip = null;
+			if (Mouse.IsOver(r))
+			{
+				tip = RuleTip(rule, list, ruleMixed[i]);
+			}
+			if (Button(r, null, text, tip, flag2, active: false, ruleMixed[i]))
+			{
+				SquadRules.OpenMenu(index, rule, ruleMixed[i] ? null : ruleValue[i]);
+			}
+			if (flag && Button(new Rect(r.xMax + Gap, y, RuleEditW, BtnH), null, "AssignTabEdit".Translate(), "RCB_Rules_EditTip".Translate(), enabled: true, active: false))
+			{
+				// The card sits above dialogs: left open, it would cover vanilla's manager and keep its input.
+				Close();
+				SquadRules.OpenEditor(rule, list);
+				return true;
+			}
+			y += BtnH + Gap;
+		}
+		if (forced > 0)
+		{
+			RcbFont.Label(new Rect(x, y, w - RuleEditW - Gap, BtnH), "RCB_Rules_Forced".Translate(forced), bold: false, GameFont.Tiny, RcbPalette.TextDim);
+			if (Button(new Rect(x + w - RuleEditW, y, RuleEditW, BtnH), null, "RCB_Rules_Release".Translate(), "RCB_Rules_ReleaseTip".Translate(), enabled: true, active: false))
+			{
+				SquadRules.ReleaseForced(index);
+			}
+		}
+		return false;
+	}
+
+	// How many members the rule concerns, then each one's value when they differ (eight at most).
+	private static string RuleTip(SquadRules.Rule rule, List<Pawn> members, bool mixed)
+	{
+		if (members.Count == 0)
+		{
+			return ((rule == SquadRules.Rule.Area) ? "RCB_Rules_NoneOnMap" : "RCB_Rules_None").Translate();
+		}
+		System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder(((rule == SquadRules.Rule.Area) ? "RCB_Rules_TipArea" : "RCB_Rules_Tip").Translate(members.Count).ToString());
+		if (mixed)
+		{
+			stringBuilder.Append('\n');
+			for (int i = 0; i < members.Count && i < 8; i++)
+			{
+				stringBuilder.Append('\n').Append("RCB_Rules_TipLine".Translate(members[i].LabelShortCap, SquadRules.ValueLabel(members[i], rule)));
+			}
+			if (members.Count > 8)
+			{
+				stringBuilder.Append('\n').Append("RCB_Medical_More".Translate(members.Count - 8));
+			}
+		}
+		return stringBuilder.ToString();
 	}
 
 	// Members on the map but none able (all down, in a break or in deathrest) is not the same as nobody here.

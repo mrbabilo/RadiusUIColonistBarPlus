@@ -32,6 +32,9 @@ Chaque lot a sa propre spec, puis son plan, avant tout code. Ordre proposé : du
 
 ### Lot 4 : travail et règles par escouade
 
+- 4a (onglets de la carte, onglet Règles) : spec `2026-10-18-regles-escouade-design.md`, plan `2026-10-18-regles-escouade.md`, code fait, contrôles en jeu faits.
+- 4b (onglet Travail) : à spécifier.
+
 - Travail : envoyer l'escouade sur une tâche, pause, repas, loisirs (référence : `WorkMenu`).
 - Règles : tenue, drogues, nourriture, zone, soins appliqués à toute l'escouade en une fois (référence : `ManageMenu`). Appliquer les politiques vanilla aux pions plutôt que stocker une règle par escouade, pour ne rien ajouter à la sauvegarde.
 - Lot le plus large : le découper dans sa spec si besoin.

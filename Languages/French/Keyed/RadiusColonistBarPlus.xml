@@ -96,4 +96,31 @@
   <RCB_Card_NoneAble>Aucun membre en état d'agir</RCB_Card_NoneAble>
   <RCB_Orders_NoneAble>Aucun membre présent ne peut recevoir d'ordre (à terre, en crise ou en repos mortel)</RCB_Orders_NoneAble>
   <RCB_Medical_NoneFree>Aucun membre libre n'a pu prendre cet ordre.</RCB_Medical_NoneFree>
+  <!-- Règles d'escouade et onglets de la carte (Colonist Bar Plus). -->
+  <RCB_Tab_Combat>COMBAT</RCB_Tab_Combat>
+  <RCB_Tab_Rules>RÈGLES</RCB_Tab_Rules>
+  <RCB_Rules_Apparel>Tenue</RCB_Rules_Apparel>
+  <RCB_Rules_Food>Nourriture</RCB_Rules_Food>
+  <RCB_Rules_Drugs>Drogues</RCB_Rules_Drugs>
+  <RCB_Rules_Medical>Soins médicaux</RCB_Rules_Medical>
+  <RCB_Rules_Area>Zone</RCB_Rules_Area>
+  <RCB_Rules_Hostility>Menaces</RCB_Rules_Hostility>
+  <RCB_Rules_Mixed>Mixte</RCB_Rules_Mixed>
+  <RCB_Rules_Current>{0} (actuelle)</RCB_Rules_Current>
+  <RCB_Rules_Tip>Posée sur les {0} membres que cette règle concerne, sur toutes les cartes, caravanes comprises.</RCB_Rules_Tip>
+  <RCB_Rules_TipArea>Posée sur les {0} membres de cette carte : une zone appartient à sa carte.</RCB_Rules_TipArea>
+  <RCB_Rules_TipLine>{0} : {1}</RCB_Rules_TipLine>
+  <RCB_Rules_None>Aucun membre concerné par cette règle.</RCB_Rules_None>
+  <RCB_Rules_NoneOnMap>Aucun membre sur cette carte.</RCB_Rules_NoneOnMap>
+  <RCB_Rules_EditTip>Ouvre la gestion des règles du jeu. La carte d'ordres se ferme.</RCB_Rules_EditTip>
+  <RCB_Rules_Set>{0} : {1} pour {2} membres.</RCB_Rules_Set>
+  <RCB_Rules_Skipped>{0} inchangés (incapables de violence).</RCB_Rules_Skipped>
+  <RCB_Rules_Forced>Vêtements forcés : {0} membres</RCB_Rules_Forced>
+  <RCB_Rules_Release>Libérer</RCB_Rules_Release>
+  <RCB_Rules_ReleaseTip>Retire les vêtements forcés de chaque membre : ils suivent de nouveau leur règle de tenue.</RCB_Rules_ReleaseTip>
+  <RCB_Policies_Line>{0} : {1}</RCB_Policies_Line>
+  <RCB_Policies_Selected>({0} sélectionnés)</RCB_Policies_Selected>
+  <RCB_Policies_None>Aucune</RCB_Policies_None>
+  <RCB_Policies_NoneAvailable>Aucune règle disponible</RCB_Policies_NoneAvailable>
+  <RCB_Policies_Set>{0} : {1} pour {2} colons.</RCB_Policies_Set>
 </LanguageData>

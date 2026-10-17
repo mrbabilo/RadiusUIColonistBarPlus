@@ -543,4 +543,31 @@
   <RCB_Card_NoneAble>No member fit for orders</RCB_Card_NoneAble>
   <RCB_Orders_NoneAble>No squad member here can take orders (down, in a mental break or in deathrest)</RCB_Orders_NoneAble>
   <RCB_Medical_NoneFree>No free member could take this order.</RCB_Medical_NoneFree>
+  <!-- Squad rules and card tabs (Colonist Bar Plus). -->
+  <RCB_Tab_Combat>COMBAT</RCB_Tab_Combat>
+  <RCB_Tab_Rules>RULES</RCB_Tab_Rules>
+  <RCB_Rules_Apparel>Apparel</RCB_Rules_Apparel>
+  <RCB_Rules_Food>Food</RCB_Rules_Food>
+  <RCB_Rules_Drugs>Drugs</RCB_Rules_Drugs>
+  <RCB_Rules_Medical>Medical care</RCB_Rules_Medical>
+  <RCB_Rules_Area>Area</RCB_Rules_Area>
+  <RCB_Rules_Hostility>Threats</RCB_Rules_Hostility>
+  <RCB_Rules_Mixed>Mixed</RCB_Rules_Mixed>
+  <RCB_Rules_Current>{0} (current)</RCB_Rules_Current>
+  <RCB_Rules_Tip>Set for the {0} members this rule concerns, on every map, in caravans included.</RCB_Rules_Tip>
+  <RCB_Rules_TipArea>Set for the {0} members on this map: an area belongs to its map.</RCB_Rules_TipArea>
+  <RCB_Rules_TipLine>{0}: {1}</RCB_Rules_TipLine>
+  <RCB_Rules_None>No member this rule applies to.</RCB_Rules_None>
+  <RCB_Rules_NoneOnMap>No member on this map.</RCB_Rules_NoneOnMap>
+  <RCB_Rules_EditTip>Opens the game's policy manager. The order card closes.</RCB_Rules_EditTip>
+  <RCB_Rules_Set>{0}: {1} for {2} members.</RCB_Rules_Set>
+  <RCB_Rules_Skipped>{0} left as they were (incapable of violence).</RCB_Rules_Skipped>
+  <RCB_Rules_Forced>Forced apparel: {0} members</RCB_Rules_Forced>
+  <RCB_Rules_Release>Release</RCB_Rules_Release>
+  <RCB_Rules_ReleaseTip>Clears the forced apparel of every member: they follow their apparel policy again.</RCB_Rules_ReleaseTip>
+  <RCB_Policies_Line>{0}: {1}</RCB_Policies_Line>
+  <RCB_Policies_Selected>({0} selected)</RCB_Policies_Selected>
+  <RCB_Policies_None>None</RCB_Policies_None>
+  <RCB_Policies_NoneAvailable>No policies available</RCB_Policies_NoneAvailable>
+  <RCB_Policies_Set>{0}: {1} for {2} colonists.</RCB_Policies_Set>
 </LanguageData>

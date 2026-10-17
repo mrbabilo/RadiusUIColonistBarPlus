@@ -1,5 +1,12 @@
 # Journal des modifications
 
+## 1.3.0 — non publiée
+
+- **Onglets** dans la carte d'ordres : Combat et Règles. La section Membres reste sous les deux, la carte garde sa hauteur, l'onglet ouvert est retenu pour la session.
+- **Règles d'escouade** : tenue, nourriture, drogues, soins médicaux, zone et réaction aux menaces réglées en une fois pour toute l'escouade, avec la valeur commune ou « Mixte » et la valeur de chacun en infobulle. Zone : membres de la carte affichée seulement. « Modifier… » ouvre la gestion des règles du jeu ; « Libérer » retire les vêtements forcés.
+- Un pion incapable de violence ne reçoit jamais « Attaquer », comme dans l'onglet Affectation.
+- Menu « Règles » du portrait : textes traduits (ils étaient écrits en dur en anglais).
+
 ## 1.2.0 — 2026-10-18
 
 - **Soins** dans la carte d'ordres : Secourir porte les pions à terre au lit, Soigner envoie les membres qui savent soigner vers les blessés, Au lit met les membres blessés au repos médical jusqu'à guérison. Patients : colons et esclaves de la carte, hémorragies mortelles d'abord, puis membres de l'escouade ; un patient par membre, le plus proche.

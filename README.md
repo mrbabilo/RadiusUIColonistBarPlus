@@ -53,6 +53,14 @@ La section « Soins » de la carte d'ordres relève et soigne en un clic. Les pa
 
 Chaque bouton indique le nombre de pions concernés ; son infobulle les nomme avec leur état, et son survol les entoure sur la carte. Secourir et Soigner restent soulignés tant que des membres secourent ou soignent ; la ligne d'état de la carte compte les membres à terre et à soigner. Trois raccourcis de plus, sans touche par défaut : secourir, soigner, envoyer au lit. Rien n'est ajouté à la sauvegarde : ce sont des ordres vanilla.
 
+## Règles
+
+La carte d'ordres a deux onglets, **Combat** (les ordres ci-dessus) et **Règles** ; Membres reste sous les deux, et la carte garde sa hauteur. L'onglet ouvert est retenu pour la session.
+
+L'onglet Règles règle d'un coup, pour toute l'escouade, les règles de l'onglet Affectation : tenue, nourriture, drogues, soins médicaux, zone et réaction aux menaces. Chaque ligne montre la valeur commune ou « Mixte » (l'infobulle donne alors la valeur de chacun) ; un clic ouvre la liste des choix. Les règles touchent tous les membres vivants, y compris en caravane, sauf la zone, qui ne vaut que sur la carte affichée. « Modifier… » ouvre la gestion des règles du jeu. Un pion incapable de violence ne reçoit jamais « Attaquer ». Quand des membres portent des vêtements forcés, une ligne permet de les libérer.
+
+Le menu « Règles » du portrait n'a plus de texte anglais écrit en dur.
+
 ## Fiche de survol
 
 La fiche d'un pion s'ouvre après un court délai de survol de son portrait : 0,25 s par défaut, de 0 à 1 s dans l'onglet Panneau de survol des réglages. Passer d'un portrait au voisin la change sans attendre. Une ligne en bas de la fiche rappelle les clics droits du portrait.
