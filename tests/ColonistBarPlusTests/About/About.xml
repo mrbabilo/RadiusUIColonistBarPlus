@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ModMetaData>
+  <name>Colonist Bar Plus - Tests</name>
+  <packageId>mrbabilo.RadiusUI.ColonistBarPlus.Tests</packageId>
+  <author>mrbabilo</author>
+  <description>Automated checks for Colonist Bar Plus squad work. Never published. Runs only with -rcbtest=PATH on the command line.</description>
+  <supportedVersions>
+    <li>1.6</li>
+  </supportedVersions>
+  <modDependencies>
+    <li>
+      <packageId>brrainz.harmony</packageId>
+      <displayName>Harmony</displayName>
+    </li>
+    <li>
+      <packageId>mrbabilo.RadiusUI.ColonistBarPlus</packageId>
+      <displayName>Radius UI - Colonist Bar Plus</displayName>
+    </li>
+  </modDependencies>
+  <loadAfter>
+    <li>mrbabilo.RadiusUI.ColonistBarPlus</li>
+  </loadAfter>
+</ModMetaData>

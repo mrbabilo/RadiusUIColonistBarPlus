@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Dubs Performance Analyzer settings for the test sandbox only (copied by run-scene.sh). Methods are listed as
+     Namespace.Type:Method and show in the Custom Update / Custom Tick categories. -->
+<SettingsBlock>
+	<ModSettings Class="Analyzer.Settings">
+		<showMainTabIcon>True</showMainTabIcon>
+		<disableThreadedPatching>True</disableThreadedPatching>
+		<disableCleanup>True</disableCleanup>
+		<SavedPatches_Update>
+			<li>RimWorld.ColonistBar:ColonistBarOnGUI</li>
+			<li>RimWorld.ColonistBarColonistDrawer:DrawColonist</li>
+			<li>RimWorld.ColonistBar:CheckRecacheEntries</li>
+			<li>Verse.DynamicDrawManager:DrawDynamicThings</li>
+			<li>Verse.CameraDriver:Update</li>
+			<li>RadiusColonistBar.SquadOrderCard:DoWindowContents</li>
+			<li>RadiusColonistBar.Dialog_CommandCenter:DoWindowContents</li>
+			<li>RadiusColonistBar.HoverPopout:Draw</li>
+			<li>RadiusColonistBar.SquadStatus:Of</li>
+			<li>RadiusColonistBar.BarSquads:GameComponentUpdate</li>
+			<li>UnityEngine.GUISkin:BuildStyleCache</li>
+			<li>RadiusUI.Framework.FlatScroll:Begin</li>
+			<li>RadiusUI.Framework.FlatScroll:End</li>
+			<li>RadiusUI.Framework.FlatScroll:EndOrUnwind</li>
+			<li>RadiusColonistBar.SquadOrderCard:Snapshot</li>
+			<li>RadiusColonistBar.SquadOrderCard:DrawCombat</li>
+			<li>RadiusColonistBar.SquadOrderCard:DrawRules</li>
+			<li>RadiusColonistBar.SquadOrderCard:DrawWork</li>
+			<li>RadiusColonistBar.SquadOrderCard:DrawWorkGrid</li>
+			<li>RadiusColonistBar.SquadOrderCard:WorkChip</li>
+			<li>RadiusColonistBar.SquadOrderCard:DrawMembers</li>
+			<li>RadiusColonistBar.SquadOrderCard:DrawHeader</li>
+			<li>RadiusColonistBar.SquadOrderCard:DrawTabs</li>
+			<li>RadiusColonistBar.SquadOrderCard:Button</li>
+		</SavedPatches_Update>
+		<SavedPatches_Tick>
+			<li>RadiusColonistBar.ThinkNode_ConditionalSquadAssault:Satisfied</li>
+			<li>RadiusColonistBar.JobGiver_SquadAssault:TryGiveJob</li>
+			<li>RadiusColonistBar.SquadAssault:GameComponentTick</li>
+			<li>RadiusColonistBar.CCHistory:GameComponentTick</li>
+		</SavedPatches_Tick>
+	</ModSettings>
+</SettingsBlock>

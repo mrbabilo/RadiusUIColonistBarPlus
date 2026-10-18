@@ -16,5 +16,5 @@ dotnet build "$HERE/Source/RadiusColonistBar.csproj" -c Release -nologo -v q \
 	-o "$TMP/build" -p:BaseIntermediateOutputPath="$TMP/obj/"
 
 cp "$TMP/build/RadiusColonistBar.dll" "$HERE/Assemblies/"
-rsync -a --delete --exclude Source/ --exclude docs/ --exclude deploy.sh --exclude .DS_Store --exclude .git/ --exclude .gitignore --exclude .superpowers/ --exclude .remember/ "$HERE/" "$DEST/"
+rsync -a --delete --exclude Source/ --exclude docs/ --exclude tests/ --exclude deploy.sh --exclude .DS_Store --exclude .git/ --exclude .gitignore --exclude .superpowers/ --exclude .remember/ "$HERE/" "$DEST/"
 echo "Publié : $DEST"

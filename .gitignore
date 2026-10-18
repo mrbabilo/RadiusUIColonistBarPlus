@@ -9,3 +9,7 @@ obj/
 
 # Session notes of the coding assistant: never committed, never published.
 .remember/
+
+# In-game test helpers: built by the tests/ scripts into their work folder.
+tests/**/bin/
+tests/**/obj/
