@@ -1,6 +1,6 @@
 # Journal des modifications
 
-## 1.4.0 — non publiée
+## 1.4.0 — 2026-10-18
 
 - **Onglet Travail** dans la carte d'ordres : pauses (manger, dormir, détente, reprendre), tâches d'un type de travail données à toute l'escouade, priorités de travail de l'escouade, copie des priorités et des horaires du chef.
 - Mode Maintenant : chaque membre affecté part sur une tâche différente, selon la recherche de travail du jeu ; un membre à priorité 0 n'est pas envoyé. Badge et message comptent le résultat.

@@ -4,7 +4,7 @@
 
 Principe : reprendre par lots les fonctions de groupe de [LTO] Colony Groups, réécrites au style Radius et appliquées aux escouades de Colonist Bar. Colony Groups n'a pas de licence : son code sert de référence de comportement et n'est jamais recopié.
 
-## Fait (lots 1 et 1 bis publiés en 1.0.0 le 2026-10-15 ; lot 2 et retouches d'ergonomie en 1.1.0 le 2026-10-17 ; lot 3 et retouches en 1.2.0 le 2026-10-18 ; lot 4a en 1.3.0 le 2026-10-18)
+## Fait (lots 1 et 1 bis publiés en 1.0.0 le 2026-10-15 ; lot 2 et retouches d'ergonomie en 1.1.0 le 2026-10-17 ; lot 3 et retouches en 1.2.0 le 2026-10-18 ; lot 4a en 1.3.0 le 2026-10-18 ; lot 4b en 1.4.0 le 2026-10-18)
 
 | Lot | Spec | Contenu |
 |---|---|---|
@@ -17,7 +17,7 @@ Contrôles en jeu des lots 1, 1 bis et 2 : faits.
 
 Retouches d'ergonomie pour la 1.1.0 (hors lot, sans changement de sauvegarde) : affectation rapide depuis la sélection, état des bascules et raisons des boutons grisés sur la carte, raccourcis dans les infobulles, confirmation de Dissoudre, infobulle de l'onglet d'escouade, délai et ligne d'aide de la fiche de survol. Contrôles en jeu faits.
 
-## Publications (1.0.0 le 2026-10-15, 1.1.0 le 2026-10-17, 1.2.0 et 1.3.0 le 2026-10-18)
+## Publications (1.0.0 le 2026-10-15, 1.1.0 le 2026-10-17, 1.2.0, 1.3.0 et 1.4.0 le 2026-10-18)
 
 - `CHANGELOG.md` daté, tag `v1.0.0`, release GitHub avec le zip du dossier publié `Mods/RadiusUIColonistBarPlus`.
 - Page Workshop : texte prêt dans `docs/WORKSHOP.md` (incompatibilité avec Colonist Bar d'origine et Colony Groups, multijoueur non pris en charge). L'envoi se fait depuis le jeu, par le joueur.
@@ -33,7 +33,7 @@ Chaque lot a sa propre spec, puis son plan, avant tout code. Ordre proposé : du
 ### Lot 4 : travail et règles par escouade
 
 - 4a (onglets de la carte, onglet Règles) : spec `2026-10-18-regles-escouade-design.md`, plan `2026-10-18-regles-escouade.md`, code fait, contrôles en jeu faits, publié en 1.3.0.
-- 4b (onglet Travail) : spec `2026-10-18-travail-escouade-design.md`, plan `2026-10-18-travail-escouade.md`, code fait, contrôles en jeu faits.
+- 4b (onglet Travail) : spec `2026-10-18-travail-escouade-design.md`, plan `2026-10-18-travail-escouade.md`, code fait, contrôles en jeu faits, publié en 1.4.0.
 
 - Travail : envoyer l'escouade sur une tâche, pause, repas, loisirs (référence : `WorkMenu`).
 - Règles : tenue, drogues, nourriture, zone, soins appliqués à toute l'escouade en une fois (référence : `ManageMenu`). Appliquer les politiques vanilla aux pions plutôt que stocker une règle par escouade, pour ne rien ajouter à la sauvegarde.

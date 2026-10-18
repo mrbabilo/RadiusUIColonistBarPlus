@@ -29,6 +29,16 @@ Right-click a squad tab on the bar, or open a squad in the Command Center, to ge
 [h2]Squad rules[/h2]
 The order card has two tabs, Combat (the orders above) and Rules. The Rules tab sets the Assign tab's policies for the whole squad at once: apparel, food, drugs, medical care, area (members on the current map) and threat response. Each row shows the shared value or "Mixed", with every member's value in the tooltip; "Edit..." opens the game's policy manager, and forced apparel can be released in one click. Pacifists never get "Attack".
 
+[h2]Squad work[/h2]
+A third tab, Work, handles the squad's day:
+[list]
+[*]Breaks: Eat, Sleep and Relax send the members who need it (each button counts them) and undraft them; Resume sends wandering, waiting or relaxing members back to work without interrupting a meal or sleep.
+[*]Now: a click on a work type sends every assigned member present on a task of that type, each on a different one, following the game's own work search (allowed areas respected). Members with that work switched off or incapable of it are skipped and counted.
+[*]Priorities: the members' real work priorities, shared or mixed, with left and right click as in the Work tab; the manual priorities switch is the colony-wide setting.
+[*]Copy priorities and Copy schedule copy the leader's settings to the other members, caravans included.
+[/list]
+Nothing is saved: one click is one assignment, never reapplied later.
+
 The card shows the squad's state (including members down or needing tending), stays open after an order, can be dragged (it reopens where you left it), and closes with its button, a click outside or Escape. An assault stops when you give a member an order, undraft them or switch off fire at will.
 
 Without opening the card:
