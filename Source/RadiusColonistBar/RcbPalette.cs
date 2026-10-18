@@ -49,6 +49,13 @@ internal static class RcbPalette
 
 	public static readonly Color WashSolid = Palette.WashSolid;
 
+	// The framework's scroll bar colours, for the bars drawn by hand (the work grid).
+	public static readonly Color ScrollTrack = Palette.Flat.ScrollTrack;
+
+	public static readonly Color ScrollThumb = Palette.Flat.ScrollThumb;
+
+	public static readonly Color ScrollThumbHot = Palette.Flat.ScrollThumbHot;
+
 	private const string ModId = "astryl.RadiusUI.ColonistBar";
 
 	private static Color accentCached = Palette.Accents[0];

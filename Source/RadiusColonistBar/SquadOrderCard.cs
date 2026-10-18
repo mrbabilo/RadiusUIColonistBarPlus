@@ -128,6 +128,9 @@ public class SquadOrderCard : Window
 
 	private Vector2 workScroll;
 
+	// Where the thumb was grabbed, from its top, while it is dragged.
+	private float workGrab;
+
 	private List<Pawn> pauseEat = new List<Pawn>();
 
 	private List<Pawn> pauseSleep = new List<Pawn>();
@@ -629,19 +632,33 @@ public class SquadOrderCard : Window
 		return false;
 	}
 
-	// Three columns of chips in a scroll view. The card leaves the camera free, so the wheel over the grid is used up
-	// here, or it would zoom the map as well. A right click is read apart: the card's buttons only take the left one.
+	// Three columns of chips in a home-made scroll view: FlatScroll swaps eight GUI.skin styles on the way in and out,
+	// and each swap rebuilds Unity's style cache (0.54 ms a frame, peaks at 10 ms). A clipped group shifts the rows and
+	// the bar is drawn by hand. The card leaves the camera free, so the wheel over the grid is used up here, or it would
+	// zoom the map as well. A right click is read apart: the card's buttons only take the left one.
 	private void DrawWorkGrid(Rect r)
 	{
 		int num = 3;
 		int num2 = (workTypes.Count + num - 1) / num;
 		float num3 = (float)num2 * (ChipH + Gap) - Gap;
 		bool flag = num3 > r.height;
-		Rect viewRect = new Rect(0f, 0f, r.width - (flag ? 16f : 0f), Mathf.Max(num3, r.height));
-		float num4 = (viewRect.width - Gap * (float)(num - 1)) / (float)num;
+		float num6 = (flag ? (num3 - r.height) : 0f);
+		float num7 = r.width - (flag ? 16f : 0f);
+		float num4 = (num7 - Gap * (float)(num - 1)) / (float)num;
 		bool flag2 = Mouse.IsOver(r);
-		int depth = FlatScroll.Depth;
-		FlatScroll.Begin(r, ref workScroll, viewRect);
+		Event current = Event.current;
+		if (flag2 && current.type == EventType.ScrollWheel)
+		{
+			// Unity's scroll views move 20 px a notch. Whole pixels: labels are not snapped like the chips under them.
+			workScroll.y = Mathf.Round(workScroll.y + current.delta.y * 20f);
+			current.Use();
+		}
+		workScroll.y = Mathf.Clamp(workScroll.y, 0f, num6);
+		if (flag)
+		{
+			WorkScrollBar(new Rect(r.xMax - 8f, r.y, 6f, r.height), num3, num6);
+		}
+		Widgets.BeginGroup(new Rect(r.x, r.y, num7, r.height));
 		try
 		{
 			// Only the visible rows, and no hover or click outside the grid: a chip scrolled out of view would still
@@ -651,18 +668,60 @@ public class SquadOrderCard : Window
 				float num5 = (float)(i / num) * (ChipH + Gap);
 				if (RcbPalette.RowVisible(num5, ChipH, workScroll, r.height, 0f))
 				{
-					WorkChip(new Rect((float)(i % num) * (num4 + Gap), num5, num4, ChipH), i, flag2);
+					WorkChip(new Rect((float)(i % num) * (num4 + Gap), num5 - workScroll.y, num4, ChipH), i, flag2);
 				}
 			}
 		}
 		finally
 		{
-			FlatScroll.EndOrUnwind(depth);
+			Widgets.EndGroup();
 		}
-		if (flag2 && Event.current.type == EventType.ScrollWheel)
+	}
+
+	// The grid's thin bar. A click on the track jumps there, the thumb drags; the hot control keeps the drag when the
+	// mouse leaves the card, and is let go if the button was released unseen (alt-tab, card closed mid-drag), or the
+	// whole game's UI would stay frozen on it.
+	private void WorkScrollBar(Rect track, float contentH, float maxScroll)
+	{
+		float num = Mathf.Max(24f, track.height * track.height / contentH);
+		float num2 = track.height - num;
+		Rect rect = new Rect(track.x - 4f, track.y, track.width + 8f, track.height);
+		int controlID = GUIUtility.GetControlID(FocusType.Passive);
+		Event current = Event.current;
+		if (GUIUtility.hotControl == controlID && !Input.GetMouseButton(0))
 		{
-			Event.current.Use();
+			GUIUtility.hotControl = 0;
 		}
+		switch (current.GetTypeForControl(controlID))
+		{
+		case EventType.MouseDown:
+			if (current.button == 0 && rect.Contains(current.mousePosition))
+			{
+				float num3 = track.y + workScroll.y / maxScroll * num2;
+				workGrab = ((current.mousePosition.y >= num3 && current.mousePosition.y <= num3 + num) ? (current.mousePosition.y - num3) : (num * 0.5f));
+				GUIUtility.hotControl = controlID;
+				workScroll.y = Mathf.Round(Mathf.Clamp01((current.mousePosition.y - workGrab - track.y) / num2) * maxScroll);
+				current.Use();
+			}
+			break;
+		case EventType.MouseDrag:
+			if (GUIUtility.hotControl == controlID)
+			{
+				workScroll.y = Mathf.Round(Mathf.Clamp01((current.mousePosition.y - workGrab - track.y) / num2) * maxScroll);
+				current.Use();
+			}
+			break;
+		case EventType.MouseUp:
+			if (GUIUtility.hotControl == controlID)
+			{
+				GUIUtility.hotControl = 0;
+				current.Use();
+			}
+			break;
+		}
+		Rect r = new Rect(track.x, track.y + workScroll.y / maxScroll * num2, track.width, num);
+		RcbSpatial.Rounded(track, RcbPalette.ScrollTrack, 3f, exact: true);
+		RcbSpatial.Rounded(r, (GUIUtility.hotControl == controlID || Mouse.IsOver(rect)) ? RcbPalette.ScrollThumbHot : RcbPalette.ScrollThumb, 3f, exact: true);
 	}
 
 	private void WorkChip(Rect r, int i, bool gridHover)

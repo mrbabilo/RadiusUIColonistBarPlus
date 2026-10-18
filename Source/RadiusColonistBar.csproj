@@ -33,5 +33,8 @@
     <Reference Include="UnityEngine.IMGUIModule">
       <HintPath>../../../../../../../Volumes/BABILOGAMES/JEUX EN COURS/RimWorld.app/Contents/Resources/Data/Managed/UnityEngine.IMGUIModule.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.InputLegacyModule">
+      <HintPath>../../../../../../../Volumes/BABILOGAMES/JEUX EN COURS/RimWorld.app/Contents/Resources/Data/Managed/UnityEngine.InputLegacyModule.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>
