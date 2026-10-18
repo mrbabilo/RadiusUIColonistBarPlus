@@ -6,3 +6,6 @@ obj/
 .vs/
 *.user
 .DS_Store
+
+# Session notes of the coding assistant: never committed, never published.
+.remember/
