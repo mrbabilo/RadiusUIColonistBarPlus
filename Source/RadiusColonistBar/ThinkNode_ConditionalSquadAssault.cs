@@ -13,6 +13,12 @@ public class ThinkNode_ConditionalSquadAssault : ThinkNode_Conditional
 		{
 			return false;
 		}
+		// Vanilla keeps the incapable of violence out of the fight giver by their hostility response, which the
+		// assault giver overrides: they stay out of the branch and wait drafted, as in vanilla.
+		if (pawn.WorkTagIsDisabled(WorkTags.Violent))
+		{
+			return false;
+		}
 		return squadAssault.TryGetMode(pawn, out _);
 	}
 }
