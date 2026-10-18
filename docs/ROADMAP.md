@@ -17,7 +17,7 @@ Contrôles en jeu des lots 1, 1 bis et 2 : faits.
 
 Retouches d'ergonomie pour la 1.1.0 (hors lot, sans changement de sauvegarde) : affectation rapide depuis la sélection, état des bascules et raisons des boutons grisés sur la carte, raccourcis dans les infobulles, confirmation de Dissoudre, infobulle de l'onglet d'escouade, délai et ligne d'aide de la fiche de survol. Contrôles en jeu faits.
 
-## Publications (1.0.0 le 2026-10-15, 1.1.0 le 2026-10-17, 1.2.0, 1.3.0 et 1.4.0 le 2026-10-18)
+## Publications (1.0.0 le 2026-10-15, 1.1.0 le 2026-10-17, 1.2.0, 1.3.0, 1.4.0 et 1.4.1 le 2026-10-18)
 
 - `CHANGELOG.md` daté, tag `v1.0.0`, release GitHub avec le zip du dossier publié `Mods/RadiusUIColonistBarPlus`.
 - Page Workshop : texte prêt dans `docs/WORKSHOP.md` (incompatibilité avec Colonist Bar d'origine et Colony Groups, multijoueur non pris en charge). L'envoi se fait depuis le jeu, par le joueur.

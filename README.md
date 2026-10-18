@@ -14,7 +14,7 @@ Un clic droit sur l'onglet d'une escouade ouvre sa carte d'ordres, déplaçable 
 - **Mobiliser / Démobiliser l'escouade** ;
 - **Tir à volonté / Cesser le feu** ;
 - **Regroupement** : tout le monde court vers le chef (le premier membre dans l'ordre de la barre) ;
-- **Assaut** : l'escouade attaque d'elle-même, en visant d'abord les ennemis les plus forts, les plus faibles, ou ceux qui fuient. Elle se met à couvert comme en vanilla et attaque n'importe quel ennemi à portée quand aucun ne correspond. L'assaut s'arrête quand on démobilise un membre, qu'on lui donne un ordre, ou qu'on coupe le tir à volonté (pour toute l'escouade ou avec le bouton d'un seul pion). L'attaque en cours s'interrompt aussitôt.
+- **Assaut** : l'escouade attaque d'elle-même, en visant d'abord les ennemis les plus forts, les plus faibles, ou ceux qui fuient. Elle se met à couvert comme en vanilla et attaque n'importe quel ennemi à portée quand aucun ne correspond. L'assaut s'arrête quand on démobilise un membre, qu'on lui donne un ordre, ou qu'on coupe le tir à volonté (pour toute l'escouade ou avec le bouton d'un seul pion). L'attaque en cours s'interrompt aussitôt. Un membre incapable de violence reste mobilisé sur place.
   Le mode d'assaut en cours est surligné : un clic dessus arrête l'assaut, les membres restent mobilisés.
 
 La section « Membres » de la carte gère l'escouade à partir de la sélection : **Ajouter la sélection** y met les colons et esclaves sélectionnés (un pion d'une autre escouade en change), **Retirer la sélection** en sort les membres sélectionnés, et **Sélectionner**, à côté de Regroupement, sélectionne les membres présents. Dans le module Escouades, « Nouvelle escouade » prend la sélection quand il y en a une. Dissoudre demande confirmation.
@@ -76,6 +76,10 @@ Rien n'est sauvegardé : un clic donne une affectation, sans travail « actif »
 ## Fiche de survol
 
 La fiche d'un pion s'ouvre après un court délai de survol de son portrait : 0,25 s par défaut, de 0 à 1 s dans l'onglet Panneau de survol des réglages. Passer d'un portrait au voisin la change sans attendre. Une ligne en bas de la fiche rappelle les clics droits du portrait.
+
+## Performance
+
+Le défilement du framework Radius (`FlatScroll`) reconstruisait 16 fois le cache des styles de l'interface à chaque affichage d'une zone de défilement : environ 0,5 ms par image et des saccades jusqu'à 10 ms. Le mod corrige ce défilement pour toute la suite Radius chargée avec lui (Centre de commandement, panneaux d'Inspector Plus, mods d'astryl), sans toucher au framework. Le correctif ne s'active qu'avec la version 32 du framework ; l'option de lancement `-ruinoflatfix` le désactive. Mesures détaillées : `docs/perf/2026-10-18-dpa.md`.
 
 ## Sauvegardes
 

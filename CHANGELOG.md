@@ -1,5 +1,11 @@
 # Journal des modifications
 
+## 1.4.1 — 2026-10-18
+
+- **Assaut** : un membre incapable de violence n'attaque plus pendant un assaut ; il reste mobilisé sur place, comme dans le jeu de base.
+- **Performance des zones de défilement** : le défilement du framework Radius reconstruisait 16 fois le cache des styles de l'interface à chaque affichage d'une zone de défilement, d'où environ 0,5 ms par image et des saccades jusqu'à 10 ms. Un correctif, actif seulement avec la version 32 du framework, pose les styles une seule fois. Il profite au Centre de commandement et à toute la suite Radius chargée avec ce mod ; l'option de lancement `-ruinoflatfix` le désactive.
+- **Onglet Travail** : la grille des tâches a son propre défilement ; la carte d'ordres coûte 0,56 ms par image sur cet onglet au lieu de 1,10 ms.
+
 ## 1.4.0 — 2026-10-18
 
 - **Onglet Travail** dans la carte d'ordres : pauses (manger, dormir, détente, reprendre), tâches d'un type de travail données à toute l'escouade, priorités de travail de l'escouade, copie des priorités et des horaires du chef.
