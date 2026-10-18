@@ -1,5 +1,13 @@
 # Journal des modifications
 
+## 1.4.0 — non publiée
+
+- **Onglet Travail** dans la carte d'ordres : pauses (manger, dormir, détente, reprendre), tâches d'un type de travail données à toute l'escouade, priorités de travail de l'escouade, copie des priorités et des horaires du chef.
+- Mode Maintenant : chaque membre affecté part sur une tâche différente, selon la recherche de travail du jeu ; un membre à priorité 0 n'est pas envoyé. Badge et message comptent le résultat.
+- Mode Priorités : les vraies priorités des membres, communes ou mixtes, clic gauche et droit comme dans l'onglet Travail ; bascule des priorités manuelles.
+- Rien n'est sauvegardé, aucun travail n'est réappliqué en continu.
+- Onglet Règles : la ligne Soins et le bouton « Modifier… » tiennent dans leur case en français.
+
 ## 1.3.0 — 2026-10-18
 
 - **Onglets** dans la carte d'ordres : Combat et Règles. La section Membres reste sous les deux, la carte garde sa hauteur, l'onglet ouvert est retenu pour la session.

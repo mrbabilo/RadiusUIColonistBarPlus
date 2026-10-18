@@ -102,7 +102,7 @@
   <RCB_Rules_Apparel>Tenue</RCB_Rules_Apparel>
   <RCB_Rules_Food>Nourriture</RCB_Rules_Food>
   <RCB_Rules_Drugs>Drogues</RCB_Rules_Drugs>
-  <RCB_Rules_Medical>Soins médicaux</RCB_Rules_Medical>
+  <RCB_Rules_Medical>Soins</RCB_Rules_Medical>
   <RCB_Rules_Area>Zone</RCB_Rules_Area>
   <RCB_Rules_Hostility>Menaces</RCB_Rules_Hostility>
   <RCB_Rules_Mixed>Mixte</RCB_Rules_Mixed>
@@ -123,4 +123,52 @@
   <RCB_Policies_None>Aucune</RCB_Policies_None>
   <RCB_Policies_NoneAvailable>Aucune règle disponible</RCB_Policies_NoneAvailable>
   <RCB_Policies_Set>{0} : {1} pour {2} colons.</RCB_Policies_Set>
+  <!-- Travail d'escouade (Colonist Bar Plus). -->
+  <RCB_Tab_Work>TRAVAIL</RCB_Tab_Work>
+  <RCB_Work_PauseTitle>PAUSE</RCB_Work_PauseTitle>
+  <RCB_Work_Eat>Manger</RCB_Work_Eat>
+  <RCB_Work_Sleep>Dormir</RCB_Work_Sleep>
+  <RCB_Work_Joy>Détente</RCB_Work_Joy>
+  <RCB_Work_Resume>Reprise</RCB_Work_Resume>
+  <RCB_Work_EatTip>Les membres sous 90 % de nourriture vont manger, selon leur règle de nourriture. Les démobilise.</RCB_Work_EatTip>
+  <RCB_Work_SleepTip>Les membres assez fatigués pour s'endormir vont au lit. Les démobilise.</RCB_Work_SleepTip>
+  <RCB_Work_JoyTip>Les membres dont la détente n'est pas pleine vont se détendre. Les démobilise.</RCB_Work_JoyTip>
+  <RCB_Work_ResumeTip>Démobilise les membres ; ceux qui flânent, attendent ou se détendent s'arrêtent et retournent au travail. Repas et sommeil continuent.</RCB_Work_ResumeTip>
+  <RCB_Work_EatNone>Aucun membre présent n'a assez faim.</RCB_Work_EatNone>
+  <RCB_Work_SleepNone>Aucun membre présent n'est assez fatigué pour dormir.</RCB_Work_SleepNone>
+  <RCB_Work_JoyNone>Aucun membre présent n'a besoin de détente.</RCB_Work_JoyNone>
+  <RCB_Work_ResumeNone>Aucun membre de l'escouade sur cette carte.</RCB_Work_ResumeNone>
+  <RCB_Work_EatDone>Manger : {0} en route</RCB_Work_EatDone>
+  <RCB_Work_SleepDone>Dormir : {0} en route</RCB_Work_SleepDone>
+  <RCB_Work_JoyDone>Détente : {0} en route</RCB_Work_JoyDone>
+  <RCB_Work_ResumeDone>Retour au travail : {0}</RCB_Work_ResumeDone>
+  <RCB_Work_EatFailed>{0} sans nourriture accessible</RCB_Work_EatFailed>
+  <RCB_Work_SleepFailed>{0} sans lit</RCB_Work_SleepFailed>
+  <RCB_Work_JoyFailed>{0} sans détente trouvée</RCB_Work_JoyFailed>
+  <RCB_Work_ResumeFailed>{0} inchangés</RCB_Work_ResumeFailed>
+  <RCB_Work_TasksTitle>TÂCHES</RCB_Work_TasksTitle>
+  <RCB_Work_ModeNow>Maintenant</RCB_Work_ModeNow>
+  <RCB_Work_ModeNowTip>Un clic sur un type de travail envoie chaque membre présent affecté sur une tâche de ce type, chacun sur une tâche différente.</RCB_Work_ModeNowTip>
+  <RCB_Work_ModePriorities>Priorités</RCB_Work_ModePriorities>
+  <RCB_Work_ModePrioritiesTip>Les vraies priorités de travail des membres, réglées pour toute l'escouade (toutes les cartes, caravanes comprises).</RCB_Work_ModePrioritiesTip>
+  <RCB_Work_ManualOn>Manuelles : oui</RCB_Work_ManualOn>
+  <RCB_Work_ManualOff>Manuelles : non</RCB_Work_ManualOff>
+  <RCB_Work_ManualTip>Priorités manuelles : réglage de toute la colonie, comme dans l'onglet Travail.</RCB_Work_ManualTip>
+  <RCB_Work_ChipNowTip>Clic : envoie maintenant les membres affectés sur une tâche de ce type. Les démobilise.</RCB_Work_ChipNowTip>
+  <RCB_Work_ChipManualTip>Clic gauche : priorité plus haute (chiffre plus petit). Clic droit : priorité plus basse. Comme dans l'onglet Travail.</RCB_Work_ChipManualTip>
+  <RCB_Work_ChipToggleTip>Clic : active ou coupe ce travail pour toute l'escouade.</RCB_Work_ChipToggleTip>
+  <RCB_Work_TipAssigned>Affectés : {0}</RCB_Work_TipAssigned>
+  <RCB_Work_TipUnassigned>Non affectés (priorité 0) : {0}</RCB_Work_TipUnassigned>
+  <RCB_Work_TipIncapable>Incapables : {0}</RCB_Work_TipIncapable>
+  <RCB_Work_NowDone>{0} : {1} au travail</RCB_Work_NowDone>
+  <RCB_Work_NowNothing>{0} sans tâche trouvée</RCB_Work_NowNothing>
+  <RCB_Work_NowUnassigned>{0} non affectés</RCB_Work_NowUnassigned>
+  <RCB_Work_NowIncapable>{0} incapables</RCB_Work_NowIncapable>
+  <RCB_Work_CopyPriorities>Copier priorités</RCB_Work_CopyPriorities>
+  <RCB_Work_CopyPrioritiesTip>Chaque autre membre reçoit les priorités de travail de {0}, pour chaque type que les deux savent faire.</RCB_Work_CopyPrioritiesTip>
+  <RCB_Work_CopyTimetable>Copier horaires</RCB_Work_CopyTimetable>
+  <RCB_Work_CopyTimetableTip>Chaque autre membre reçoit l'emploi du temps de {0}, sur 24 heures.</RCB_Work_CopyTimetableTip>
+  <RCB_Work_NoOther>L'escouade n'a pas d'autre membre vivant.</RCB_Work_NoOther>
+  <RCB_Work_CopiedPriorities>Priorités de {0} copiées sur {1} membres.</RCB_Work_CopiedPriorities>
+  <RCB_Work_CopiedTimetable>Emploi du temps de {0} copié sur {1} membres.</RCB_Work_CopiedTimetable>
 </LanguageData>

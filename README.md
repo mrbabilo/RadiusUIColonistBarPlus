@@ -61,6 +61,18 @@ L'onglet Règles règle d'un coup, pour toute l'escouade, les règles de l'ongle
 
 Le menu « Règles » du portrait n'a plus de texte anglais écrit en dur.
 
+## Travail
+
+Troisième onglet de la carte d'ordres, **Travail** :
+
+- **Pause** : Manger, Dormir, Détente, Reprise. Chaque bouton compte les membres concernés (faim sous 90 %, assez fatigués pour dormir, détente pas pleine) et les démobilise. Reprise renvoie au travail ceux qui flânent, attendent ou se détendent, sans couper un repas ni un sommeil.
+- **Tâches**, en deux modes :
+  - *Maintenant* : un clic sur un type de travail envoie chaque membre présent affecté à ce travail sur une tâche de ce type, chacun sur une tâche différente, en suivant la recherche de travail du jeu (zones autorisées respectées). Un membre à priorité 0 n'est pas envoyé, comme avec « Prioriser ». Le badge compte les membres en train de faire ce travail ; le message dit combien sont partis, combien n'ont rien trouvé, combien ne sont pas affectés ou en sont incapables.
+  - *Priorités* : les vraies priorités des membres (valeur commune, ou soulignée quand elles diffèrent) ; clic gauche et droit comme dans l'onglet Travail du jeu. La bascule « Manuelles » est le réglage de toute la colonie.
+- **Copier priorités** et **Copier horaires** du chef (le premier membre de la barre) sur les autres membres ; un travail que le chef ne sait pas faire n'est pas copié.
+
+Rien n'est sauvegardé : un clic donne une affectation, sans travail « actif » réappliqué ensuite.
+
 ## Fiche de survol
 
 La fiche d'un pion s'ouvre après un court délai de survol de son portrait : 0,25 s par défaut, de 0 à 1 s dans l'onglet Panneau de survol des réglages. Passer d'un portrait au voisin la change sans attendre. Une ligne en bas de la fiche rappelle les clics droits du portrait.

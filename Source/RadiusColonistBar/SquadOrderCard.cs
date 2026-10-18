@@ -36,7 +36,8 @@ public class SquadOrderCard : Window
 
 	private const float RuleLabelW = 92f;
 
-	private const float RuleEditW = 72f;
+	// Wide enough for the French "Modifier" (the English "Edit" fits easily).
+	private const float RuleEditW = 78f;
 
 	// The open tab, kept for the session and shared by every squad: the same settings are often made squad after squad.
 	private static int tab;
@@ -116,6 +117,39 @@ public class SquadOrderCard : Window
 	};
 
 	private int forced;
+
+	// Squad work (Colonist Bar Plus): the Work tab's mode, kept for the session like the tab, and its snapshot, read
+	// only while the tab is open.
+	private const float ChipH = 26f;
+
+	private const float WorkGridH = TabAreaH - 58f - 26f - 40f;
+
+	private static bool workNow = true;
+
+	private Vector2 workScroll;
+
+	private List<Pawn> pauseEat = new List<Pawn>();
+
+	private List<Pawn> pauseSleep = new List<Pawn>();
+
+	private List<Pawn> pauseJoy = new List<Pawn>();
+
+	private List<WorkTypeDef> workTypes = new List<WorkTypeDef>();
+
+	private int[] workDoing = new int[0];
+
+	// Snapshot too: counting assigned members per chip and fitting labels every pass cost most of the card's draw.
+	private int[] workAssigned = new int[0];
+
+	private string[] workLabel = new string[0];
+
+	private float workLabelW = -1f;
+
+	private int[] workPrio = new int[0];
+
+	private bool[] workMixed = new bool[0];
+
+	private List<Pawn> workMembers = new List<Pawn>();
 
 	public override Vector2 InitialSize => new Vector2(Width, ContentHeight());
 
@@ -254,6 +288,10 @@ public class SquadOrderCard : Window
 				return;
 			}
 		}
+		else if (tab == 2)
+		{
+			DrawWork(x, y, num);
+		}
 		else if (DrawCombat(x, ref y, num, get, state, flag, why))
 		{
 			return;
@@ -346,6 +384,36 @@ public class SquadOrderCard : Window
 			}
 			forced = SquadRules.ForcedCount(members);
 		}
+		else if (tab == 2)
+		{
+			pauseEat = SquadWork.PauseTargets(able, SquadWork.Pause.Eat);
+			pauseSleep = SquadWork.PauseTargets(able, SquadWork.Pause.Sleep);
+			pauseJoy = SquadWork.PauseTargets(able, SquadWork.Pause.Joy);
+			workTypes = SquadWork.Types(workNow);
+			workMembers = SquadRules.Members(index);
+			int count = workTypes.Count;
+			workDoing = new int[count];
+			workAssigned = new int[count];
+			workLabel = new string[count];
+			workPrio = new int[count];
+			workMixed = new bool[count];
+			for (int l = 0; l < count; l++)
+			{
+				WorkTypeDef workTypeDef = workTypes[l];
+				for (int m = 0; m < able.Count; m++)
+				{
+					if (able[m].CurJob?.workGiverDef?.workType == workTypeDef)
+					{
+						workDoing[l]++;
+					}
+					if (SquadWork.Assigned(able[m], workTypeDef))
+					{
+						workAssigned[l]++;
+					}
+				}
+				workPrio[l] = SquadWork.SharedPriority(workMembers, workTypeDef, out workMixed[l], out var _);
+			}
+		}
 		rescuing = (tending = 0);
 		for (int j = 0; j < able.Count; j++)
 		{
@@ -362,10 +430,11 @@ public class SquadOrderCard : Window
 
 	private void DrawTabs(Rect r)
 	{
-		string[] array = new string[2]
+		string[] array = new string[3]
 		{
 			"RCB_Tab_Combat".Translate(),
-			"RCB_Tab_Rules".Translate()
+			"RCB_Tab_Rules".Translate(),
+			"RCB_Tab_Work".Translate()
 		};
 		float num = (r.width - Gap * (float)(array.Length - 1)) / (float)array.Length;
 		for (int i = 0; i < array.Length; i++)
@@ -386,7 +455,7 @@ public class SquadOrderCard : Window
 			{
 				SoundDefOf.Click.PlayOneShotOnCamera();
 				tab = i;
-				// The rules are only read while their tab is open: read them now, before the tab draws.
+				// The rules and the work data are only read while their tab is open: read them now, before it draws.
 				snapFrame = -1000;
 				BarSquads get = BarSquads.Get;
 				if (get != null)
@@ -420,7 +489,8 @@ public class SquadOrderCard : Window
 			{
 				SquadRules.OpenMenu(index, rule, ruleMixed[i] ? null : ruleValue[i]);
 			}
-			if (flag && Button(new Rect(r.xMax + Gap, y, RuleEditW, BtnH), null, "AssignTabEdit".Translate(), "RCB_Rules_EditTip".Translate(), enabled: true, active: false))
+			// Tiny: the French vanilla label is "Modifier..." and overflows the small button in Small.
+			if (flag && Button(new Rect(r.xMax + Gap, y, RuleEditW, BtnH), null, "AssignTabEdit".Translate(), "RCB_Rules_EditTip".Translate(), enabled: true, active: false, partial: false, GameFont.Tiny))
 			{
 				// The card sits above dialogs: left open, it would cover vanilla's manager and keep its input.
 				Close();
@@ -438,6 +508,292 @@ public class SquadOrderCard : Window
 			}
 		}
 		return false;
+	}
+
+	// Squad work (Colonist Bar Plus): breaks, then the work types (do it now, or priorities), then the leader copies.
+	private void DrawWork(float x, float y, float w)
+	{
+		RcbPalette.MicroLabel(new Rect(x, y, w, 18f), "RCB_Work_PauseTitle".Translate(), RcbPalette.TextDim2, TextAnchor.MiddleLeft, shadow: false);
+		y += 18f;
+		float num = (w - Gap * 3f) / 4f;
+		string noMember = NoMemberWhy();
+		bool flag = able.Count > 0;
+		PauseButton(new Rect(x, y, num, BtnH), IconSet.Stat.Food, SquadWork.Pause.Eat, pauseEat, flag, noMember);
+		PauseButton(new Rect(x + (num + Gap), y, num, BtnH), IconSet.Status.Zzz, SquadWork.Pause.Sleep, pauseSleep, flag, noMember);
+		PauseButton(new Rect(x + (num + Gap) * 2f, y, num, BtnH), IconSet.Stat.Mood, SquadWork.Pause.Joy, pauseJoy, flag, noMember);
+		PauseButton(new Rect(x + (num + Gap) * 3f, y, num, BtnH), IconSet.Action.Resume, SquadWork.Pause.Resume, able, flag, noMember);
+		y += BtnH + 10f;
+		DrawWorkHeader(new Rect(x, y, w, 22f));
+		y += 26f;
+		DrawWorkGrid(new Rect(x, y, w, WorkGridH));
+		y += WorkGridH + 10f;
+		float num2 = (w - Gap) / 2f;
+		// The leader from the snapshot (SquadWork.Leader's rule), not looked up every frame.
+		Pawn pawn = ((able.Count > 0) ? able[0] : ((workMembers.Count > 0) ? workMembers[0] : null));
+		bool flag2 = pawn != null && workMembers.Count > 1;
+		string why = "RCB_Work_NoOther".Translate();
+		if (Button(new Rect(x, y, num2, BtnH), null, "RCB_Work_CopyPriorities".Translate(), Tip("RCB_Work_CopyPrioritiesTip".Translate(pawn?.LabelShortCap ?? "-"), flag2, why), flag2, active: false))
+		{
+			SquadWork.CopyPriorities(index);
+		}
+		if (Button(new Rect(x + num2 + Gap, y, num2, BtnH), null, "RCB_Work_CopyTimetable".Translate(), Tip("RCB_Work_CopyTimetableTip".Translate(pawn?.LabelShortCap ?? "-"), flag2, why), flag2, active: false))
+		{
+			SquadWork.CopyTimetable(index);
+		}
+	}
+
+	private void PauseButton(Rect r, Texture2D icon, SquadWork.Pause pause, List<Pawn> pawns, bool anyAble, string noMember)
+	{
+		string key = "RCB_Work_" + pause;
+		string tip = null;
+		bool flag = anyAble && pawns.Count > 0;
+		if (Mouse.IsOver(r))
+		{
+			System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder((key + "Tip").Translate().ToString());
+			for (int i = 0; i < pawns.Count && i < 6; i++)
+			{
+				stringBuilder.Append((i == 0) ? "\n\n" : "\n").Append(pawns[i].LabelShortCap);
+			}
+			if (pawns.Count > 6)
+			{
+				stringBuilder.Append('\n').Append("RCB_Medical_More".Translate(pawns.Count - 6));
+			}
+			tip = Tip(stringBuilder.ToString(), flag, anyAble ? (key + "None").Translate().ToString() : noMember);
+		}
+		// Four buttons share one row: the long French labels ("Reprendre") only fit in Tiny, and the count rides the
+		// label ("Manger · 3") instead of a "(3)" that used to push every label past its box. Resume shows no count:
+		// it would only repeat the able-member count.
+		string label = key.Translate();
+		if (pause != SquadWork.Pause.Resume && pawns.Count > 0)
+		{
+			label = label + " · " + pawns.Count;
+		}
+		if (Button(r, icon, label, tip, flag, active: false, partial: false, GameFont.Tiny))
+		{
+			SquadWork.DoPause(index, pause);
+		}
+	}
+
+	// TASKS title, the Now / Priorities switch on the right, and in Priorities the colony-wide manual priorities switch.
+	private void DrawWorkHeader(Rect r)
+	{
+		RcbPalette.MicroLabel(r, "RCB_Work_TasksTitle".Translate(), RcbPalette.TextDim2, TextAnchor.MiddleLeft, shadow: false);
+		float num = 84f;
+		Rect rect = new Rect(r.xMax - num * 2f - 2f, r.y, num, r.height);
+		Rect rect2 = new Rect(r.xMax - num, r.y, num, r.height);
+		if (Segment(rect, "RCB_Work_ModeNow".Translate(), "RCB_Work_ModeNowTip".Translate(), workNow) && !workNow)
+		{
+			workNow = true;
+			workScroll = Vector2.zero;
+			snapFrame = -1000;
+		}
+		if (Segment(rect2, "RCB_Work_ModePriorities".Translate(), "RCB_Work_ModePrioritiesTip".Translate(), !workNow) && workNow)
+		{
+			workNow = false;
+			workScroll = Vector2.zero;
+			snapFrame = -1000;
+		}
+		if (!workNow)
+		{
+			bool useWorkPriorities = Find.PlaySettings.useWorkPriorities;
+			Rect r2 = new Rect(rect.x - Gap - 96f, r.y, 96f, r.height);
+			if (Segment(r2, (useWorkPriorities ? "RCB_Work_ManualOn" : "RCB_Work_ManualOff").Translate(), "RCB_Work_ManualTip".Translate(), useWorkPriorities))
+			{
+				SquadWork.SetManual(!useWorkPriorities);
+			}
+		}
+		if (snapFrame == -1000)
+		{
+			BarSquads get = BarSquads.Get;
+			if (get != null)
+			{
+				Snapshot(get);
+			}
+		}
+	}
+
+	private static bool Segment(Rect r, string label, string tip, bool on)
+	{
+		bool flag = Mouse.IsOver(r);
+		RcbSpatial.Rounded(r, on ? Palette.WithAlpha(RcbPalette.Accent, 0.85f) : Color.Lerp(RcbPalette.Ink, Color.white, flag ? 0.14f : 0.07f), 6f);
+		RcbFont.Label(r, RcbFont.Fit(label, r.width - 8f, bold: false, GameFont.Tiny), bold: false, GameFont.Tiny, on ? Palette.Flat.Rail : (flag ? RcbPalette.Stat : RcbPalette.TextDim), TextAnchor.MiddleCenter);
+		if (flag)
+		{
+			TooltipHandler.TipRegion(r, tip);
+		}
+		if (Widgets.ButtonInvisible(r))
+		{
+			SoundDefOf.Click.PlayOneShotOnCamera();
+			return true;
+		}
+		return false;
+	}
+
+	// Three columns of chips in a scroll view. The card leaves the camera free, so the wheel over the grid is used up
+	// here, or it would zoom the map as well. A right click is read apart: the card's buttons only take the left one.
+	private void DrawWorkGrid(Rect r)
+	{
+		int num = 3;
+		int num2 = (workTypes.Count + num - 1) / num;
+		float num3 = (float)num2 * (ChipH + Gap) - Gap;
+		bool flag = num3 > r.height;
+		Rect viewRect = new Rect(0f, 0f, r.width - (flag ? 16f : 0f), Mathf.Max(num3, r.height));
+		float num4 = (viewRect.width - Gap * (float)(num - 1)) / (float)num;
+		bool flag2 = Mouse.IsOver(r);
+		int depth = FlatScroll.Depth;
+		FlatScroll.Begin(r, ref workScroll, viewRect);
+		try
+		{
+			// Only the visible rows, and no hover or click outside the grid: a chip scrolled out of view would still
+			// catch the mouse over the rows above or below.
+			for (int i = 0; i < workTypes.Count; i++)
+			{
+				float num5 = (float)(i / num) * (ChipH + Gap);
+				if (RcbPalette.RowVisible(num5, ChipH, workScroll, r.height, 0f))
+				{
+					WorkChip(new Rect((float)(i % num) * (num4 + Gap), num5, num4, ChipH), i, flag2);
+				}
+			}
+		}
+		finally
+		{
+			FlatScroll.EndOrUnwind(depth);
+		}
+		if (flag2 && Event.current.type == EventType.ScrollWheel)
+		{
+			Event.current.Use();
+		}
+	}
+
+	private void WorkChip(Rect r, int i, bool gridHover)
+	{
+		WorkTypeDef workTypeDef = workTypes[i];
+		int num2 = workAssigned[i];
+		bool flag = (workNow ? (num2 > 0) : (workPrio[i] >= 0));
+		bool flag2 = !workNow && workMixed[i];
+		bool flag4 = gridHover && Mouse.IsOver(r);
+		bool flag3 = flag && flag4;
+		Color c = Color.Lerp(RcbPalette.Ink, Color.white, flag3 ? 0.16f : 0.08f);
+		RcbSpatial.Rounded(r, flag ? c : Palette.WithAlpha(c, 0.45f), 8f);
+		if (flag2 || (workNow && workDoing[i] > 0))
+		{
+			RcbSpatial.Rounded(new Rect(r.x + 6f, r.yMax - 3f, r.width - 12f, 2f), RcbPalette.Accent, 1f);
+		}
+		float num3 = 22f;
+		Rect rect = new Rect(r.xMax - num3 - 2f, r.y, num3, r.height);
+		Color col = ((!flag) ? RcbPalette.TextDim2 : (flag3 ? RcbPalette.Stat : RcbPalette.TextDim));
+		// Fit measures text, which is costly every pass for every chip: the fitted labels are cached per width.
+		float num5 = r.width - num3 - 10f;
+		if (workLabel[i] == null || workLabelW != num5)
+		{
+			if (workLabelW != num5)
+			{
+				Array.Clear(workLabel, 0, workLabel.Length);
+				workLabelW = num5;
+			}
+			workLabel[i] = RcbFont.Fit(workTypeDef.labelShort.CapitalizeFirst(), num5, bold: false, GameFont.Tiny);
+		}
+		RcbFont.Label(new Rect(r.x + 6f, r.y, num5, r.height), workLabel[i], bold: false, GameFont.Tiny, col);
+		if (workNow)
+		{
+			if (workDoing[i] > 0)
+			{
+				RcbFont.Label(rect, workDoing[i].ToString(), bold: true, GameFont.Tiny, RcbPalette.Accent, TextAnchor.MiddleCenter);
+			}
+		}
+		else if (workPrio[i] > 0 && !flag2)
+		{
+			if (Find.PlaySettings.useWorkPriorities)
+			{
+				RcbFont.Label(rect, workPrio[i].ToString(), bold: true, GameFont.Small, WidgetsWork.ColorOfPriority(workPrio[i]), TextAnchor.MiddleCenter);
+			}
+			else
+			{
+				Color color = GUI.color;
+				GUI.color = RcbPalette.Stat;
+				GUI.DrawTexture(new Rect(rect.center.x - 7f, rect.center.y - 7f, 14f, 14f), IconSet.Action.Check);
+				GUI.color = color;
+			}
+		}
+		if (flag4)
+		{
+			TooltipHandler.TipRegion(r, WorkTip(workTypeDef, i));
+		}
+		if (!flag || !gridHover)
+		{
+			return;
+		}
+		if (!workNow && Event.current.type == EventType.MouseDown && Event.current.button == 1 && flag4)
+		{
+			SquadWork.ShiftPriority(index, workTypeDef, 1);
+			Event.current.Use();
+		}
+		else if (Widgets.ButtonInvisible(r) && (workNow ? (Event.current.button == 0) : true))
+		{
+			if (workNow)
+			{
+				SoundDefOf.Click.PlayOneShotOnCamera();
+				SquadWork.WorkNow(index, workTypeDef);
+			}
+			else
+			{
+				SquadWork.ShiftPriority(index, workTypeDef, -1);
+			}
+		}
+	}
+
+	// The work type's description, who is assigned, unassigned or incapable here, and, in Priorities, each value.
+	private string WorkTip(WorkTypeDef work, int i)
+	{
+		System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder();
+		stringBuilder.Append(work.gerundLabel.CapitalizeFirst());
+		if (!work.description.NullOrEmpty())
+		{
+			stringBuilder.Append("\n").Append(work.description);
+		}
+		List<Pawn> list = (workNow ? able : workMembers);
+		List<string> list2 = new List<string>();
+		List<string> list3 = new List<string>();
+		int num = 0;
+		for (int j = 0; j < list.Count; j++)
+		{
+			if (!SquadWork.Capable(list[j], work))
+			{
+				list3.Add(list[j].LabelShortCap);
+			}
+			else if (!SquadWork.Assigned(list[j], work))
+			{
+				list2.Add(list[j].LabelShortCap);
+			}
+			else
+			{
+				num++;
+			}
+		}
+		stringBuilder.Append("\n\n").Append("RCB_Work_TipAssigned".Translate(num));
+		if (list2.Count > 0)
+		{
+			stringBuilder.Append("\n").Append("RCB_Work_TipUnassigned".Translate(string.Join(", ", list2)));
+		}
+		if (list3.Count > 0)
+		{
+			stringBuilder.Append("\n").Append("RCB_Work_TipIncapable".Translate(string.Join(", ", list3)));
+		}
+		if (!workNow && workMixed[i])
+		{
+			stringBuilder.Append("\n");
+			int num2 = 0;
+			for (int k = 0; k < workMembers.Count && num2 < 8; k++)
+			{
+				if (SquadWork.Capable(workMembers[k], work))
+				{
+					stringBuilder.Append("\n").Append("RCB_Rules_TipLine".Translate(workMembers[k].LabelShortCap, workMembers[k].workSettings.GetPriority(work)));
+					num2++;
+				}
+			}
+		}
+		stringBuilder.Append("\n\n").Append((workNow ? "RCB_Work_ChipNowTip" : (Find.PlaySettings.useWorkPriorities ? "RCB_Work_ChipManualTip" : "RCB_Work_ChipToggleTip")).Translate());
+		return stringBuilder.ToString();
 	}
 
 	// How many members the rule concerns, then each one's value when they differ (eight at most).
@@ -764,7 +1120,7 @@ public class SquadOrderCard : Window
 	}
 
 	// active: the whole squad is in this state (accent fill). partial: only some members are (accent underline).
-	private static bool Button(Rect r, Texture2D icon, string label, string tip, bool enabled, bool active, bool partial = false)
+	private static bool Button(Rect r, Texture2D icon, string label, string tip, bool enabled, bool active, bool partial = false, GameFont font = GameFont.Small)
 	{
 		bool flag = enabled && Mouse.IsOver(r);
 		Color c = (active ? RcbPalette.Accent : Color.Lerp(RcbPalette.Ink, Color.white, flag ? 0.16f : 0.08f));
@@ -785,7 +1141,7 @@ public class SquadOrderCard : Window
 			num = position.xMax + 5f;
 		}
 		float num2 = Mathf.Max(10f, r.xMax - num - 6f);
-		RcbFont.Label(new Rect(num, r.y, num2, r.height), RcbFont.Fit(label, num2, bold: false, GameFont.Small), bold: false, GameFont.Small, color);
+		RcbFont.Label(new Rect(num, r.y, num2, r.height), RcbFont.Fit(label, num2, bold: false, font), bold: false, font, color);
 		if (!tip.NullOrEmpty() && Mouse.IsOver(r))
 		{
 			TooltipHandler.TipRegion(r, tip);

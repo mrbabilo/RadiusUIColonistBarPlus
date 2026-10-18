@@ -570,4 +570,52 @@
   <RCB_Policies_None>None</RCB_Policies_None>
   <RCB_Policies_NoneAvailable>No policies available</RCB_Policies_NoneAvailable>
   <RCB_Policies_Set>{0}: {1} for {2} colonists.</RCB_Policies_Set>
+  <!-- Squad work (Colonist Bar Plus). -->
+  <RCB_Tab_Work>WORK</RCB_Tab_Work>
+  <RCB_Work_PauseTitle>BREAK</RCB_Work_PauseTitle>
+  <RCB_Work_Eat>Eat</RCB_Work_Eat>
+  <RCB_Work_Sleep>Sleep</RCB_Work_Sleep>
+  <RCB_Work_Joy>Relax</RCB_Work_Joy>
+  <RCB_Work_Resume>Resume</RCB_Work_Resume>
+  <RCB_Work_EatTip>Members below 90% food go and eat, following their food policy. Undrafts them.</RCB_Work_EatTip>
+  <RCB_Work_SleepTip>Members tired enough to fall asleep go to bed. Undrafts them.</RCB_Work_SleepTip>
+  <RCB_Work_JoyTip>Members below full recreation go and relax. Undrafts them.</RCB_Work_JoyTip>
+  <RCB_Work_ResumeTip>Undrafts the members; those wandering, waiting or relaxing stop and go back to work. Eating and sleeping go on.</RCB_Work_ResumeTip>
+  <RCB_Work_EatNone>No member here is hungry enough.</RCB_Work_EatNone>
+  <RCB_Work_SleepNone>No member here is tired enough to sleep.</RCB_Work_SleepNone>
+  <RCB_Work_JoyNone>No member here needs recreation.</RCB_Work_JoyNone>
+  <RCB_Work_ResumeNone>No squad member on this map.</RCB_Work_ResumeNone>
+  <RCB_Work_EatDone>Eat: {0} on the way</RCB_Work_EatDone>
+  <RCB_Work_SleepDone>Sleep: {0} on the way</RCB_Work_SleepDone>
+  <RCB_Work_JoyDone>Relax: {0} on the way</RCB_Work_JoyDone>
+  <RCB_Work_ResumeDone>Back to work: {0}</RCB_Work_ResumeDone>
+  <RCB_Work_EatFailed>{0} found no food</RCB_Work_EatFailed>
+  <RCB_Work_SleepFailed>{0} found no bed</RCB_Work_SleepFailed>
+  <RCB_Work_JoyFailed>{0} found nothing to do</RCB_Work_JoyFailed>
+  <RCB_Work_ResumeFailed>{0} unchanged</RCB_Work_ResumeFailed>
+  <RCB_Work_TasksTitle>TASKS</RCB_Work_TasksTitle>
+  <RCB_Work_ModeNow>Now</RCB_Work_ModeNow>
+  <RCB_Work_ModeNowTip>A click on a work type sends every assigned member here on a task of that type, each on a different one.</RCB_Work_ModeNowTip>
+  <RCB_Work_ModePriorities>Priorities</RCB_Work_ModePriorities>
+  <RCB_Work_ModePrioritiesTip>The members' real work priorities, set for the whole squad (every map, caravans included).</RCB_Work_ModePrioritiesTip>
+  <RCB_Work_ManualOn>Manual: on</RCB_Work_ManualOn>
+  <RCB_Work_ManualOff>Manual: off</RCB_Work_ManualOff>
+  <RCB_Work_ManualTip>Manual priorities, a setting of the whole colony, as in the Work tab.</RCB_Work_ManualTip>
+  <RCB_Work_ChipNowTip>Click: send the assigned members on a task of this type now. Undrafts them.</RCB_Work_ChipNowTip>
+  <RCB_Work_ChipManualTip>Left click: higher priority (lower number). Right click: lower priority. As in the Work tab.</RCB_Work_ChipManualTip>
+  <RCB_Work_ChipToggleTip>Click: switch this work on or off for the whole squad.</RCB_Work_ChipToggleTip>
+  <RCB_Work_TipAssigned>Assigned: {0}</RCB_Work_TipAssigned>
+  <RCB_Work_TipUnassigned>Not assigned (priority 0): {0}</RCB_Work_TipUnassigned>
+  <RCB_Work_TipIncapable>Incapable: {0}</RCB_Work_TipIncapable>
+  <RCB_Work_NowDone>{0}: {1} at work</RCB_Work_NowDone>
+  <RCB_Work_NowNothing>{0} found no task</RCB_Work_NowNothing>
+  <RCB_Work_NowUnassigned>{0} not assigned</RCB_Work_NowUnassigned>
+  <RCB_Work_NowIncapable>{0} incapable</RCB_Work_NowIncapable>
+  <RCB_Work_CopyPriorities>Copy priorities</RCB_Work_CopyPriorities>
+  <RCB_Work_CopyPrioritiesTip>Every other member gets {0}'s work priorities, for each work type both can do.</RCB_Work_CopyPrioritiesTip>
+  <RCB_Work_CopyTimetable>Copy schedule</RCB_Work_CopyTimetable>
+  <RCB_Work_CopyTimetableTip>Every other member gets {0}'s 24-hour schedule.</RCB_Work_CopyTimetableTip>
+  <RCB_Work_NoOther>The squad has no other living member.</RCB_Work_NoOther>
+  <RCB_Work_CopiedPriorities>Priorities of {0} copied to {1} members.</RCB_Work_CopiedPriorities>
+  <RCB_Work_CopiedTimetable>Schedule of {0} copied to {1} members.</RCB_Work_CopiedTimetable>
 </LanguageData>
