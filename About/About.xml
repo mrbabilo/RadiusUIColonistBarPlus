@@ -33,7 +33,7 @@ Replaces the colonist bar with a single slab across the top of the screen: each 
     <li>name.krypt.rimworld.pawntablegrouped</li>
     <li>Nals.FacialAnimation</li>
   </loadAfter>
-  <modVersion>1.4.1</modVersion>
+  <modVersion>1.4.2</modVersion>
   <incompatibleWith>
     <li>astryl.RadiusUI.ColonistBar</li>
     <li>DerekBickley.LTOColonyGroupsFinal</li>

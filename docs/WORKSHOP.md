@@ -54,6 +54,7 @@ Orders only affect members on the current map. Mechanoids and colonists who are 
 
 [h2]Performance[/h2]
 Radius UI Framework's scroll views rebuilt Unity's whole style cache 16 times each time a scroll view was drawn: about 0.5 ms per frame, with stutters up to 10 ms. This mod fixes it for every Radius UI mod loaded with it (Command Center, Inspector panels, astryl's mods), without touching the framework. The fix only runs with framework version 32; the launch option -ruinoflatfix turns it off.
+Since 1.4.2, the order card's Combat tab costs about half as much: tooltips are built only under the mouse, and labels and squad state are recomputed less often.
 
 [h2]Saves[/h2]
 The mod adds a game component that remembers each colonist's assault mode. Battle stations are saved with the squads. Removing the mod mid-game gives one error on load; only assaults in progress and battle stations are lost.

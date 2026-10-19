@@ -1,6 +1,6 @@
 # Journal des modifications
 
-## Non publié
+## 1.4.2 — 2026-10-19
 
 - **Performance de l'onglet Combat** : la carte d'ordres coûte environ deux fois moins par affichage (sondes : 553 → 244 µs par passage). Les infobulles ne sont construites que sous la souris, les libellés à compteur et la ligne d'état une fois par rafraîchissement, les pastilles de poste se dessinent en deux couches au lieu de dix-huit, et l'état d'escouade n'est plus calculé deux fois ni ne parcourt tous les pions à chaque rafraîchissement.
 

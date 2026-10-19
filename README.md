@@ -79,7 +79,9 @@ La fiche d'un pion s'ouvre après un court délai de survol de son portrait : 0,
 
 ## Performance
 
-Le défilement du framework Radius (`FlatScroll`) reconstruisait 16 fois le cache des styles de l'interface à chaque affichage d'une zone de défilement : environ 0,5 ms par image et des saccades jusqu'à 10 ms. Le mod corrige ce défilement pour toute la suite Radius chargée avec lui (Centre de commandement, panneaux d'Inspector Plus, mods d'astryl), sans toucher au framework. Le correctif ne s'active qu'avec la version 32 du framework ; l'option de lancement `-ruinoflatfix` le désactive. Mesures détaillées : `docs/perf/2026-10-18-dpa.md`.
+Le défilement du framework Radius (`FlatScroll`) reconstruisait 16 fois le cache des styles de l'interface à chaque affichage d'une zone de défilement : environ 0,5 ms par image et des saccades jusqu'à 10 ms. Le mod corrige ce défilement pour toute la suite Radius chargée avec lui (Centre de commandement, panneaux d'Inspector Plus, mods d'astryl), sans toucher au framework. Le correctif ne s'active qu'avec la version 32 du framework ; l'option de lancement `-ruinoflatfix` le désactive.
+
+La carte d'ordres coûte environ deux fois moins sur l'onglet Combat depuis la 1.4.2 : infobulles construites au survol seulement, libellés et état d'escouade recalculés moins souvent. Mesures détaillées : `docs/perf/2026-10-18-dpa.md`.
 
 ## Sauvegardes
 
