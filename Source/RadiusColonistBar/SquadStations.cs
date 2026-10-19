@@ -114,7 +114,7 @@ internal static class SquadStations
 			return;
 		}
 		int slot = get.ActiveStation(index);
-		if ((SquadStatus.Fresh(index).stationMask & (1 << slot)) == 0)
+		if ((SquadStatus.FreshRoster(index).stationMask & (1 << slot)) == 0)
 		{
 			return;
 		}

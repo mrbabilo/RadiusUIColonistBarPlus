@@ -43,6 +43,23 @@ internal static class SquadStatus
 
 	private static Map cacheMap;
 
+	// The squad's size and stations across all maps: PawnsFinder walks every pawn alive (most of a Compute), and both
+	// change rarely. Kept until the next Invalidate (every order, station save or clear, squad edit) or RosterFrames.
+	private struct Roster
+	{
+		public int total;
+
+		public int stationMask;
+
+		public int frame;
+
+		public int version;
+	}
+
+	private const int RosterFrames = 60;
+
+	private static readonly Dictionary<int, Roster> rosters = new Dictionary<int, Roster>();
+
 	// Bumped on every Invalidate: the order card rebuilds its own snapshot when it changes.
 	internal static int Version { get; private set; }
 
@@ -53,16 +70,39 @@ internal static class SquadStatus
 	}
 
 	// Recomputed now, for the card and the hotkeys: a draft made by the game would otherwise show up to
-	// CacheFrames late.
+	// CacheFrames late. The roster (total, stationMask) may still be up to RosterFrames old, after a death or a lost
+	// map: FreshRoster rescans it, for a decision that depends on it.
 	internal static State Fresh(int index)
 	{
-		Of(index);
-		State state = Compute(index, Find.CurrentMap);
+		return Recompute(index, exactRoster: false);
+	}
+
+	internal static State FreshRoster(int index)
+	{
+		return Recompute(index, exactRoster: true);
+	}
+
+	private static State Recompute(int index, bool exactRoster)
+	{
+		// Expire only: Of would compute a second time when its cache has run out.
+		Expire();
+		State state = Compute(index, Find.CurrentMap, exactRoster);
 		cache[index] = state;
 		return state;
 	}
 
 	internal static State Of(int index)
+	{
+		Expire();
+		if (!cache.TryGetValue(index, out var value))
+		{
+			value = Compute(index, cacheMap);
+			cache[index] = value;
+		}
+		return value;
+	}
+
+	private static void Expire()
 	{
 		Map currentMap = Find.CurrentMap;
 		if (Time.frameCount - cacheFrame > CacheFrames || cacheMap != currentMap)
@@ -71,15 +111,9 @@ internal static class SquadStatus
 			cacheFrame = Time.frameCount;
 			cacheMap = currentMap;
 		}
-		if (!cache.TryGetValue(index, out var value))
-		{
-			value = Compute(index, currentMap);
-			cache[index] = value;
-		}
-		return value;
 	}
 
-	private static State Compute(int index, Map map)
+	private static State Compute(int index, Map map, bool exactRoster = false)
 	{
 		State result = default(State);
 		BarSquads get = BarSquads.Get;
@@ -118,23 +152,40 @@ internal static class SquadStatus
 				result.wounded++;
 			}
 		}
-		// All maps, caravans and transporters, slaves included: the bar's own list follows the squad tab filter.
-		List<Pawn> list2 = PawnsFinder.AllMapsCaravansAndTravellingTransporters_Alive_Colonists;
-		for (int j = 0; j < list2.Count; j++)
+		Roster roster = RosterOf(index, get, exactRoster);
+		result.stationMask = roster.stationMask;
+		result.total = Mathf.Max(roster.total, result.present);
+		return result;
+	}
+
+	private static Roster RosterOf(int index, BarSquads get, bool exact)
+	{
+		if (!exact && rosters.TryGetValue(index, out var value) && value.version == Version && Time.frameCount - value.frame <= RosterFrames)
 		{
-			if (get.SquadIndexOf(list2[j]) == index)
+			return value;
+		}
+		value = new Roster
+		{
+			frame = Time.frameCount,
+			version = Version
+		};
+		// All maps, caravans and transporters, slaves included: the bar's own list follows the squad tab filter.
+		List<Pawn> list = PawnsFinder.AllMapsCaravansAndTravellingTransporters_Alive_Colonists;
+		for (int i = 0; i < list.Count; i++)
+		{
+			if (get.SquadIndexOf(list[i]) == index)
 			{
-				result.total++;
-				for (int k = 0; k < BarSquads.StationSlots; k++)
+				value.total++;
+				for (int j = 0; j < BarSquads.StationSlots; j++)
 				{
-					if (get.HasLiveStation(list2[j], k))
+					if (get.HasLiveStation(list[i], j))
 					{
-						result.stationMask |= 1 << k;
+						value.stationMask |= 1 << j;
 					}
 				}
 			}
 		}
-		result.total = Mathf.Max(result.total, result.present);
-		return result;
+		rosters[index] = value;
+		return value;
 	}
 }

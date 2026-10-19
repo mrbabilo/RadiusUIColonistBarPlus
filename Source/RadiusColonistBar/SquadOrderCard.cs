@@ -100,6 +100,31 @@ public class SquadOrderCard : Window
 
 	private int tending;
 
+	// Lines and counted labels, built with the snapshot instead of every pass: a translation with arguments parses
+	// the whole string (a few microseconds each), and the card draws twice a frame.
+	private string stateText = "";
+
+	private string presentText = "";
+
+	private string selectLabel = "";
+
+	private string rescueLabel = "";
+
+	private string tendLabel = "";
+
+	private string bedLabel = "";
+
+	// The members row follows the selection, read every pass: its labels are rebuilt only when a count changes.
+	private int addShown = -1;
+
+	private int removeShown = -1;
+
+	private string addLabel;
+
+	private string removeLabel;
+
+	private string[] tabLabels;
+
 	// Squad rules (Colonist Bar Plus): per rule, the shared value (or null), whether members differ, and the members
 	// it applies to. Read only while the Rules tab is open.
 	private readonly string[] ruleValue = new string[6];
@@ -265,7 +290,7 @@ public class SquadOrderCard : Window
 		float x = inRect.x + Pad;
 		float num = inRect.width - Pad * 2f;
 		float y = inRect.y + Pad;
-		DrawHeader(new Rect(x, y, num - CloseW, 24f), get, state);
+		DrawHeader(new Rect(x, y, num - CloseW, 24f), get);
 		if (UIKit.Flat.CloseXIn(inRect, Pad * 2f + 24f))
 		{
 			Close();
@@ -274,10 +299,9 @@ public class SquadOrderCard : Window
 		y += 24f;
 		// Shown on every order while nobody can take one.
 		string why = NoMemberWhy();
-		// The short form here; the full reason stays in the tooltips. Fit, not wrap: a partial state plus the medical
-		// counts can outgrow the line.
-		string text = (flag ? StateLine(state) : (((spawned > 0) ? "RCB_Card_NoneAble" : "RCB_Orders_NoMember").Translate() + MedicalLine(state)));
-		RcbFont.Label(new Rect(x, y, num, 20f), RcbFont.Fit(text, num, bold: false, GameFont.Tiny), bold: false, GameFont.Tiny, RcbPalette.TextDim);
+		// The short form here (stateText); the full reason stays in the tooltips. Fit, not wrap: a partial state plus
+		// the medical counts can outgrow the line.
+		RcbFont.Label(new Rect(x, y, num, 20f), RcbFont.Fit(stateText, num, bold: false, GameFont.Tiny), bold: false, GameFont.Tiny, RcbPalette.TextDim);
 		y += 28f;
 		// Squad rules (Colonist Bar Plus): the card's sections sit in tabs; the tab area keeps the height of the
 		// tallest tab, so switching never moves the card or its bottom rows.
@@ -313,7 +337,10 @@ public class SquadOrderCard : Window
 	{
 		float num2 = (num - Gap) / 2f;
 		bool flag2 = flag && state.drafted == state.present;
-		if (Button(new Rect(x, y, num2, BtnH), IconSet.Action.Draft, (flag2 ? "RCB_Card_UndraftShort" : "RCB_Card_DraftShort").Translate(), Tip(SquadHotkeys.WithKey((flag2 ? "RCB_Orders_UndraftTip" : "RCB_Orders_DraftTip").Translate(), SquadHotkeys.Key.Draft), flag, why), flag, flag2, flag && !flag2 && state.drafted > 0))
+		// Tooltips are built only under the mouse, where Button shows them: most are translations with arguments, the
+		// card's main cost when every button built its own each pass.
+		Rect rect = new Rect(x, y, num2, BtnH);
+		if (Button(rect, IconSet.Action.Draft, (flag2 ? "RCB_Card_UndraftShort" : "RCB_Card_DraftShort").Translate(), Mouse.IsOver(rect) ? Tip(SquadHotkeys.WithKey((flag2 ? "RCB_Orders_UndraftTip" : "RCB_Orders_DraftTip").Translate(), SquadHotkeys.Key.Draft), flag, why) : null, flag, flag2, flag && !flag2 && state.drafted > 0))
 		{
 			if (flag2)
 			{
@@ -325,18 +352,21 @@ public class SquadOrderCard : Window
 			}
 		}
 		bool flag3 = flag && state.fireAtWill == state.present;
-		if (Button(new Rect(x + num2 + Gap, y, num2, BtnH), IconSet.Alert.Threat, (flag3 ? "RCB_Card_HoldShort" : "RCB_Card_FireShort").Translate(), Tip(SquadHotkeys.WithKey("RCB_Orders_FireAtWillTip".Translate(), SquadHotkeys.Key.Fire), flag, why), flag, flag3, flag && !flag3 && state.fireAtWill > 0))
+		Rect rect2 = new Rect(x + num2 + Gap, y, num2, BtnH);
+		if (Button(rect2, IconSet.Alert.Threat, (flag3 ? "RCB_Card_HoldShort" : "RCB_Card_FireShort").Translate(), Mouse.IsOver(rect2) ? Tip(SquadHotkeys.WithKey("RCB_Orders_FireAtWillTip".Translate(), SquadHotkeys.Key.Fire), flag, why) : null, flag, flag3, flag && !flag3 && state.fireAtWill > 0))
 		{
 			SquadOrders.ToggleFireAtWill(index);
 		}
 		y += BtnH + Gap;
-		if (Button(new Rect(x, y, num2, BtnH), IconSet.Action.DefPos, "RCB_Card_RegroupShort".Translate(), Tip(SquadHotkeys.WithKey("RCB_Orders_RegroupTip".Translate(), SquadHotkeys.Key.Regroup), flag, why), flag, active: false))
+		Rect rect3 = new Rect(x, y, num2, BtnH);
+		if (Button(rect3, IconSet.Action.DefPos, "RCB_Card_RegroupShort".Translate(), Mouse.IsOver(rect3) ? Tip(SquadHotkeys.WithKey("RCB_Orders_RegroupTip".Translate(), SquadHotkeys.Key.Regroup), flag, why) : null, flag, active: false))
 		{
 			SquadOrders.Regroup(index);
 		}
 		// Quick assignment (Colonist Bar Plus): downed members count, Able would leave them out.
 		int count = spawned;
-		if (Button(new Rect(x + num2 + Gap, y, num2, BtnH), null, "RCB_Members_Select".Translate(count), Tip("RCB_Members_SelectTip".Translate(), count > 0, "RCB_Orders_NoMember".Translate()), count > 0, active: false))
+		Rect rect4 = new Rect(x + num2 + Gap, y, num2, BtnH);
+		if (Button(rect4, null, selectLabel, Mouse.IsOver(rect4) ? Tip("RCB_Members_SelectTip".Translate(), count > 0, "RCB_Orders_NoMember".Translate()) : null, count > 0, active: false))
 		{
 			SquadMembers.SelectAll(Find.CurrentMap, index);
 		}
@@ -429,16 +459,25 @@ public class SquadOrderCard : Window
 				tending++;
 			}
 		}
+		stateText = ((snapState.present > 0) ? StateLine(snapState) : (((spawned > 0) ? "RCB_Card_NoneAble" : "RCB_Orders_NoMember").Translate() + MedicalLine(snapState)));
+		presentText = "RCB_Card_Present".Translate(snapState.present, snapState.total);
+		selectLabel = "RCB_Members_Select".Translate(spawned);
+		rescueLabel = "RCB_Medical_Rescue".Translate(rescue.Count);
+		tendLabel = "RCB_Medical_Tend".Translate(tend.Count);
+		bedLabel = "RCB_Medical_Bed".Translate(rest.Count);
+		// The tab and members labels are rebuilt on the next pass, so a language change reaches them too.
+		tabLabels = null;
+		addShown = (removeShown = -1);
 	}
 
 	private void DrawTabs(Rect r)
 	{
-		string[] array = new string[3]
+		string[] array = tabLabels ?? (tabLabels = new string[3]
 		{
 			"RCB_Tab_Combat".Translate(),
 			"RCB_Tab_Rules".Translate(),
 			"RCB_Tab_Work".Translate()
-		};
+		});
 		float num = (r.width - Gap * (float)(array.Length - 1)) / (float)array.Length;
 		for (int i = 0; i < array.Length; i++)
 		{
@@ -534,12 +573,14 @@ public class SquadOrderCard : Window
 		// The leader from the snapshot (SquadWork.Leader's rule), not looked up every frame.
 		Pawn pawn = ((able.Count > 0) ? able[0] : ((workMembers.Count > 0) ? workMembers[0] : null));
 		bool flag2 = pawn != null && workMembers.Count > 1;
-		string why = "RCB_Work_NoOther".Translate();
-		if (Button(new Rect(x, y, num2, BtnH), null, "RCB_Work_CopyPriorities".Translate(), Tip("RCB_Work_CopyPrioritiesTip".Translate(pawn?.LabelShortCap ?? "-"), flag2, why), flag2, active: false))
+		// Tooltips under the mouse only, as in the Combat tab.
+		Rect rect = new Rect(x, y, num2, BtnH);
+		if (Button(rect, null, "RCB_Work_CopyPriorities".Translate(), Mouse.IsOver(rect) ? Tip("RCB_Work_CopyPrioritiesTip".Translate(pawn?.LabelShortCap ?? "-"), flag2, "RCB_Work_NoOther".Translate()) : null, flag2, active: false))
 		{
 			SquadWork.CopyPriorities(index);
 		}
-		if (Button(new Rect(x + num2 + Gap, y, num2, BtnH), null, "RCB_Work_CopyTimetable".Translate(), Tip("RCB_Work_CopyTimetableTip".Translate(pawn?.LabelShortCap ?? "-"), flag2, why), flag2, active: false))
+		Rect rect2 = new Rect(x + num2 + Gap, y, num2, BtnH);
+		if (Button(rect2, null, "RCB_Work_CopyTimetable".Translate(), Mouse.IsOver(rect2) ? Tip("RCB_Work_CopyTimetableTip".Translate(pawn?.LabelShortCap ?? "-"), flag2, "RCB_Work_NoOther".Translate()) : null, flag2, active: false))
 		{
 			SquadWork.CopyTimetable(index);
 		}
@@ -908,22 +949,27 @@ public class SquadOrderCard : Window
 		y += PipH + Gap;
 		float num3 = (w - Gap * 2f) / 3f;
 		Rect rect = new Rect(x, y, num3, BtnH);
+		bool flag = stationCounts[num] > 0;
+		// Tooltips under the mouse only, as in DrawCombat.
+		string tip = null;
 		if (Mouse.IsOver(rect))
 		{
 			SquadStations.Hover(index, num, list);
+			string why = ((list.Count == 0) ? NoMemberWhy() : "RCB_Stations_None".Translate(num + 1, squads.SquadName(index)).ToString());
+			tip = Tip(SquadHotkeys.WithKey("RCB_Stations_GoTip".Translate(num + 1), SquadHotkeys.Key.Station), flag, why);
 		}
-		bool flag = stationCounts[num] > 0;
-		string why = ((list.Count == 0) ? NoMemberWhy() : "RCB_Stations_None".Translate(num + 1, squads.SquadName(index)).ToString());
-		if (Button(rect, null, "RCB_Stations_Go".Translate(), Tip(SquadHotkeys.WithKey("RCB_Stations_GoTip".Translate(num + 1), SquadHotkeys.Key.Station), flag, why), flag, active: false))
+		if (Button(rect, null, "RCB_Stations_Go".Translate(), tip, flag, active: false))
 		{
 			SquadStations.Go(index);
 		}
-		if (Button(new Rect(x + num3 + Gap, y, num3, BtnH), null, "RCB_Stations_Save".Translate(), Tip("RCB_Stations_SaveTip".Translate(num + 1), list.Count > 0, NoMemberWhy()), list.Count > 0, active: false))
+		Rect rect2 = new Rect(x + num3 + Gap, y, num3, BtnH);
+		if (Button(rect2, null, "RCB_Stations_Save".Translate(), Mouse.IsOver(rect2) ? Tip("RCB_Stations_SaveTip".Translate(num + 1), list.Count > 0, NoMemberWhy()) : null, list.Count > 0, active: false))
 		{
 			SquadStations.Save(index);
 		}
 		bool flag2 = (state.stationMask & (1 << num)) != 0;
-		if (Button(new Rect(x + (num3 + Gap) * 2f, y, num3, BtnH), null, "RCB_Stations_Clear".Translate(), Tip("RCB_Stations_ClearTip".Translate(num + 1), flag2, "RCB_Stations_ClearNone".Translate(num + 1)), flag2, active: false))
+		Rect rect3 = new Rect(x + (num3 + Gap) * 2f, y, num3, BtnH);
+		if (Button(rect3, null, "RCB_Stations_Clear".Translate(), Mouse.IsOver(rect3) ? Tip("RCB_Stations_ClearTip".Translate(num + 1), flag2, "RCB_Stations_ClearNone".Translate(num + 1)) : null, flag2, active: false))
 		{
 			// The card sits above dialogs: left open, it would cover the confirmation and keep its input.
 			Close();
@@ -944,7 +990,10 @@ public class SquadOrderCard : Window
 		}
 		else
 		{
-			RcbSpatial.Ring(r, Color.Lerp(RcbPalette.Ink, Color.white, flag ? 0.22f : 0.12f), RcbPalette.Ink, 1.5f);
+			// Two rounded layers rather than RcbSpatial.Ring, whose atlas draws 9 pieces per layer: one quad each.
+			// Exact sizes, so the texture is not stretched and both layers keep their corner.
+			RcbSpatial.Rounded(r, Color.Lerp(RcbPalette.Ink, Color.white, flag ? 0.22f : 0.12f), 12f, exact: true);
+			RcbSpatial.Rounded(r.ContractedBy(1.5f), RcbPalette.Ink, 12f, exact: true);
 		}
 		Color col = (active ? Palette.Flat.Rail : ((saved > 0) ? RcbPalette.Stat : RcbPalette.TextDim2));
 		RcbFont.Label(r, (slot + 1).ToString(), bold: true, GameFont.Small, col, TextAnchor.MiddleCenter);
@@ -960,10 +1009,10 @@ public class SquadOrderCard : Window
 		return false;
 	}
 
-	private void DrawHeader(Rect r, BarSquads squads, SquadStatus.State state)
+	private void DrawHeader(Rect r, BarSquads squads)
 	{
 		RcbSpatial.Dot(new Rect(r.x, r.center.y - 5f, 10f, 10f), squads.SquadColor(index));
-		string text = "RCB_Card_Present".Translate(state.present, state.total);
+		string text = presentText;
 		float num = RcbFont.Width(text, bold: false, GameFont.Tiny) + 4f;
 		RcbFont.Label(new Rect(r.x + 16f, r.y, r.width - 16f - num, r.height), RcbFont.Fit(squads.SquadName(index) ?? "", r.width - 16f - num, bold: true, GameFont.Small), bold: true, GameFont.Small, RcbPalette.Stat);
 		RcbFont.Label(new Rect(r.xMax - num, r.y, num, r.height), text, bold: false, GameFont.Tiny, RcbPalette.TextDim, TextAnchor.MiddleRight);
@@ -1013,12 +1062,17 @@ public class SquadOrderCard : Window
 	private void AssaultButton(Rect r, AssaultMode mode, string labelKey, string tipKey, SquadHotkeys.Key key, SquadStatus.State state, bool enabled)
 	{
 		bool flag = state.hasCommonMode && state.commonMode == mode;
-		string tip = tipKey.Translate().ToString();
-		if (flag)
+		// Under the mouse only, as in DrawCombat.
+		string tip = null;
+		if (Mouse.IsOver(r))
 		{
-			tip = tip + "\n\n" + "RCB_Card_AssaultStopTip".Translate().ToString();
+			tip = tipKey.Translate().ToString();
+			if (flag)
+			{
+				tip = tip + "\n\n" + "RCB_Card_AssaultStopTip".Translate().ToString();
+			}
+			tip = Tip(SquadHotkeys.WithKey(tip, key), enabled, NoMemberWhy());
 		}
-		tip = Tip(SquadHotkeys.WithKey(tip, key), enabled, NoMemberWhy());
 		if (Button(r, IconSet.Common.Sword, labelKey.Translate(), tip, enabled, flag))
 		{
 			if (flag)
@@ -1086,17 +1140,17 @@ public class SquadOrderCard : Window
 		y += 18f;
 		float num = (w - Gap * 2f) / 3f;
 		string why = (anyAble ? "RCB_Medical_NoDowned".Translate().ToString() : noMember);
-		if (MedicalButton(new Rect(x, y, num, BtnH), IconSet.Alert.Crit, "RCB_Medical_Rescue", "RCB_Medical_RescueTip", SquadHotkeys.Key.Rescue, rescue, SquadMedical.Kind.Rescue, anyAble && rescue.Count > 0, why, rescuing))
+		if (MedicalButton(new Rect(x, y, num, BtnH), IconSet.Alert.Crit, rescueLabel, "RCB_Medical_RescueTip", SquadHotkeys.Key.Rescue, rescue, SquadMedical.Kind.Rescue, anyAble && rescue.Count > 0, why, rescuing))
 		{
 			SquadMedical.Rescue(index);
 		}
 		string why2 = ((!anyAble) ? noMember : ((tend.Count == 0) ? "RCB_Medical_NoWounded".Translate().ToString() : "RCB_Medical_NoDoctor".Translate().ToString()));
-		if (MedicalButton(new Rect(x + num + Gap, y, num, BtnH), IconSet.Status.Medical, "RCB_Medical_Tend", "RCB_Medical_TendTip", SquadHotkeys.Key.Tend, tend, SquadMedical.Kind.Tend, anyAble && anyDoctor && tend.Count > 0, why2, tending))
+		if (MedicalButton(new Rect(x + num + Gap, y, num, BtnH), IconSet.Status.Medical, tendLabel, "RCB_Medical_TendTip", SquadHotkeys.Key.Tend, tend, SquadMedical.Kind.Tend, anyAble && anyDoctor && tend.Count > 0, why2, tending))
 		{
 			SquadMedical.Tend(index);
 		}
 		string why3 = (anyAble ? "RCB_Medical_NoRest".Translate().ToString() : noMember);
-		if (MedicalButton(new Rect(x + (num + Gap) * 2f, y, num, BtnH), IconSet.Status.Zzz, "RCB_Medical_Bed", "RCB_Medical_BedTip", SquadHotkeys.Key.Bed, rest, SquadMedical.Kind.Bed, rest.Count > 0, why3, 0))
+		if (MedicalButton(new Rect(x + (num + Gap) * 2f, y, num, BtnH), IconSet.Status.Zzz, bedLabel, "RCB_Medical_BedTip", SquadHotkeys.Key.Bed, rest, SquadMedical.Kind.Bed, rest.Count > 0, why3, 0))
 		{
 			SquadMedical.ToBed(index);
 		}
@@ -1104,7 +1158,7 @@ public class SquadOrderCard : Window
 	}
 
 	// The tooltip names the patients (six at most) with the alert band's words for their state. Built only on hover.
-	private bool MedicalButton(Rect r, Texture2D icon, string labelKey, string tipKey, SquadHotkeys.Key key, List<Pawn> pawns, SquadMedical.Kind kind, bool enabled, string why, int busy)
+	private bool MedicalButton(Rect r, Texture2D icon, string label, string tipKey, SquadHotkeys.Key key, List<Pawn> pawns, SquadMedical.Kind kind, bool enabled, string why, int busy)
 	{
 		string tip = null;
 		if (Mouse.IsOver(r))
@@ -1133,7 +1187,7 @@ public class SquadOrderCard : Window
 			}
 			tip = Tip(SquadHotkeys.WithKey(stringBuilder.ToString(), key), enabled, why);
 		}
-		return Button(r, icon, labelKey.Translate(pawns.Count), tip, enabled, active: false, busy > 0);
+		return Button(r, icon, label, tip, enabled, active: false, busy > 0);
 	}
 
 	// Quick assignment (Colonist Bar Plus): add the selected colonists and slaves to this squad, or take them out.
@@ -1143,17 +1197,35 @@ public class SquadOrderCard : Window
 		y += 18f;
 		SquadMembers.CountSelected(index, out var joining, out var moved, out var inside);
 		float num = (w - Gap) / 2f;
-		string text = "RCB_Members_AddTip".Translate(squads.SquadName(index)).ToString();
-		if (moved > 0)
+		if (joining != addShown)
 		{
-			text = text + "\n\n" + "RCB_Members_AddMoves".Translate(moved).ToString();
+			addShown = joining;
+			addLabel = "RCB_Members_Add".Translate(joining);
 		}
-		if (Button(new Rect(x, y, num, BtnH), null, "RCB_Members_Add".Translate(joining), Tip(text, joining > 0, "RCB_Members_AddNone".Translate()), joining > 0, active: false))
+		if (inside != removeShown)
+		{
+			removeShown = inside;
+			removeLabel = "RCB_Members_Remove".Translate(inside);
+		}
+		// Tooltips under the mouse only, as in DrawCombat.
+		Rect rect = new Rect(x, y, num, BtnH);
+		string tip = null;
+		if (Mouse.IsOver(rect))
+		{
+			string text = "RCB_Members_AddTip".Translate(squads.SquadName(index)).ToString();
+			if (moved > 0)
+			{
+				text = text + "\n\n" + "RCB_Members_AddMoves".Translate(moved).ToString();
+			}
+			tip = Tip(text, joining > 0, "RCB_Members_AddNone".Translate());
+		}
+		if (Button(rect, null, addLabel, tip, joining > 0, active: false))
 		{
 			SquadMembers.AddSelected(index);
 			Changed(closeCard: false);
 		}
-		if (Button(new Rect(x + num + Gap, y, num, BtnH), null, "RCB_Members_Remove".Translate(inside), Tip("RCB_Members_RemoveTip".Translate(), inside > 0, "RCB_Members_RemoveNone".Translate()), inside > 0, active: false))
+		Rect rect2 = new Rect(x + num + Gap, y, num, BtnH);
+		if (Button(rect2, null, removeLabel, Mouse.IsOver(rect2) ? Tip("RCB_Members_RemoveTip".Translate(), inside > 0, "RCB_Members_RemoveNone".Translate()) : null, inside > 0, active: false))
 		{
 			SquadMembers.RemoveSelected(index);
 			Changed(closeCard: false);
