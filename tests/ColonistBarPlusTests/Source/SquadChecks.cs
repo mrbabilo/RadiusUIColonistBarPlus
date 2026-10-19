@@ -332,11 +332,12 @@ internal partial class Checks
 		return Find.FactionManager.FirstFactionOfDef(FactionDefOf.Pirate) ?? Find.FactionManager.RandomEnemyFaction(allowHidden: false, allowDefeated: false, allowNonHumanlike: false);
 	}
 
-	// A cell between minD and maxD from center, seen from it.
-	private IntVec3 CellAt(IntVec3 center, float minD, float maxD)
+	// A cell between minD and maxD from center, seen from it and from every pawn of seenBy within the assault's
+	// 20 cells. Seen from the center alone, a tree or a rock could hide it from a member standing beside it.
+	private IntVec3 CellAt(IntVec3 center, float minD, float maxD, params Pawn[] seenBy)
 	{
 		IntVec3 result;
-		if (CellFinder.TryFindRandomCellNear(center, map, (int)maxD, (IntVec3 c) => c.Standable(map) && !c.Fogged(map) && c.GetFirstPawn(map) == null && c.DistanceTo(center) >= minD && c.DistanceTo(center) <= maxD && GenSight.LineOfSight(center, c, map) && map.reachability.CanReach(home, c, PathEndMode.OnCell, TraverseMode.PassDoors, Danger.Deadly), out result))
+		if (CellFinder.TryFindRandomCellNear(center, map, (int)maxD, (IntVec3 c) => c.Standable(map) && !c.Fogged(map) && c.GetFirstPawn(map) == null && c.DistanceTo(center) >= minD && c.DistanceTo(center) <= maxD && GenSight.LineOfSight(center, c, map) && seenBy.All((Pawn p) => p.Position.DistanceTo(c) <= 19f && GenSight.LineOfSight(p.Position, c, map)) && map.reachability.CanReach(home, c, PathEndMode.OnCell, TraverseMode.PassDoors, Danger.Deadly), out result))
 		{
 			return result;
 		}
@@ -370,20 +371,44 @@ internal partial class Checks
 			Fighter(),
 			Fighter()
 		};
-		// Grouped around one cell: the map is crowded near home by now, and the assault only looks 20 cells out.
-		Move(array[0], FreeCell(2));
-		IntVec3 anchor = array[0].Position;
 		foreach (Pawn p in array)
 		{
-			if (p != array[0])
-			{
-				Move(p, FreeCell(2, anchor));
-			}
 			Gun(p);
 		}
-		// The weak one nearer (what vanilla would take first), the strong one farther and fleeing.
-		Pawn weak = NewEnemy(weakKind, faction, CellAt(anchor, 6f, 9f));
-		Pawn strong = NewEnemy(strongKind, faction, CellAt(anchor, 10f, 13f));
+		// Grouped around one cell: the map is crowded near home by now, and the assault only looks 20 cells out.
+		// The weak one nearer (what vanilla would take first), the strong one farther and fleeing; both must be seen
+		// by every member, so a group whose cells cannot have that is moved elsewhere.
+		IntVec3 weakCell = IntVec3.Invalid;
+		IntVec3 strongCell = IntVec3.Invalid;
+		for (int attempt = 0; attempt < 8 && !strongCell.IsValid; attempt++)
+		{
+			Move(array[0], FreeCell(2 + attempt * 4));
+			IntVec3 anchor = array[0].Position;
+			foreach (Pawn p in array)
+			{
+				if (p != array[0])
+				{
+					Move(p, FreeCell(2, anchor));
+				}
+			}
+			try
+			{
+				weakCell = CellAt(anchor, 6f, 9f, array);
+				strongCell = CellAt(anchor, 10f, 13f, array);
+			}
+			catch (Exception)
+			{
+				weakCell = IntVec3.Invalid;
+				strongCell = IntVec3.Invalid;
+			}
+		}
+		if (!strongCell.IsValid)
+		{
+			notes.Add("FAIL setup: no group placement where every member sees both enemy cells");
+			return;
+		}
+		Pawn weak = NewEnemy(weakKind, faction, weakCell);
+		Pawn strong = NewEnemy(strongKind, faction, strongCell);
 		strong.mindState.duty = new PawnDuty(DutyDefOf.ExitMapBest);
 		notes.Add("enemies (" + faction.def.defName + "): weak " + weakKind.defName + " " + weakKind.combatPower + " at " + weak.Position.DistanceTo(home).ToString("F1") + ", strong and fleeing " + strongKind.defName + " " + strongKind.combatPower + " at " + strong.Position.DistanceTo(home).ToString("F1"));
 		Expect(notes, weak.HostileTo(Faction.OfPlayer) && strong.HostileTo(Faction.OfPlayer), "setup: both enemies hostile");
@@ -448,7 +473,7 @@ internal partial class Checks
 		Expect(notes, pacifist.WorkTagIsDisabled(WorkTags.Violent) && (pacifist.equipment.Primary != null) == armedPacifist, "setup: member incapable of violence, " + (armedPacifist ? "armed" : "unarmed"));
 		Faction faction = Enemy();
 		PawnKindDef kind = DefDatabase<PawnKindDef>.AllDefs.First((PawnKindDef k) => k.RaceProps.Humanlike && k.defaultFactionDef == faction.def && k.combatPower > 0f && !k.factionLeader);
-		Pawn enemy = NewEnemy(kind, faction, CellAt(pacifist.Position, 5f, 8f));
+		Pawn enemy = NewEnemy(kind, faction, CellAt(pacifist.Position, 5f, 8f, pacifist, armed));
 		int squad = Squad(array);
 		Idle(array);
 		Boot.Errors.Clear();
