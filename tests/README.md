@@ -63,4 +63,30 @@ Le panneau DPA s'ouvre par la loupe de la barre du bas, catégories Custom Updat
 
 Pour une méthode récursive, ne la mesurer que depuis le site d'appel de son appelant, jamais avec un second profileur DPA sur elle.
 
+## Fluidité : allocations, GC et saccades
+
+La sonde `fluency` mesure ce que les moyennes de DPA ne montrent pas, sans DPA. Elle alterne, toutes les 600 images, entre la carte d'ordres fermée et la carte ouverte sur un onglet, sur la même carte et au même moment de la partie. Des parties séparées ne se comparent pas : chaque test rapide tire une carte et des colons au hasard.
+
+```sh
+tests/run-scene.sh &
+tests/scene.sh colonists 20
+tests/cmd.sh squadall
+tests/scene.sh speed 1
+tests/cmd.sh fluency 0 3600          # onglet Combat ; rend la main tout de suite
+# attendre $RCBTEST_WORK/fluency-tab0.txt
+```
+
+Pour chaque état, la sonde donne :
+- ce qui était réellement à l'écran ;
+- la mémoire allouée par image, en moyenne et par bloc, mesurée par la somme des hausses de `GC.GetTotalMemory` (le compteur par thread vaut toujours 0 sous le GC de Unity) ;
+- les collectes de génération 0 ;
+- les temps d'image p50, p95, p99, max, et le nombre d'images au-delà de 25 et 40 ms ;
+- à part, la pire image des 30 qui suivent chaque bascule, et celle de la toute première ouverture de la carte dans la partie.
+
+La première bascule « fermée » tombe au lancement de la sonde : sa pire image ne mesure pas une fermeture de la carte.
+
+Pendant la mesure, le plafond de fréquence est levé, puis remis en fin de mesure : au plafond de 30 ips, toutes les images durent 33 ms.
+
+Le jeu doit rester au premier plan : une fois caché derrière une autre fenêtre, il se fige.
+
 Rapports de mesure : `docs/perf/`.

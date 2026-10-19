@@ -34,6 +34,8 @@ public class UiServer : GameComponent
 
 	private string ackText;
 
+	private Fluency fluency;
+
 	// Last MouseDown seen by the UI root (GUI coordinates), synthetic ones included.
 	internal static Vector3 lastDown = new Vector3(-1f, -1f, -1f);
 
@@ -180,6 +182,14 @@ public class UiServer : GameComponent
 			File.WriteAllText(Path.Combine(dir, "ack.txt"), ackText);
 			ackFrame = -1;
 		}
+		if (fluency != null)
+		{
+			fluency.Update();
+			if (fluency.Done)
+			{
+				fluency = null;
+			}
+		}
 		if (Time.frameCount % (Scene ? 30 : 5) == 0)
 		{
 			DumpState();
@@ -228,6 +238,18 @@ public class UiServer : GameComponent
 					squad,
 					new Rect(float.Parse(xy[0], CultureInfo.InvariantCulture), float.Parse(xy[1], CultureInfo.InvariantCulture) - 4f, 0f, 0f)
 				});
+				break;
+			}
+			case "fluency":
+			{
+				string[] args = array[2].Split(' ');
+				if (squad < 0)
+				{
+					note = "no squad: send squadall first";
+					break;
+				}
+				fluency = new Fluency(squad, int.Parse(args[0]), args.Length > 1 ? int.Parse(args[1]) : 3600, dir);
+				note = "started, result in fluency-tab" + args[0] + ".txt";
 				break;
 			}
 			case "closecard":
@@ -368,6 +390,7 @@ public class UiServer : GameComponent
 		sb.Append(",\"windows\":" + Find.WindowStack.Count);
 		sb.Append(",\"floatMenu\":" + (Find.WindowStack.FloatMenu != null ? "true" : "false"));
 		sb.Append(",\"selected\":" + Find.Selector.NumSelected);
+		sb.Append(",\"fluency\":" + (fluency != null ? "true" : "false"));
 		sb.Append(",\"lastDown\":[" + lastDown.x.ToString(CultureInfo.InvariantCulture) + "," + lastDown.y.ToString(CultureInfo.InvariantCulture) + "," + lastDown.z + "," + lastDownFrame + "]");
 		sb.Append(",\"wheel\":[" + wheelDelta.ToString(CultureInfo.InvariantCulture) + "," + wheelFrame + "]");
 		sb.Append(",\"wheelUsed\":[" + (lastWheelUsed ? "true" : "false") + "," + lastWheelUsedFrame + "]");
