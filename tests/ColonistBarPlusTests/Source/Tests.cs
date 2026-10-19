@@ -38,6 +38,7 @@ public static class Boot
 			return;
 		}
 		Application.runInBackground = true;
+		QuietStartup.Apply();
 		Harmony harmony = new Harmony("mrbabilo.rcbplus.tests");
 		PerfRunner.Bind(harmony);
 		if (UiServer.Interactive)

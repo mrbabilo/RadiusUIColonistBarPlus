@@ -16,6 +16,8 @@ Les mods ne font rien sans leur argument de lancement :
 | `-rcbscene=<dossier>` | Même serveur de commandes, sans aucun patch ni scène propre. La scène vient de `Scene/`. |
 | `-rcbperf=<fichier>` | Sondes Stopwatch, l'ancienne méthode. Les mesures se font maintenant avec DPA. |
 
+Pendant les contrôles, les scènes et les mesures, le journal de debug et la notice du framework Radius ne s'ouvrent pas (`QuietStartup.cs`) ; les erreurs restent comptées par les contrôles.
+
 Les scripts lancent une partie séparée, avec son propre dossier de sauvegarde (`-savedatafolder`), dans `$RCBTEST_WORK` (par défaut `$TMPDIR/rcbtest`). Ils touchent quand même aux préférences Unity du joueur (taille de fenêtre, plein écran). Pour cela :
 - ils les sauvegardent une fois, dans le dossier de travail ;
 - ils les remettent après chaque lancement.
